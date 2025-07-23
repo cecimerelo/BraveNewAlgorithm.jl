@@ -8,9 +8,9 @@ struct ConfigurationParametersEntity
     mutation_rate::Dict{String, Int}
 end
 
-mutable struct FitnessFunction
+struct FitnessFunction
     fitness_function::BBOBFunction
-    calls_counter::Int64
+    calls_counter::Int64 = 0
 end
 
 struct PopulationModel
