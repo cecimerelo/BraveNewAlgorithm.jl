@@ -237,6 +237,7 @@ end
 
 - **[Quick Start](examples/quickstart.jl)**: Minimal working example
 - **[Basic Usage](examples/basic_usage_example.jl)**: Comprehensive examples with different configurations
+- **[Usage Guide](USAGE.md)**: Complete guide with tips and best practices
 - **Test Files**: See `test/` directory for more usage patterns
 
 ## 🔬 Research and Citation
