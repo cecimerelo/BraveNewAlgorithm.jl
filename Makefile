@@ -1,7 +1,7 @@
-all: check_dependencies tests
+all: instantiate tests
 
-check_dependencies: Project.toml requirements.jl
-	julia --project=Project.toml requirements.jl  --target=Project.toml
+instantiate: Project.toml
+	julia --project=. -e "using Pkg; Pkg.instantiate()"
 
-tests: check_dependencies
+tests: instantiate
 	julia --project=. test/runtests.jl
