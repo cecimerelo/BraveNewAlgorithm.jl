@@ -59,7 +59,7 @@ function quickstart_example()
     )
     
     # 2. Set up the fitness function (BBOB Sphere function)
-    fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1], 0)
+    fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
     
     # 3. Define search space and stopping criterion
     search_range = (-5.12, 5.12)
