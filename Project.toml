@@ -1,7 +1,7 @@
 name = "BraveNewAlgorithm"
 uuid = "62e8e4ba-3e3d-40af-bbe6-192e07c2d347"
 authors = ["ceciliamm <cecilia@badgermapping.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 BlackBoxOptimizationBenchmarking = "4552ee2b-11da-5aef-8e78-0d48532001f1"
