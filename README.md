@@ -21,10 +21,16 @@ julia examples/quickstart.jl
 
 ## 📦 Installation
 
-### From GitHub (Recommended)
+### From GitHub
 ```julia
 using Pkg
 Pkg.add(url="https://github.com/cecimerelo/BraveNewAlgorithm.jl.git")
+```
+
+### From Julia Registry (if available)
+```julia
+using Pkg
+Pkg.add("BraveNewAlgorithm")
 ```
 
 ### For Development
@@ -122,7 +128,7 @@ config_parameters = read_parameters_file("config.json")
 
 ## 🎯 Supported Optimization Problems
 
-Currently, the algorithm works with **BBOB (Black Box Optimization Benchmarking)** functions:
+Currently, the algorithm works with **BBOB (Black Box Optimization Benchmarking)** functions from the [BlackBoxOptimizationBenchmarking.jl](https://github.com/jonathanfischer97/BlackBoxOptimizationBenchmarking.jl) package:
 
 - **Function 1**: Sphere function (`f(x) = Σx²`)
 - **Function 2**: Rosenbrock function  
@@ -195,6 +201,22 @@ plot(results.Generations, results.F_Values,
 ```
 
 ## 🔧 Integration in Your Projects
+
+### As a Project Dependency
+
+Add BraveNewAlgorithm to your Julia project dependencies:
+
+```julia
+# In Julia REPL or script
+using Pkg
+Pkg.add(url="https://github.com/cecimerelo/BraveNewAlgorithm.jl.git")
+```
+
+Or add to your `Project.toml`:
+```toml
+[deps]
+BraveNewAlgorithm = "62e8e4ba-3e3d-40af-bbe6-192e07c2d347"
+```
 
 ### As a Library
 

@@ -3,8 +3,10 @@
 """
 Setup script for BraveNewAlgorithm.jl examples
 
-This script installs all required dependencies.
+This script installs all required dependencies with user-friendly output.
 Run this before using any examples.
+
+Alternative: You can also use the Makefile with `make instantiate`.
 """
 
 using Pkg
@@ -39,7 +41,7 @@ function main()
         println("\n💥 Setup failed! Please check the error messages above.")
         println("\nYou can also try manually:")
         println("  julia --project=. -e \"using Pkg; Pkg.instantiate()\"")
-        println("Or:")
+        println("Or using the Makefile:")
         println("  make instantiate")
         exit(1)
     end
