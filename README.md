@@ -23,3 +23,14 @@ doi="10.1007/978-3-031-08266-5_20",
 url="https://doi.org/10.1007/978-3-031-08266-5_20"
 }
 ```
+
+## Installation
+
+```julia
+using Pkg
+Pkg.add("BraveNewAlgorithm")
+```
+
+## License
+
+(c) Cecilia Merelo, 2021, released under the [GNU General Public License](LICENSE).
