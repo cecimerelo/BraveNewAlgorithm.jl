@@ -7,7 +7,7 @@ using BlackBoxOptimizationBenchmarking
 using Test
 
 
-@testset "Test from_genes_to_individual method when called the individual created" begin
+@testset "Test from_genes_to_embryo method when called the individual created" begin
     config_file_path = "./test/Config Files/config_file_1_test.json"
     chromosome = rand(10,2)
     config_parameters_entity = read_parameters_file(config_file_path)
