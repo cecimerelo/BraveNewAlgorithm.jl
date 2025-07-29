@@ -26,7 +26,6 @@ function brave_new_algorithm(population_model::PopulationModel)
     generation = 0
     generations_with_the_same_best_element = 0
 
-    @info "F_opt -> $(population_model.fitness_function.fitness_function.f_opt)"
     while population_model.comparator(best_element.f_value, population_model.fitness_function.fitness_function) &&
         generations_with_the_same_best_element <= population_model.config_parameters.max_generations
 
@@ -36,6 +35,7 @@ function brave_new_algorithm(population_model::PopulationModel)
         population_in_castes = hatchery(population_model, embryos)
         new_chromosomes = evolution(population_in_castes, population_model)
         new_embryos_population = [from_genes_to_embryo(chromosome, population_model) for chromosome in new_chromosomes]
+        @info "New embryos population -> $(length(new_embryos_population))"
         new_best_element = best_element_of_population(new_embryos_population)
 
         if new_best_element.f_value >= best_element.f_value

@@ -12,36 +12,37 @@ function evolution(population_in_castes, population_model)
     new_alpha_individuals = [
         create_new_individual(
             alpha_parents, population_model.config_parameters, ALPHA()
-        ) 
+        )
         for alpha_parents in alpha_reproduction_pool for _ in 1:2
-    ]    
+    ]
+    @info "New alpha individuals -> $(length(new_alpha_individuals))"
     new_beta_individuals = [
         create_new_individual(
             alpha_beta_parents, population_model.config_parameters, BETA()
-        ) 
+        )
         for alpha_beta_parents in beta_reproduction_pool for _ in 1:2
     ]
-
+    @info "New beta individuals -> $(length(new_beta_individuals))"
     lower_castes_mutated = [
-        mutate_individual(individual.chromosome, population_model.config_parameters, caste) 
+        mutate_individual(individual.chromosome, population_model.config_parameters, caste)
         for caste in [GAMMA(), DELTA(), EPSILON()]
         for individual in population_in_castes[caste]
     ]
-    
+    @info "Lower castes mutated -> $(length(lower_castes_mutated))"
     return vcat(new_alpha_individuals, new_beta_individuals, lower_castes_mutated)
 end
 
 function mutate_individual(chromosome, config_parameters, caste::GAMMA)
-    mutated_chromosome = mutation_operator(chromosome, config_parameters, caste) 
+    mutated_chromosome = mutation_operator(chromosome, config_parameters.mutation_rate[caste.name])
     return local_search(mutated_chromosome, population_model, caste)
 end
 
 function mutate_individual(chromosome, config_parameters, caste)
-    return mutation_operator(chromosome, config_parameters, caste) 
+    return mutation_operator(chromosome, config_parameters.mutation_rate[caste.name])
 end
 
 function create_new_individual(parents, config_parameters, caste)
     offspring = crossover_operator(parents, config_parameters)
-    offspring_mutated = mutation_operator(offspring, config_parameters, caste)    
+    offspring_mutated = mutation_operator(offspring, config_parameters.mutation_rate[caste.name])
     return offspring_mutated
 end
