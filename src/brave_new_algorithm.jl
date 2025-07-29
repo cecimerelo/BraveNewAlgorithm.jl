@@ -14,7 +14,7 @@ function brave_new_algorithm(population_model::PopulationModel)
     edit_distances = Array{Float64,1}()
 
     @info """
-    Creating embryos, 
+    Creating embryos,
                 Chromosome Size -> $(population_model.config_parameters.chromosome_size)
     """
     embryos = [
@@ -25,12 +25,14 @@ function brave_new_algorithm(population_model::PopulationModel)
 
     generation = 0
     generations_with_the_same_best_element = 0
-    while population_model.comparator(best_element.f_value, population_model.fitness_function.fitness_function) && 
+
+    @info "F_opt -> $(population_model.fitness_function.fitness_function.f_opt)"
+    while population_model.comparator(best_element.f_value, population_model.fitness_function.fitness_function) &&
         generations_with_the_same_best_element <= population_model.config_parameters.max_generations
-        
+
         @info "Generation -> $(generation), Best f_value -> $(best_element.f_value)"
         @info "Generations with the same best element -> $(generations_with_the_same_best_element)"
-    
+
         population_in_castes = hatchery(population_model, embryos)
         new_chromosomes = evolution(population_in_castes, population_model)
         new_embryos_population = [from_genes_to_embryo(chromosome, population_model) for chromosome in new_chromosomes]
@@ -48,7 +50,7 @@ function brave_new_algorithm(population_model::PopulationModel)
         entropy = get_entropy(all_f_values)
         all_chromosomes = [embryo.chromosome for embryo in embryos]
         edit_distance = calculate_edit_distance(
-                            all_chromosomes, best_element.chromosome, 
+                            all_chromosomes, best_element.chromosome,
                             population_model.config_parameters.population_size
                         )
         push!(generations_array, generation)
@@ -59,9 +61,9 @@ function brave_new_algorithm(population_model::PopulationModel)
         embryos = new_embryos_population
         generation = generation + 1
     end
-    
+
     dict_population = Dict(
-            "Generations" => generations_array, 
+            "Generations" => generations_array,
             "F_Values" => best_f_values,
             "Entropy" => entropies,
             "Edit_distance" => edit_distances

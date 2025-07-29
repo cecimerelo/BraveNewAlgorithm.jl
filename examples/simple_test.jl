@@ -45,9 +45,9 @@ function simple_test()
         )
 
         # Set up fitness function
-        fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
+        fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1].f, BlackBoxOptimizationBenchmarking.BBOBFunctions[1].f_opt)
         range = (-5.0, 5.0)
-        comparator = (element, ff) -> element >= ff.fitness_function.f_opt + 1e-6
+        comparator = (element, ff) -> element >= ff.f_opt + 1e-6
 
         # Create population model
         population_model = PopulationModel(

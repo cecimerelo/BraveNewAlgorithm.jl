@@ -10,8 +10,9 @@ end
 
 mutable struct FitnessFunction
     fitness_function::BBOBFunction
+    f_opt::Float64
     calls_counter::Int64
-    FitnessFunction(fitness_function::BBOBFunction, calls_counter::Int64=0) = new( fitness_function, calls_counter )
+    FitnessFunction(fitness_function::BBOBFunction, f_opt::Float64, calls_counter::Int64=0) = new( fitness_function, f_opt, calls_counter )
 end
 
 struct PopulationModel
