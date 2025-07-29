@@ -6,7 +6,6 @@ include("../../src/utils.jl")
 using BlackBoxOptimizationBenchmarking
 using Test
 
-
 @testset "Test from_genes_to_embryo method when called the individual created" begin
     config_file_path = "./test/Config Files/config_file_1_test.json"
     chromosome = rand(10,2)
@@ -17,6 +16,10 @@ using Test
     fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
     population_model = PopulationModel(config_parameters_entity, fitness_function, range, minimum_comparator)
     individual = from_genes_to_embryo(chromosome, population_model)
+    @info """
+    Chromosome -> $(chromosome)
+    F_value -> $(individual.f_value)
+    """
 
     @test typeof(individual) == Embryo
     @test individual.f_value != 0
