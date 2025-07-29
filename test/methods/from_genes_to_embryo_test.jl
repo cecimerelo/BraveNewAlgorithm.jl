@@ -16,10 +16,6 @@ using Test
     fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
     population_model = PopulationModel(config_parameters_entity, fitness_function, range, minimum_comparator)
     individual = from_genes_to_embryo(chromosome, population_model)
-    @info """
-    Chromosome -> $(chromosome)
-    F_value -> $(individual.f_value)
-    """
 
     @test typeof(individual) == Embryo
     @test individual.f_value != 0

@@ -45,7 +45,7 @@ function simple_test()
         )
 
         # Set up fitness function
-        fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1].f, BlackBoxOptimizationBenchmarking.BBOBFunctions[1].f_opt)
+        fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
         range = (-5.0, 5.0)
         comparator = (element, ff) -> element >= ff.f_opt + 1e-6
 
