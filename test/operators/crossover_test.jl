@@ -27,6 +27,14 @@ parents = (
 @testset "Test crossover_operator when called the new chromosome returned" begin
     offspring = crossover_operator(parents)
 
-    @test typeof(offspring) == Array{Float64,1}
-    @test eltype(offspring) == Float64
+    @test typeof(offspring[1]) == Array{Float64,1}
+    @test typeof(offspring[2]) == Array{Float64,1}
+
+    @test length(offspring[1]) == length(parents[1].chromosome)
+    @test length(offspring[2]) == length(parents[2].chromosome)
+
+    @test offspring[1] != parents[1].chromosome
+    @test offspring[2] != parents[2].chromosome
+
+
 end
