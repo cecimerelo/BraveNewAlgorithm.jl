@@ -19,7 +19,7 @@ embryos = [
     for _ in 1:population_model.config_parameters.population_size
 ]
 
-@testset "Test crossover_operator when called the new chromosome returned" for i in 1:length(embryos)-1, j in i+1:length(embryos)
+@testset "Test crossover_operator returns corrects and different individuals from parents" for i in 1:length(embryos)-1, j in i+1:length(embryos)
     parents = (
         Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA()),
         Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA())
