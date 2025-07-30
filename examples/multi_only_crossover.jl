@@ -25,9 +25,9 @@ dummy_offspring = get_offspring((embryos[1], embryos[2]))
 @time begin
     chunks = Iterators.partition(embryos, length(embryos) ÷ nthreads())
     tasks = map(chunks) do chunk
-        @spawn get_offspring(chunk)
+        @spawn length(get_offspring(chunk))
     end
-    all_offspring = vcat([fetch(task) for task in tasks]...)
+    all_offspring = sum([fetch(task) for task in tasks])
 end
 
-@info "All offspring -> $(length(all_offspring))"
+@info "All offspring -> $(all_offspring)"
