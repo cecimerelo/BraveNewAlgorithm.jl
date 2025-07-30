@@ -25,7 +25,7 @@ parents = (
 )
 
 @testset "Test crossover_operator when called the new chromosome returned" begin
-    offspring = crossover_operator(parents, population_model.config_parameters)
+    offspring = crossover_operator(parents)
 
     @test typeof(offspring) == Array{Float64,1}
     @test eltype(offspring) == Float64

@@ -1,4 +1,4 @@
-function crossover_operator(parents, config_parameters_entity)
+function crossover_operator(parents)
     chromosome_length = length(parents[1].chromosome)
     start_of_the_segment = rand(1:chromosome_length-1)
     segment_length = rand(1:chromosome_length-start_of_the_segment)

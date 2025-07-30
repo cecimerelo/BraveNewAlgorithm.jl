@@ -42,7 +42,7 @@ function mutate_individual(chromosome, config_parameters, caste)
 end
 
 function create_new_individual(parents, config_parameters, caste)
-    offspring = crossover_operator(parents, config_parameters)
+    offspring = crossover_operator(parents)
     offspring_mutated = mutation_operator(offspring, config_parameters.mutation_rate[caste.name])
     return offspring_mutated
 end
