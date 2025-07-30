@@ -1,5 +1,5 @@
 #=
-In the hatchery we will divide the poblation in classes according to the step
+In the hatchery we will divide the population in classes according to the step
 sizes set on the configuration file
 =#
 using StatsBase
