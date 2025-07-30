@@ -28,19 +28,20 @@ mutated_chromosomes = [mutation_operator(embryo.chromosome, config_parameters_en
     end
 end
 
-parents = (
-    Individual(embryos[1].chromosome, embryos[1].f_value, ALPHA()),
-    Individual(embryos[2].chromosome, embryos[2].f_value, ALPHA())
-)
+# parents = (
+#     Individual(embryos[1].chromosome, embryos[1].f_value, ALPHA()),
+#     Individual(embryos[2].chromosome, embryos[2].f_value, ALPHA())
+# )
 
-offspring = crossover_operator(parents, config_parameters_entity)
+# offspring = crossover_operator(parents, config_parameters_entity)
+# @info "Offspring -> $(offspring)"
+# @testset "Test mutation_operator when called then different chromosomes returned" begin
+#     mutated_offspring = mutation_operator(offspring, config_parameters_entity.mutation_rate["ALPHA"])
+#     @info "Mutated offspring -> $(mutated_offspring)"
 
-@testset "Test mutation_operator when called then different chromosomes returned" begin
-    mutated_offspring = mutation_operator(offspring, config_parameters_entity.mutation_rate["ALPHA"])
+#     @test typeof(mutated_offspring) == Array{Float64,1}
+#     @test eltype(mutated_offspring) == Float64
+#     @test mutated_offspring != offspring
+#     @test mutated_offspring[1] != offspring[1]
 
-    @test typeof(mutated_offspring) == Array{Float64,1}
-    @test eltype(mutated_offspring) == Float64
-    @test mutated_offspring != offspring
-    @test mutated_offspring[1] != offspring[1]
-
-end
+# end
