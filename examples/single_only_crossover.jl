@@ -8,7 +8,7 @@ include("../src/utils.jl")
 include("../src/methods/fertilising_room.jl")
 include("./get_offspring.jl")
 
-const POPULATION_SIZE = 40000
+const POPULATION_SIZE = 100000
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
