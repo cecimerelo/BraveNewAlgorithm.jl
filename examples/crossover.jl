@@ -5,8 +5,8 @@ using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 
 include("../src/utils.jl")
-include("../src/operators/crossover.jl")
 include("../src/methods/fertilising_room.jl")
+include("./get_offspring.jl")
 
 const POPULATION_SIZE = 40000
 
@@ -22,17 +22,6 @@ embryos = [
     for _ in 1:POPULATION_SIZE
 ]
 
-all_offspring = []
-for i in 1:2:length(embryos)-1
-    j = i + 1
-    parents = (
-        Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA()),
-        Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA())
-    )
-
-    offspring = crossover_operator(parents)
-    push!(all_offspring, offspring[1])
-    push!(all_offspring, offspring[2])
-end
+all_offspring = get_offspring(embryos)
 
 @info "All offspring -> $(length(all_offspring))"
