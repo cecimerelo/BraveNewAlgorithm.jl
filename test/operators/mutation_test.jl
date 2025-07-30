@@ -10,10 +10,10 @@ using BlackBoxOptimizationBenchmarking
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
-fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
+function_to_optimize = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
 range = (-5.12, 5.12)
-minimum_comparator = comparator(element, fitness_function) = element >= fitness_function.f_opt
-fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
+minimum_comparator = comparator(element, ff) = element >= ff.f_opt
+fitness_function = FitnessFunction(function_to_optimize)
 population_model = PopulationModel(config_parameters_entity, fitness_function, range, minimum_comparator)
 embryos = [
     fertilising_room(population_model)
