@@ -19,12 +19,12 @@ embryos = [
     for _ in 1:population_model.config_parameters.population_size
 ]
 
-parents = (
-    Individual(embryos[1].chromosome, embryos[1].f_value, ALPHA()),
-    Individual(embryos[2].chromosome, embryos[2].f_value, ALPHA())
-)
+@testset "Test crossover_operator when called the new chromosome returned" for i in 1:length(embryos)-1, j in i+1:length(embryos)
+    parents = (
+        Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA()),
+        Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA())
+    )
 
-@testset "Test crossover_operator when called the new chromosome returned" begin
     offspring = crossover_operator(parents)
 
     @test typeof(offspring[1]) == Array{Float64,1}
@@ -35,6 +35,5 @@ parents = (
 
     @test offspring[1] != parents[1].chromosome
     @test offspring[2] != parents[2].chromosome
-
 
 end
