@@ -20,6 +20,14 @@ embryos = [
     for _ in 1:population_model.config_parameters.population_size
 ]
 
+mutated_chromosomes = [mutation_operator(embryo.chromosome, config_parameters_entity.mutation_rate["ALPHA"]) for embryo in embryos]
+
+@testset "Test mutation_operator when called then different chromosome returned" begin
+    for (embryo, mutated_chromosome) in zip(embryos, mutated_chromosomes)
+        @test embryo.chromosome != mutated_chromosome
+    end
+end
+
 parents = (
     Individual(embryos[1].chromosome, embryos[1].f_value, ALPHA()),
     Individual(embryos[2].chromosome, embryos[2].f_value, ALPHA())
