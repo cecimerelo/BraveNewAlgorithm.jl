@@ -1,7 +1,7 @@
 function crossover_operator(parents, config_parameters_entity)
     chromosome_length = length(parents[1].chromosome)
-    start_of_the_segment = rand(1:chromosome_length)
-    segment_length = rand(1:chromosome_length)
+    start_of_the_segment = rand(1:chromosome_length-1)
+    segment_length = rand(1:chromosome_length-start_of_the_segment)
 
     end_of_segment = start_of_the_segment + segment_length - 1
     indexes_to_take_from_parent = [mod(index, chromosome_length) + 1 for index in start_of_the_segment:end_of_segment]
@@ -16,6 +16,6 @@ function crossover_operator(parents, config_parameters_entity)
             insert!(offspring, index, parents[chosen_parent].chromosome[index])
         end
     end
-    
+
     return offspring
 end
