@@ -9,7 +9,7 @@ include("../src/utils.jl")
 include("../src/methods/fertilising_room.jl")
 include("./get_offspring.jl")
 
-const POPULATION_SIZE = 1000000
+const POPULATION_SIZE = 400000
 
 @info "Number of threads -> $(nthreads())"
 config_file_path = "./test/Config Files/config_file_1_test.json"
