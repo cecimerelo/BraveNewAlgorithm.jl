@@ -1,4 +1,4 @@
-using BlackBoxOptimizationBenchmarking
+include("fitness_function.jl")
 
 struct ConfigurationParametersEntity
     chromosome_size::Int
@@ -6,12 +6,6 @@ struct ConfigurationParametersEntity
     max_generations::Int
     castes_percentages::Dict{String, Int}
     mutation_rate::Dict{String, Int}
-end
-
-mutable struct FitnessFunction
-    fitness_function::BBOBFunction
-    calls_counter::Int64
-    FitnessFunction(fitness_function::BBOBFunction, calls_counter::Int64=0) = new( fitness_function, calls_counter )
 end
 
 struct PopulationModel
