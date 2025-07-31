@@ -42,9 +42,10 @@ end
         @inbounds if i in segment
             offspring1[i] = parents[2].chromosome[i]
             offspring2[i] = parents[1].chromosome[i] 
+        else
+           offspring1[i] = parents[1].chromosome[i]
+            offspring2[i] = parents[2].chromosome[i] 
         end
-        offspring1[i] = parents[1].chromosome[i]
-        offspring2[i] = parents[2].chromosome[i]
     end
     return (offspring1, offspring2)
 end
