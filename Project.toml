@@ -1,7 +1,7 @@
 name = "BraveNewAlgorithm"
 uuid = "62e8e4ba-3e3d-40af-bbe6-192e07c2d347"
-version = "0.1.2"
 authors = ["ceciliamm <cecilia@badgermapping.com>"]
+version = "0.1.2"
 
 [deps]
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
