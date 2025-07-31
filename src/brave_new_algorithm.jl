@@ -1,4 +1,3 @@
-include("methods/from_genes_to_embryo.jl")
 include("methods/hatchery.jl")
 include("methods/evolution.jl")
 include("methods/fertilising_room.jl")
