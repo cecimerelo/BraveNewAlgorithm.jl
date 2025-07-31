@@ -11,7 +11,6 @@
     segment = start_of_the_segment:end_of_segment
     offspring1 = cache1
     offspring2 = cache2
-    # offspring = Matrix{Float64}(undef,chromosome_length,2)
     @inbounds for i in eachindex(offspring1,offspring2)
         @inbounds if i in segment
             offspring1[i] = parents[2].chromosome[i]
