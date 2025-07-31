@@ -25,7 +25,7 @@ castes = hatchery(population_model, embryos)
         reproduction_pool = selector_operator(ALPHA(), castes[ALPHA()])
 
         @test eltype(reproduction_pool) == Tuple
-        @test eltype(reproduction_pool[1]) == Individual
+        @test eltype(reproduction_pool[1]) <: Individual
 
         total_length = [length(tuple) for tuple in reproduction_pool]
         sum_total_length = sum(total_length)
