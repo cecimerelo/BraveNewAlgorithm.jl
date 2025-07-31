@@ -15,13 +15,13 @@ struct PopulationModel
     comparator::Function
 end
 
-struct Embryo
-    chromosome::Array
-    f_value::Number
+struct Embryo{T<:AbstractArray,N<:Number}
+    chromosome::T
+    f_value::N
 end
 
-struct Individual
-    chromosome::Array
-    f_value::Number
-    caste::Caste
+struct Individual{T<:AbstractArray, N<:Number, C<:Caste}
+    chromosome::T
+    f_value::N
+    caste::C
 end
