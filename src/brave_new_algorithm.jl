@@ -34,7 +34,7 @@ function brave_new_algorithm(population_model::PopulationModel)
 
         population_in_castes = hatchery(population_model, embryos)
         new_chromosomes = evolution(population_in_castes, population_model)
-        new_embryos_population = [from_genes_to_embryo(chromosome, population_model) for chromosome in new_chromosomes]
+        new_embryos_population = [Embryo(chromosome, population_model.fitness_function) for chromosome in new_chromosomes]
         @info "New embryos population -> $(length(new_embryos_population))"
         new_best_element = best_element_of_population(new_embryos_population)
 
