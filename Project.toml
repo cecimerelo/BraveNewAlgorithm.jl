@@ -4,6 +4,7 @@ version = "0.1.2"
 authors = ["ceciliamm <cecilia@badgermapping.com>"]
 
 [deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 BlackBoxOptimizationBenchmarking = "4552ee2b-11da-5aef-8e78-0d48532001f1"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
@@ -21,4 +22,5 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 
 [compat]
+BenchmarkTools = "1.6.0"
 julia = "1.4, 2"

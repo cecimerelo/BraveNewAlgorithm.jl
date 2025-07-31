@@ -1,3 +1,4 @@
+using .BraveNewAlgorithm
 include("../src/operators/crossover.jl")
 
 function get_offspring(embryos)
@@ -8,6 +9,7 @@ function get_offspring(embryos)
     cache2 = zeros(length(embryos[1].chromosome))
     for i in 1:2:length(embryos)-1
         j = i + 1
+        @info typeof(ALPHA())
         parents = (
             Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA()),
             Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA())
