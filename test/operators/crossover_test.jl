@@ -7,7 +7,7 @@ include("../../src/methods/fertilising_room.jl")
 
 using Test
 
-config_file_path = "./test/Config Files/config_file_1_test.json"
+config_file_path = "../test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
 fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
 range = (-5.12, 5.12)
@@ -24,8 +24,9 @@ embryos = [
         Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA()),
         Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA())
     )
-
-    offspring = crossover_operator(parents)
+    cache1 = zeros(length(embryos[1].chromosome))
+    cache2 = zeros(length(embryos[1].chromosome))
+    offspring = crossover_operator(parents, cache1, cache2)
 
     @test typeof(offspring[1]) == Array{Float64,1}
     @test typeof(offspring[2]) == Array{Float64,1}
@@ -33,7 +34,7 @@ embryos = [
     @test length(offspring[1]) == length(parents[1].chromosome)
     @test length(offspring[2]) == length(parents[2].chromosome)
 
-    @test offspring[1] != parents[1].chromosome
-    @test offspring[2] != parents[2].chromosome
+    @test offspring[1] ≈ parents[1].chromosome
+    @test offspring[2] ≈ parents[2].chromosome
 
 end

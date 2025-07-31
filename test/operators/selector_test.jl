@@ -6,7 +6,7 @@ include("../../src/methods/fertilising_room.jl")
 
 using Test
 
-config_file_path = "./test/Config Files/config_file_1_test.json"
+config_file_path = "../test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
 fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
 range = (-5.12, 5.12)
@@ -25,7 +25,7 @@ castes = hatchery(population_model, embryos)
         reproduction_pool = selector_operator(ALPHA(), castes[ALPHA()])
 
         @test eltype(reproduction_pool) == Tuple
-        @test eltype(reproduction_pool[1]) == Individual
+        @test eltype(reproduction_pool[1]) <: Individual
 
         total_length = [length(tuple) for tuple in reproduction_pool]
         sum_total_length = sum(total_length)
