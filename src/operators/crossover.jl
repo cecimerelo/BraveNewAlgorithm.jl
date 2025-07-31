@@ -25,7 +25,6 @@ end
 
 
 @views function crossover_operator(parents)
-    chromosome_length = length(parents[1].chromosome)
     cache1 = zeros(length(parents[1].chromosome))
     cache2 = zeros(length(parents[1].chromosome))
     return crossover_operator(parents, cache1, cache2)
