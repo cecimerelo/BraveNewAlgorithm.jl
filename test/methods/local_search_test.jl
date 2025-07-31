@@ -5,7 +5,6 @@ using BlackBoxOptimizationBenchmarking
 
 include("../../src/methods/fertilising_room.jl")
 include("../../src/methods/local_search.jl")
-include("../../src/methods/from_genes_to_embryo.jl")
 include("../../src/utils.jl")
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
@@ -22,7 +21,7 @@ embryo = fertilising_room(population_model)
     @test typeof(new_chromosome) == Array{Float64,1}
     @test length(new_chromosome) == length(embryo.chromosome)
     @test population_model.fitness_function.calls_counter > 0
-    new_embryo = from_genes_to_embryo(new_chromosome, population_model)
+    new_embryo = Embryo(new_chromosome, population_model.fitness_function)
     @test new_embryo.f_value <= embryo.f_value
 end
 
