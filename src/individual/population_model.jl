@@ -15,15 +15,19 @@ struct PopulationModel
     comparator::Function
 end
 
-struct Embryo
-    chromosome::Vector
-    f_value::Real
-    Embryo(chromosome::Vector, f_value::Real) = new(chromosome, f_value)
-    Embryo(chromosome::Vector, ff::FitnessFunction) = new(chromosome, ff(chromosome))
+
+struct Embryo{T<:AbstractArray,N<:Real}
+    chromosome::T
+    f_value::N
+    Embryo(chromosome::T, f_value::N) where {T<: AbstractArray, N<:Real} = new{T,N}(chromosome, f_value)
+    function Embryo(chromosome::T, ff::FitnessFunction) where {T<: AbstractArray}
+        f_val = ff(chromosome)
+        new{T,typeof(f_val)}(chromosome, f_val)
+    end
 end
 
-struct Individual
-    chromosome::Vector
-    f_value::Real
-    caste::Caste
+struct Individual{T<:AbstractArray, N<:Real, C<:Caste}
+    chromosome::T
+    f_value::N
+    caste::C
 end
