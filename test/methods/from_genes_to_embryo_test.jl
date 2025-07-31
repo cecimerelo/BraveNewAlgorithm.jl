@@ -9,6 +9,6 @@ using Test
     fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
     individual = Embryo(chromosome, fitness_function)
 
-    @test typeof(individual) == Embryo
+    @test typeof(individual) <: Embryo
     @test individual.f_value != 0
 end
