@@ -17,11 +17,11 @@ end
 
 struct Embryo
     chromosome::Vector
-    f_value::Number
+    f_value::Real
 end
 
 struct Individual
     chromosome::Vector
-    f_value::Number
+    f_value::Real
     caste::Caste
 end

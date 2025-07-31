@@ -14,7 +14,7 @@ function single_only_crossover( population_size::Int )
         for _ in 1:population_size
     ]
 
-    @info "Embryo 1 -> $(embryos[1])"
+    @info typeof(embryos[1]), typeof(embryos[1].chromosome), typeof(embryos[1].f_value)
     @time all_offspring = get_offspring(embryos)
 
     @info "All offspring -> $(length(all_offspring))"

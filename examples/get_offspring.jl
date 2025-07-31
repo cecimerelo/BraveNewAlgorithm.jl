@@ -4,9 +4,10 @@ function get_offspring(embryos)
     all_offspring = []
     for i in 1:2:length(embryos)-1
         j = i + 1
+        @info typeof(ALPHA())
         parents = (
-            Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA()),
-            Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA())
+            Individual(embryos[i].chromosome, embryos[i].f_value, ALPHA),
+            Individual(embryos[j].chromosome, embryos[j].f_value, ALPHA)
         )
 
         offspring = crossover_operator(parents)
