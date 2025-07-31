@@ -3,6 +3,7 @@ using BlackBoxOptimizationBenchmarking
 
 include("../src/utils.jl")
 include("../src/methods/fertilising_room.jl")
+include("./get_offspring.jl")
 
 function single_only_crossover( population_size::Int )
     config_file_path = "./test/Config Files/config_file_1_test.json"

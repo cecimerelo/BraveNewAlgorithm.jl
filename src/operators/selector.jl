@@ -7,7 +7,7 @@ include("../commons.jl")
 
 function selector_operator(caste::ALPHA, caste_population)
     reproduction_pool = build_reproduction_pool(caste_population)
-    return pairwise(reproduction_pool)
+    return random_pairs(reproduction_pool)
 end
 
 
@@ -48,7 +48,7 @@ end
 function binary_tournament(caste_population)
     reproduction_pool = Vector{Individual}()
     copy_of = deepcopy(caste_population)
-    population_in_pairs = pairwise(copy_of)
+    population_in_pairs = random_pairs(copy_of)
 
     for (x,y) in population_in_pairs
         if x.f_value > y.f_value

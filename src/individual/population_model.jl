@@ -15,9 +15,12 @@ struct PopulationModel
     comparator::Function
 end
 
+
 struct Embryo{T<:AbtractVector,N<:Real}
     chromosome::T
     f_value::N
+    Embryo(chromosome::Vector, f_value::Real) = new(chromosome, f_value)
+    Embryo(chromosome::Vector, ff::FitnessFunction) = new(chromosome, ff(chromosome))
 end
 
 struct Individual{T<:AbtractVector, N<:Real, C<:Caste}
