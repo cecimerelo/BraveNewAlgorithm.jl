@@ -16,12 +16,12 @@ struct PopulationModel
 end
 
 struct Embryo
-    chromosome::Array
+    chromosome::Vector
     f_value::Number
 end
 
 struct Individual
-    chromosome::Array
+    chromosome::Vector
     f_value::Number
     caste::Caste
 end
