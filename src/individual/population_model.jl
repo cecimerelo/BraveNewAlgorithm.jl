@@ -16,14 +16,17 @@ struct PopulationModel
 end
 
 
-struct Embryo{T<:AbtractVector,N<:Real}
+struct Embryo{T<:AbstractArray,N<:Real}
     chromosome::T
     f_value::N
-    Embryo(chromosome::Vector, f_value::Real) = new(chromosome, f_value)
-    Embryo(chromosome::Vector, ff::FitnessFunction) = new(chromosome, ff(chromosome))
+    Embryo(chromosome::T, f_value::N) where {T<: AbstractArray, N<:Real} = new{T,N}(chromosome, f_value)
+    function Embryo(chromosome::T, ff::FitnessFunction) where {T<: AbstractArray}
+        f_val = ff(chromosome)
+        new{T,typeof(f_val)}(chromosome, f_val)
+    end
 end
 
-struct Individual{T<:AbtractVector, N<:Real, C<:Caste}
+struct Individual{T<:AbstractArray, N<:Real, C<:Caste}
     chromosome::T
     f_value::N
     caste::C
