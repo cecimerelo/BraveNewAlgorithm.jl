@@ -8,7 +8,7 @@ using Test
 
 @testset "Test from_genes_to_embryo method when called the individual created" begin
     config_file_path = "./test/Config Files/config_file_1_test.json"
-    chromosome = rand(10,2)
+    chromosome = rand(10)
     config_parameters_entity = read_parameters_file(config_file_path)
     fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
     range = (-5.12, 5.12)
