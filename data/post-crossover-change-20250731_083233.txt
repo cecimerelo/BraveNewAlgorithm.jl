@@ -1,0 +1,453 @@
+Results of multiple runs - jue 31 jul 2025 08:32:33 CEST
+Command: pinpoint /home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl
+===
+=== Run 1 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.169394 seconds (4.49 M allocations: 192.418 MiB, 22.82% gc time, 42.40% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 71.35 J nvml:nvidia_geforce_rtx_4070_super_0
+	288.76 J rapl:pkg                            
+
+	5.98766681 seconds time elapsed 
+
+===
+=== Run 2 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.347370 seconds (4.49 M allocations: 192.473 MiB, 62.34% gc time, 72.57% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 71.44 J nvml:nvidia_geforce_rtx_4070_super_0
+	297.60 J rapl:pkg                            
+
+	5.97111005 seconds time elapsed 
+
+===
+=== Run 3 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.173416 seconds (4.49 M allocations: 192.444 MiB, 22.19% gc time, 43.50% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 74.09 J nvml:nvidia_geforce_rtx_4070_super_0
+	320.38 J rapl:pkg                            
+
+	6.06260834 seconds time elapsed 
+
+===
+=== Run 4 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.355828 seconds (4.49 M allocations: 192.423 MiB, 63.10% gc time, 20.13% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 71.01 J nvml:nvidia_geforce_rtx_4070_super_0
+	299.92 J rapl:pkg                            
+
+	6.00251793 seconds time elapsed 
+
+===
+=== Run 5 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.180271 seconds (4.49 M allocations: 192.428 MiB, 21.70% gc time, 43.79% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 72.13 J nvml:nvidia_geforce_rtx_4070_super_0
+	290.94 J rapl:pkg                            
+
+	5.98230595 seconds time elapsed 
+
+===
+=== Run 6 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.160208 seconds (4.49 M allocations: 192.424 MiB, 22.05% gc time, 42.66% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	0.00 J nvml:nvidia_geforce_rtx_4070_super_0
+	0.00 J rapl:pkg                            
+
+	5.80858942 seconds time elapsed 
+
+===
+=== Run 7 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.174537 seconds (4.49 M allocations: 192.437 MiB, 20.53% gc time, 45.77% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 73.44 J nvml:nvidia_geforce_rtx_4070_super_0
+	322.30 J rapl:pkg                            
+
+	6.14738140 seconds time elapsed 
+
+===
+=== Run 8 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.165386 seconds (4.49 M allocations: 192.440 MiB, 23.34% gc time, 41.81% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	0.00 J nvml:nvidia_geforce_rtx_4070_super_0
+	0.00 J rapl:pkg                            
+
+	5.97447072 seconds time elapsed 
+
+===
+=== Run 9 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.361820 seconds (4.49 M allocations: 192.458 MiB, 64.12% gc time, 19.29% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 75.81 J nvml:nvidia_geforce_rtx_4070_super_0
+	327.69 J rapl:pkg                            
+
+	6.16122349 seconds time elapsed 
+
+===
+=== Run 10 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.348108 seconds (4.49 M allocations: 192.454 MiB, 63.35% gc time, 19.96% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 71.21 J nvml:nvidia_geforce_rtx_4070_super_0
+	283.06 J rapl:pkg                            
+
+	5.97005273 seconds time elapsed 
+
+===
+=== Run 11 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.349425 seconds (4.49 M allocations: 192.455 MiB, 63.25% gc time, 20.15% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 72.03 J nvml:nvidia_geforce_rtx_4070_super_0
+	290.40 J rapl:pkg                            
+
+	5.99955948 seconds time elapsed 
+
+===
+=== Run 12 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.358176 seconds (4.49 M allocations: 192.444 MiB, 63.31% gc time, 20.13% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 73.32 J nvml:nvidia_geforce_rtx_4070_super_0
+	299.43 J rapl:pkg                            
+
+	6.06653600 seconds time elapsed 
+
+===
+=== Run 13 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.181089 seconds (4.49 M allocations: 192.427 MiB, 23.14% gc time, 43.34% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 74.71 J nvml:nvidia_geforce_rtx_4070_super_0
+	325.09 J rapl:pkg                            
+
+	6.12209498 seconds time elapsed 
+
+===
+=== Run 14 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.194356 seconds (4.49 M allocations: 192.448 MiB, 29.65% gc time, 38.20% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 74.43 J nvml:nvidia_geforce_rtx_4070_super_0
+	342.23 J rapl:pkg                            
+
+	6.08160025 seconds time elapsed 
+
+===
+=== Run 15 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.355764 seconds (4.49 M allocations: 192.430 MiB, 63.59% gc time, 19.74% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 72.04 J nvml:nvidia_geforce_rtx_4070_super_0
+	283.80 J rapl:pkg                            
+
+	5.97903847 seconds time elapsed 
+
+===
+=== Run 16 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.169897 seconds (4.49 M allocations: 192.395 MiB, 23.15% gc time, 41.93% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 71.22 J nvml:nvidia_geforce_rtx_4070_super_0
+	273.37 J rapl:pkg                            
+
+	5.92642437 seconds time elapsed 
+
+===
+=== Run 17 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.351486 seconds (4.49 M allocations: 192.455 MiB, 63.41% gc time, 20.10% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 73.53 J nvml:nvidia_geforce_rtx_4070_super_0
+	287.99 J rapl:pkg                            
+
+	6.06431092 seconds time elapsed 
+
+===
+=== Run 18 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.167562 seconds (4.49 M allocations: 192.447 MiB, 22.02% gc time, 42.39% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 72.27 J nvml:nvidia_geforce_rtx_4070_super_0
+	276.24 J rapl:pkg                            
+
+	5.94272320 seconds time elapsed 
+
+===
+=== Run 19 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.161048 seconds (4.49 M allocations: 192.444 MiB, 22.05% gc time, 41.75% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	0.00 J nvml:nvidia_geforce_rtx_4070_super_0
+	0.00 J rapl:pkg                            
+
+	5.76044040 seconds time elapsed 
+
+===
+=== Run 20 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.354525 seconds (4.49 M allocations: 192.426 MiB, 63.44% gc time, 19.79% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 73.11 J nvml:nvidia_geforce_rtx_4070_super_0
+	306.96 J rapl:pkg                            
+
+	6.04865562 seconds time elapsed 
+
+===
+=== Run 21 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.373328 seconds (4.49 M allocations: 192.437 MiB, 64.47% gc time, 19.48% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 74.26 J nvml:nvidia_geforce_rtx_4070_super_0
+	308.04 J rapl:pkg                            
+
+	6.14813212 seconds time elapsed 
+
+===
+=== Run 22 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.310010 seconds (4.49 M allocations: 192.452 MiB, 58.73% gc time, 22.25% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	0.00 J nvml:nvidia_geforce_rtx_4070_super_0
+	0.00 J rapl:pkg                            
+
+	6.06936334 seconds time elapsed 
+
+===
+=== Run 23 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.190893 seconds (4.49 M allocations: 192.453 MiB, 22.63% gc time, 43.03% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 76.01 J nvml:nvidia_geforce_rtx_4070_super_0
+	337.12 J rapl:pkg                            
+
+	6.17675655 seconds time elapsed 
+
+===
+=== Run 24 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.333068 seconds (4.49 M allocations: 192.419 MiB, 59.53% gc time, 21.17% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 75.05 J nvml:nvidia_geforce_rtx_4070_super_0
+	351.28 J rapl:pkg                            
+
+	6.22548599 seconds time elapsed 
+
+===
+=== Run 25 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.167313 seconds (4.49 M allocations: 192.433 MiB, 22.23% gc time, 42.73% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.67 J nvml:nvidia_geforce_rtx_4070_super_0
+	481.68 J rapl:pkg                            
+
+	6.47219718 seconds time elapsed 
+
+===
+=== Run 26 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.371337 seconds (4.49 M allocations: 192.443 MiB, 63.62% gc time, 20.41% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 75.69 J nvml:nvidia_geforce_rtx_4070_super_0
+	349.45 J rapl:pkg                            
+
+	6.17863978 seconds time elapsed 
+
+===
+=== Run 27 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.226029 seconds (4.49 M allocations: 192.441 MiB, 42.45% gc time, 31.10% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 73.62 J nvml:nvidia_geforce_rtx_4070_super_0
+	340.36 J rapl:pkg                            
+
+	6.02642275 seconds time elapsed 
+
+===
+=== Run 28 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.353691 seconds (4.49 M allocations: 192.448 MiB, 63.05% gc time, 20.17% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 75.56 J nvml:nvidia_geforce_rtx_4070_super_0
+	370.62 J rapl:pkg                            
+
+	6.23699114 seconds time elapsed 
+
+===
+=== Run 29 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.348972 seconds (4.49 M allocations: 192.461 MiB, 63.13% gc time, 20.43% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 72.75 J nvml:nvidia_geforce_rtx_4070_super_0
+	323.01 J rapl:pkg                            
+
+	6.05521933 seconds time elapsed 
+
+===
+=== Run 30 ===
+WARNING: using Distances.pairwise in module BraveNewAlgorithm conflicts with an existing identifier.
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.381409 seconds (4.49 M allocations: 192.424 MiB, 63.05% gc time, 21.75% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 75.10 J nvml:nvidia_geforce_rtx_4070_super_0
+	342.77 J rapl:pkg                            
+
+	6.16799686 seconds time elapsed 
+
+===
