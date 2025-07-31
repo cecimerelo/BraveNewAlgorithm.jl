@@ -8,7 +8,7 @@ include("../src/utils.jl")
 include("../src/methods/fertilising_room.jl")
 include("./get_offspring.jl")
 
-const POPULATION_SIZE = 100000
+const POPULATION_SIZE = 400000
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
@@ -22,6 +22,6 @@ embryos = [
     for _ in 1:POPULATION_SIZE
 ]
 
-all_offspring = get_offspring(embryos)
+@time all_offspring = get_offspring(embryos)
 
 @info "All offspring -> $(length(all_offspring))"
