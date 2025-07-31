@@ -10,7 +10,7 @@ using Test
     fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
     embryo = Embryo(chromosome, fitness_function)
 
-    @test typeof(embryo) <: Embryo
+    @test typeof(embryo) == Embryo
     @test embryo.f_value != 0
     @test fitness_function.calls_counter == 1
 end

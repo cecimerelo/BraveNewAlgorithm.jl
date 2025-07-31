@@ -7,7 +7,7 @@ include("../src/commons.jl")
 include("../src/methods/fertilising_room.jl")
 
 @testset "Test best_element_of_poblation when called then individual with smallest f value" begin
-    config_file_path = "../test/Config Files/config_file_1_test.json"
+    config_file_path = "./test/Config Files/config_file_1_test.json"
     config_parameters_entity = read_parameters_file(config_file_path)
     fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
     range = (-5.12, 5.12)

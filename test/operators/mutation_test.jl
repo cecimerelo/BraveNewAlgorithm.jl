@@ -8,7 +8,7 @@ include("../../src/methods/fertilising_room.jl")
 using Test
 using BlackBoxOptimizationBenchmarking
 
-config_file_path = "../test/Config Files/config_file_1_test.json"
+config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
 function_to_optimize = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
 range = (-5.12, 5.12)

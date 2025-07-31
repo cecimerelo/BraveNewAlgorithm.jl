@@ -8,7 +8,7 @@ include("../../src/methods/local_search.jl")
 include("../../src/methods/from_genes_to_embryo.jl")
 include("../../src/utils.jl")
 
-config_file_path = "../test/Config Files/config_file_1_test.json"
+config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
 range = (-5.12, 5.12)
 minimum_comparator = comparator(element, fitness_function) = element >= fitness_function.f_opt

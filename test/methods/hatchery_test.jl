@@ -28,7 +28,7 @@ end
 
 @testset "Test hatchery when called then returns population divided in castes" begin
     @testset "Test when percentages sum 100" begin
-        config_file_path = "../test/Config Files/config_file_1_test.json"
+        config_file_path = "./test/Config Files/config_file_1_test.json"
         population_in_castes = run_hatchery(config_file_path)
         castes = keys(population_in_castes)
 
@@ -45,7 +45,7 @@ end
     end
 
     @testset "Test population size is asserted correctly" begin
-        config_file_path = "../test/Config Files/config_file_1_test.json"
+        config_file_path = "./test/Config Files/config_file_1_test.json"
         config_parameters_entity = read_parameters_file(config_file_path)
         fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
         range = (-5.12, 5.12)
