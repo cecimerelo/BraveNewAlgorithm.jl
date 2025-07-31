@@ -18,6 +18,8 @@ end
 struct Embryo
     chromosome::Vector
     f_value::Real
+    Embryo(chromosome::Vector, f_value::Real) = new(chromosome, f_value)
+    Embryo(chromosome::Vector, ff::FitnessFunction) = new(chromosome, ff(chromosome))
 end
 
 struct Individual

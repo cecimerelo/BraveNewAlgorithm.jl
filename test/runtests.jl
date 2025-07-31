@@ -15,3 +15,4 @@ include("operators/selector_test.jl")
 
 include("commons_test.jl")
 include("utils_test.jl")
+include("individuals_test.jl")
