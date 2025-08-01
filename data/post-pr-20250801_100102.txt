@@ -1,0 +1,363 @@
+Results of multiple runs - vie 01 ago 2025 10:01:02 CEST
+Command: pinpoint /home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl
+===
+=== Run 1 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	14.26 J nvml:nvidia_geforce_rtx_4070_super_0
+	45.52 J rapl:pkg                            
+
+	0.96892589 seconds time elapsed 
+
+===
+=== Run 2 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.88 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.15 J rapl:pkg                            
+
+	0.73834941 seconds time elapsed 
+
+===
+=== Run 3 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.57 J nvml:nvidia_geforce_rtx_4070_super_0
+	43.68 J rapl:pkg                            
+
+	0.76222828 seconds time elapsed 
+
+===
+=== Run 4 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.66 J nvml:nvidia_geforce_rtx_4070_super_0
+	45.72 J rapl:pkg                            
+
+	0.75897531 seconds time elapsed 
+
+===
+=== Run 5 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.45 J nvml:nvidia_geforce_rtx_4070_super_0
+	43.18 J rapl:pkg                            
+
+	0.75211912 seconds time elapsed 
+
+===
+=== Run 6 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.62 J nvml:nvidia_geforce_rtx_4070_super_0
+	39.68 J rapl:pkg                            
+
+	0.75025438 seconds time elapsed 
+
+===
+=== Run 7 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.56 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.10 J rapl:pkg                            
+
+	0.74582217 seconds time elapsed 
+
+===
+=== Run 8 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.22 J nvml:nvidia_geforce_rtx_4070_super_0
+	45.28 J rapl:pkg                            
+
+	0.75626408 seconds time elapsed 
+
+===
+=== Run 9 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.48 J nvml:nvidia_geforce_rtx_4070_super_0
+	39.80 J rapl:pkg                            
+
+	0.74152749 seconds time elapsed 
+
+===
+=== Run 10 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.51 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.38 J rapl:pkg                            
+
+	0.74960944 seconds time elapsed 
+
+===
+=== Run 11 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.11 J nvml:nvidia_geforce_rtx_4070_super_0
+	45.02 J rapl:pkg                            
+
+	0.75351407 seconds time elapsed 
+
+===
+=== Run 12 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.24 J nvml:nvidia_geforce_rtx_4070_super_0
+	43.21 J rapl:pkg                            
+
+	0.75610480 seconds time elapsed 
+
+===
+=== Run 13 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.52 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.25 J rapl:pkg                            
+
+	0.74698542 seconds time elapsed 
+
+===
+=== Run 14 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.51 J nvml:nvidia_geforce_rtx_4070_super_0
+	39.93 J rapl:pkg                            
+
+	0.74611196 seconds time elapsed 
+
+===
+=== Run 15 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.16 J nvml:nvidia_geforce_rtx_4070_super_0
+	41.92 J rapl:pkg                            
+
+	0.75213989 seconds time elapsed 
+
+===
+=== Run 16 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.46 J nvml:nvidia_geforce_rtx_4070_super_0
+	41.26 J rapl:pkg                            
+
+	0.74345266 seconds time elapsed 
+
+===
+=== Run 17 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.51 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.08 J rapl:pkg                            
+
+	0.74773830 seconds time elapsed 
+
+===
+=== Run 18 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.09 J nvml:nvidia_geforce_rtx_4070_super_0
+	42.28 J rapl:pkg                            
+
+	0.76272421 seconds time elapsed 
+
+===
+=== Run 19 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.14 J nvml:nvidia_geforce_rtx_4070_super_0
+	43.59 J rapl:pkg                            
+
+	0.75282401 seconds time elapsed 
+
+===
+=== Run 20 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.25 J nvml:nvidia_geforce_rtx_4070_super_0
+	42.08 J rapl:pkg                            
+
+	0.75192113 seconds time elapsed 
+
+===
+=== Run 21 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.69 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.57 J rapl:pkg                            
+
+	0.74246910 seconds time elapsed 
+
+===
+=== Run 22 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.31 J nvml:nvidia_geforce_rtx_4070_super_0
+	43.73 J rapl:pkg                            
+
+	0.75523968 seconds time elapsed 
+
+===
+=== Run 23 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.59 J nvml:nvidia_geforce_rtx_4070_super_0
+	41.24 J rapl:pkg                            
+
+	0.75037927 seconds time elapsed 
+
+===
+=== Run 24 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.60 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.74 J rapl:pkg                            
+
+	0.74613809 seconds time elapsed 
+
+===
+=== Run 25 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	11.07 J nvml:nvidia_geforce_rtx_4070_super_0
+	41.95 J rapl:pkg                            
+
+	0.75413110 seconds time elapsed 
+
+===
+=== Run 26 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.98 J nvml:nvidia_geforce_rtx_4070_super_0
+	45.33 J rapl:pkg                            
+
+	0.75764588 seconds time elapsed 
+
+===
+=== Run 27 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.38 J nvml:nvidia_geforce_rtx_4070_super_0
+	40.76 J rapl:pkg                            
+
+	0.74640942 seconds time elapsed 
+
+===
+=== Run 28 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.25 J nvml:nvidia_geforce_rtx_4070_super_0
+	41.99 J rapl:pkg                            
+
+	0.75037758 seconds time elapsed 
+
+===
+=== Run 29 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.85 J nvml:nvidia_geforce_rtx_4070_super_0
+	42.58 J rapl:pkg                            
+
+	0.75453920 seconds time elapsed 
+
+===
+=== Run 30 ===
+ERROR: LoadError: UndefVarError: `BraveNewAlgorithm` not defined in `Main`
+in expression starting at /home/jmerelo/Code/julia/BraveNewAlgorithm.jl/examples/single_only_crossover.jl:1
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	10.85 J nvml:nvidia_geforce_rtx_4070_super_0
+	42.76 J rapl:pkg                            
+
+	0.75144189 seconds time elapsed 
+
+===
