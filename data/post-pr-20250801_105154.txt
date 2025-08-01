@@ -1,0 +1,423 @@
+Results of multiple runs - vie 01 ago 2025 10:51:54 CEST
+Command: pinpoint /home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl
+===
+=== Run 1 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038555 seconds (66.96 k allocations: 6.337 MiB, 82.83% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 82.19 J nvml:nvidia_geforce_rtx_4070_super_0
+	275.53 J rapl:pkg                            
+
+	5.79695984 seconds time elapsed 
+
+===
+=== Run 2 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.039985 seconds (66.96 k allocations: 6.337 MiB, 82.95% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 86.68 J nvml:nvidia_geforce_rtx_4070_super_0
+	304.39 J rapl:pkg                            
+
+	5.79955445 seconds time elapsed 
+
+===
+=== Run 3 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038847 seconds (66.96 k allocations: 6.337 MiB, 82.70% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 97.32 J nvml:nvidia_geforce_rtx_4070_super_0
+	335.04 J rapl:pkg                            
+
+	5.93998992 seconds time elapsed 
+
+===
+=== Run 4 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038207 seconds (66.96 k allocations: 6.337 MiB, 82.28% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.35 J nvml:nvidia_geforce_rtx_4070_super_0
+	282.62 J rapl:pkg                            
+
+	5.68671867 seconds time elapsed 
+
+===
+=== Run 5 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038571 seconds (66.96 k allocations: 6.334 MiB, 82.39% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 78.72 J nvml:nvidia_geforce_rtx_4070_super_0
+	280.79 J rapl:pkg                            
+
+	5.65006843 seconds time elapsed 
+
+===
+=== Run 6 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.213635 seconds (66.96 k allocations: 6.337 MiB, 81.54% gc time, 15.17% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 81.68 J nvml:nvidia_geforce_rtx_4070_super_0
+	276.08 J rapl:pkg                            
+
+	5.82405546 seconds time elapsed 
+
+===
+=== Run 7 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038835 seconds (66.96 k allocations: 6.337 MiB, 82.26% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 81.60 J nvml:nvidia_geforce_rtx_4070_super_0
+	286.46 J rapl:pkg                            
+
+	5.81173486 seconds time elapsed 
+
+===
+=== Run 8 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038647 seconds (66.96 k allocations: 6.334 MiB, 82.15% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.07 J nvml:nvidia_geforce_rtx_4070_super_0
+	269.39 J rapl:pkg                            
+
+	5.64395733 seconds time elapsed 
+
+===
+=== Run 9 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038113 seconds (66.96 k allocations: 6.334 MiB, 82.27% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 80.85 J nvml:nvidia_geforce_rtx_4070_super_0
+	280.17 J rapl:pkg                            
+
+	5.78530712 seconds time elapsed 
+
+===
+=== Run 10 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.215986 seconds (66.96 k allocations: 6.337 MiB, 81.16% gc time, 96.90% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 82.58 J nvml:nvidia_geforce_rtx_4070_super_0
+	272.04 J rapl:pkg                            
+
+	5.81065912 seconds time elapsed 
+
+===
+=== Run 11 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038091 seconds (66.96 k allocations: 6.337 MiB, 81.75% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 82.19 J nvml:nvidia_geforce_rtx_4070_super_0
+	278.62 J rapl:pkg                            
+
+	5.77949895 seconds time elapsed 
+
+===
+=== Run 12 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037702 seconds (66.96 k allocations: 6.334 MiB, 82.01% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 77.79 J nvml:nvidia_geforce_rtx_4070_super_0
+	258.41 J rapl:pkg                            
+
+	5.63494943 seconds time elapsed 
+
+===
+=== Run 13 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037742 seconds (66.96 k allocations: 6.337 MiB, 81.93% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 77.27 J nvml:nvidia_geforce_rtx_4070_super_0
+	264.99 J rapl:pkg                            
+
+	5.61959225 seconds time elapsed 
+
+===
+=== Run 14 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038037 seconds (66.96 k allocations: 6.337 MiB, 81.81% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.12 J nvml:nvidia_geforce_rtx_4070_super_0
+	271.18 J rapl:pkg                            
+
+	5.63597368 seconds time elapsed 
+
+===
+=== Run 15 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037972 seconds (66.96 k allocations: 6.334 MiB, 82.50% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 81.58 J nvml:nvidia_geforce_rtx_4070_super_0
+	280.58 J rapl:pkg                            
+
+	5.81089917 seconds time elapsed 
+
+===
+=== Run 16 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037703 seconds (66.96 k allocations: 6.337 MiB, 82.30% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 80.95 J nvml:nvidia_geforce_rtx_4070_super_0
+	272.99 J rapl:pkg                            
+
+	5.68475600 seconds time elapsed 
+
+===
+=== Run 17 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038198 seconds (66.96 k allocations: 6.334 MiB, 81.74% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 78.55 J nvml:nvidia_geforce_rtx_4070_super_0
+	275.94 J rapl:pkg                            
+
+	5.66909734 seconds time elapsed 
+
+===
+=== Run 18 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.212035 seconds (66.96 k allocations: 6.334 MiB, 81.96% gc time, 14.86% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.82 J nvml:nvidia_geforce_rtx_4070_super_0
+	279.13 J rapl:pkg                            
+
+	5.81139304 seconds time elapsed 
+
+===
+=== Run 19 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.039020 seconds (66.96 k allocations: 6.334 MiB, 82.35% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 77.53 J nvml:nvidia_geforce_rtx_4070_super_0
+	260.78 J rapl:pkg                            
+
+	5.65047637 seconds time elapsed 
+
+===
+=== Run 20 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038557 seconds (66.96 k allocations: 6.337 MiB, 82.37% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 77.52 J nvml:nvidia_geforce_rtx_4070_super_0
+	275.44 J rapl:pkg                            
+
+	5.65754988 seconds time elapsed 
+
+===
+=== Run 21 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038478 seconds (66.96 k allocations: 6.334 MiB, 81.88% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 76.72 J nvml:nvidia_geforce_rtx_4070_super_0
+	271.88 J rapl:pkg                            
+
+	5.64194695 seconds time elapsed 
+
+===
+=== Run 22 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037570 seconds (66.96 k allocations: 6.337 MiB, 81.88% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 80.72 J nvml:nvidia_geforce_rtx_4070_super_0
+	282.11 J rapl:pkg                            
+
+	5.83209358 seconds time elapsed 
+
+===
+=== Run 23 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038401 seconds (66.96 k allocations: 6.337 MiB, 81.35% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.25 J nvml:nvidia_geforce_rtx_4070_super_0
+	268.96 J rapl:pkg                            
+
+	5.63103127 seconds time elapsed 
+
+===
+=== Run 24 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.213667 seconds (66.96 k allocations: 6.337 MiB, 82.15% gc time, 14.59% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 81.44 J nvml:nvidia_geforce_rtx_4070_super_0
+	278.31 J rapl:pkg                            
+
+	5.81951966 seconds time elapsed 
+
+===
+=== Run 25 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038698 seconds (66.96 k allocations: 6.337 MiB, 82.00% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 79.30 J nvml:nvidia_geforce_rtx_4070_super_0
+	262.97 J rapl:pkg                            
+
+	5.63469199 seconds time elapsed 
+
+===
+=== Run 26 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.038438 seconds (66.96 k allocations: 6.337 MiB, 81.71% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 80.64 J nvml:nvidia_geforce_rtx_4070_super_0
+	268.13 J rapl:pkg                            
+
+	5.67558356 seconds time elapsed 
+
+===
+=== Run 27 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037622 seconds (66.96 k allocations: 6.337 MiB, 82.01% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 78.89 J nvml:nvidia_geforce_rtx_4070_super_0
+	270.84 J rapl:pkg                            
+
+	5.67596963 seconds time elapsed 
+
+===
+=== Run 28 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.037713 seconds (66.96 k allocations: 6.334 MiB, 81.36% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 78.16 J nvml:nvidia_geforce_rtx_4070_super_0
+	272.02 J rapl:pkg                            
+
+	5.67557128 seconds time elapsed 
+
+===
+=== Run 29 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.212676 seconds (66.96 k allocations: 6.334 MiB, 82.11% gc time, 14.83% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 81.23 J nvml:nvidia_geforce_rtx_4070_super_0
+	270.69 J rapl:pkg                            
+
+	5.83085099 seconds time elapsed 
+
+===
+=== Run 30 ===
+  Activating project at `/home/jmerelo/Code/julia/BraveNewAlgorithm.jl`
+[ Info: Reading parameters file
+[ Info: All offspring -> 400000
+  0.215155 seconds (66.96 k allocations: 6.337 MiB, 81.82% gc time, 14.88% compilation time)
+Energy counter stats for '/home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl ':
+[interval: 50ms, before: 0ms, after: 0ms, delay: 0ms, runs: 1]
+
+	 80.22 J nvml:nvidia_geforce_rtx_4070_super_0
+	273.96 J rapl:pkg                            
+
+	5.83028521 seconds time elapsed 
+
+===

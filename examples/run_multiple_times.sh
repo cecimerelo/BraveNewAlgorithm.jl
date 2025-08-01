@@ -20,7 +20,7 @@ echo "===" >> "$OUTPUT_FILE"
 echo "Running 30 iterations..."
 for i in $(seq 1 30); do
     echo "=== Run $i ===" >> "$OUTPUT_FILE"
-    pinpoint /home/jmerelo/.juliaup/bin/julia examples/single_only_crossover.jl >> "$OUTPUT_FILE" 2>&1
+    pinpoint /home/jmerelo/.juliaup/bin/julia examples/old_single_only_crossover.jl >> "$OUTPUT_FILE" 2>&1
     echo "===" >> "$OUTPUT_FILE"
 done
 
