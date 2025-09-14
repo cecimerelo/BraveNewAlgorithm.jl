@@ -2,7 +2,7 @@
 
 ## Repository Overview
 
-BraveNewAlgorithm.jl is a Julia metaheuristic optimization algorithm inspired by Aldous Huxley's "Brave New World". It uses a caste-based population system with five distinct castes (ALPHA, BETA, GAMMA, DELTA, EPSILON) to maintain exploration/exploitation balance.
+BraveNewAlgorithm.jl is a Julia metaheuristic optimization algorithm inspired by Aldous Huxley's "Brave New World". Population is divided in different groups, which we call "castes" imitating the terminology of the novel; different groups will have different ways of  applying the usual genetic operators: selection, crossover and mutation, all of them inspired on the novel. The intention of this is to keep the exploration/exploitation balance, that is, the amount of new solutions generated *exploring* the space vs the *exploitation* or selection of the best candidates following a specific path to maximization.
 
 ## Project Structure
 
@@ -29,7 +29,7 @@ BraveNewAlgorithm.jl/
 ├── data/                        # Data files and results
 ├── Project.toml                 # Julia package dependencies
 ├── Manifest.toml               # Locked dependency versions
-├── Makefile                    # Build automation
+├── Makefile                    # Build and test automation
 ├── README.md                   # Main documentation
 └── USAGE.md                    # Detailed usage guide
 ```
@@ -61,7 +61,7 @@ julia --project=. -e "using Pkg; Pkg.instantiate()"  # Manual
 ```bash
 # Test installation
 make tests                           # Run full test suite (~30-60 seconds)
-julia examples/simple_test.jl       # Basic functionality test (~10 seconds)
+julia examples/simple_test.jl       # Basic functionality test (~10 seconds) this does not work for the time being
 julia test/runtests.jl              # Manual test execution
 
 # Check functionality
@@ -180,7 +180,7 @@ config_parameters = read_parameters_file("config.json")
 
 ### Recommended Distributions
 
-**Exploitation-focused** (for fine-tuning):
+**Exploitation-focused** (for fine-tuning): The "upper" castes get the biggest proportion
 ```julia
 "POPULATION_PERCENTAGE" => Dict("ALPHA" => 25, "BETA" => 30, "GAMMA" => 25, "DELTA" => 15, "EPSILON" => 5)
 ```
