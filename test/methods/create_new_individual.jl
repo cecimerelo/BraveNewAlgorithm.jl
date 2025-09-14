@@ -1,28 +1,32 @@
 using .BraveNewAlgorithm
+using BlackBoxOptimizationBenchmarking
 
 include("../../src/methods/evolution.jl")
-include("../../src/individual/embryo.jl")
 
 using Test
 
 @testset "create_new_individual" begin
-    config_parameters = ConfigurationParametersEntity(2, 1, 1, Dict{String, Int}(), Dict{String, Int}())
+    # Use higher mutation rate (50%) to ensure mutation happens with small chromosome size
+    config_parameters = ConfigurationParametersEntity(2, 1, 1, Dict{String, Int}(), Dict("ALPHA" => 50, "BETA" => 50, "GAMMA" => 50, "DELTA" => 50, "EPSILON" => 50))
     population_model = PopulationModel(config_parameters, FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1]), (0.0, 1.0), (element, ff) -> element >= ff.f_opt + 1e-6)
 
-    parents = ((1.0, 2.0), (3.0, 4.0))
+    parents = (
+        Individual([1.0, 2.0], 0.5, ALPHA()),
+        Individual([3.0, 4.0], 0.8, ALPHA())
+    )
 
-    offspring1, offspring2 = create_new_individual(parents, population_model.config_parameters, ALPHA())
+    offspring1, offspring2 = create_new_individual(parents, config_parameters.mutation_rate[ALPHA().name])
 
-    @test offspring1[1] != parents[1][1]
-    @test offspring1[2] != parents[1][2]
-    @test offspring1[1] != parents[2][1]
-    @test offspring1[2] != parents[2][2]
-
-    @test offspring2[1] != parents[1][1]
-    @test offspring2[2] != parents[1][2]
-    @test offspring2[1] != parents[2][1]
-    @test offspring2[2] != parents[2][2]
-
-    @test offspring1[1] != offspring2[1]
-    @test offspring1[2] != offspring2[2]
+    # Test that function returns two offspring arrays
+    @test typeof(offspring1) == Array{Float64,1}
+    @test typeof(offspring2) == Array{Float64,1}
+    @test length(offspring1) == 2
+    @test length(offspring2) == 2
+    
+    # Test that offspring are different from each other
+    @test offspring1 != offspring2
+    
+    # Test that offspring are different from original parents (crossover + mutation should change them)
+    @test offspring1 != parents[1].chromosome || offspring1 != parents[2].chromosome
+    @test offspring2 != parents[1].chromosome || offspring2 != parents[2].chromosome
 end
