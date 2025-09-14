@@ -7,7 +7,7 @@ mutable struct FitnessFunction
 
 end
 
-function (ff::FitnessFunction)( chromosome::Vector )
+function (ff::FitnessFunction)( chromosome::AbstractArray )
     ff.calls_counter += 1
     return ff.fitness_function(chromosome)
 end
