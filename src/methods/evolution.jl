@@ -15,8 +15,7 @@ function evolution(population_in_castes, population_model)
         individual2 in alpha_reproduction_pool
         for offspring in create_new_individual(
             (individual1, individual2),
-            population_model.config_parameters,
-            ALPHA()
+            population_model.config_parameters.mutation_rate[ALPHA().name]
         )
     ]
     @info "New alpha individuals -> $(length(new_alpha_individuals))"
@@ -26,8 +25,7 @@ function evolution(population_in_castes, population_model)
         individual2 in beta_reproduction_pool
         for offspring in create_new_individual(
             (individual1, individual2),
-            population_model.config_parameters,
-            BETA()
+            population_model.config_parameters.mutation_rate[BETA().name]
         )
     ]
     @info "New beta individuals -> $(length(new_beta_individuals))"
@@ -49,9 +47,9 @@ function mutate_individual(chromosome, config_parameters, caste)
     return mutation_operator(chromosome, config_parameters.mutation_rate[caste.name])
 end
 
-function create_new_individual(parents, config_parameters, caste)
+function create_new_individual(parents, mutation_rate)
     offspring1, offspring2 = crossover_operator(parents)
-    offspring1_mutated = mutation_operator(offspring1, config_parameters.mutation_rate[caste.name])
-    offspring2_mutated = mutation_operator(offspring2, config_parameters.mutation_rate[caste.name])
+    offspring1_mutated = mutation_operator(offspring1, mutation_rate)
+    offspring2_mutated = mutation_operator(offspring2, mutation_rate)
     return offspring1_mutated, offspring2_mutated
 end
