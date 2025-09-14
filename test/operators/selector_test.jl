@@ -43,6 +43,7 @@ castes = hatchery(population_model, embryos)
         total_length = [length(tuple) for tuple in reproduction_pool]
         sum_total_length = sum(total_length)
         @test sum_total_length == length(castes[ALPHA()])
+        @test sum_total_length*2 == length(castes[BETA()])
     end
 
     @testset "Test selector_operator for lower castes" begin
