@@ -7,15 +7,14 @@ using Test
 
 @testset "create_new_individual" begin
     # Use higher mutation rate (50%) to ensure mutation happens with small chromosome size
-    config_parameters = ConfigurationParametersEntity(2, 1, 1, Dict{String, Int}(), Dict("ALPHA" => 50, "BETA" => 50, "GAMMA" => 50, "DELTA" => 50, "EPSILON" => 50))
-    population_model = PopulationModel(config_parameters, FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1]), (0.0, 1.0), (element, ff) -> element >= ff.f_opt + 1e-6)
+    test_mutation_rate = 50
 
     parents = (
         Individual([1.0, 2.0], 0.5, ALPHA()),
         Individual([3.0, 4.0], 0.8, ALPHA())
     )
 
-    offspring1, offspring2 = create_new_individual(parents, config_parameters.mutation_rate[ALPHA().name])
+    offspring1, offspring2 = create_new_individual(parents, test_mutation_rate)
 
     # Test that function returns two offspring arrays
     @test typeof(offspring1) == Array{Float64,1}
