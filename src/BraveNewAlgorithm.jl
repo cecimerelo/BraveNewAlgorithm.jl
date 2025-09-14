@@ -32,5 +32,5 @@ export
     include("methods/local_search.jl")
 
     # Export necessary functions from included files
-    export build_population_model, fertilising_room, hatchery, evolution, local_search
+    export build_population_model, fertilising_room, multiple_fertilising_room, hatchery, evolution, local_search, read_parameters_file
 end # module
