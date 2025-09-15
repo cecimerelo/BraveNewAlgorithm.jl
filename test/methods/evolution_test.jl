@@ -1,4 +1,3 @@
-using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 
 using Test
