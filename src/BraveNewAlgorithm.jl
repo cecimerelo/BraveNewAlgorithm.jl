@@ -21,12 +21,10 @@ export
     include("brave_new_algorithm.jl")
     include("utils.jl")
     include("commons.jl")
-    include("operators/crossover.jl")
-    include("operators/selector.jl")
     include("methods/hatchery.jl")
     include("methods/evolution.jl")
     include("methods/fertilising_room.jl")
-    include("methods/local_search.jl")
+
 
     # Export necessary functions from included files
     export build_population_model,
