@@ -1,9 +1,5 @@
 using .BraveNewAlgorithm
 
-include("../../src/commons.jl")
-include("../../src/operators/selector.jl")
-include("../../src/methods/fertilising_room.jl")
-
 using Test
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
