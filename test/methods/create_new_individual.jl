@@ -1,6 +1,3 @@
-using .BraveNewAlgorithm
-using BlackBoxOptimizationBenchmarking
-
 include("../../src/methods/evolution.jl")
 
 using Test
@@ -21,10 +18,10 @@ using Test
     @test typeof(offspring2) == Array{Float64,1}
     @test length(offspring1) == 2
     @test length(offspring2) == 2
-    
+
     # Test that offspring are different from each other
     @test offspring1 != offspring2
-    
+
     # Test that offspring are different from original parents (crossover + mutation should change them)
     @test offspring1 != parents[1].chromosome || offspring1 != parents[2].chromosome
     @test offspring2 != parents[1].chromosome || offspring2 != parents[2].chromosome
