@@ -20,10 +20,6 @@ castes = hatchery(population_model, embryos)
     @testset "Test selector_operator for ALPHA caste" begin
         reproduction_pool = selector_operator(ALPHA(), castes[ALPHA()])
 
-        @info "reproduction_pool -> $(typeof(reproduction_pool))"
-        @info "reproduction_pool -> $(typeof(reproduction_pool[1]))"
-        @info "reproduction_pool -> $(typeof(reproduction_pool[1][1]))"
-
         @test typeof(reproduction_pool) <: Vector{Tuple}
         @test typeof(reproduction_pool[1]) <: Tuple{Individual, Individual}
         @test typeof(reproduction_pool[1][1]) <: Individual

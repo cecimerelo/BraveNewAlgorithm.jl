@@ -10,26 +10,23 @@ function evolution(population_in_castes, population_model)
     @info "evolution -> $(typeof(alpha_reproduction_pool[1]))"
 
     new_alpha_individuals = [
-        offspring
-        for individual1 in alpha_reproduction_pool,
-        individual2 in alpha_reproduction_pool
-        for offspring in create_new_individual(
-            (individual1, individual2),
+        create_new_individual(
+            alpha_parents,
             population_model.config_parameters.mutation_rate[ALPHA().name]
         )
+        for alpha_parents in alpha_reproduction_pool for _ in 1:2
     ]
     @info "New alpha individuals -> $(length(new_alpha_individuals))"
 
     beta_reproduction_pool = selector_operator(BETA(), population_in_castes[BETA()], alpha_reproduction_pool)
     new_beta_individuals = [
-        offspring
-        for individual1 in beta_reproduction_pool,
-        individual2 in beta_reproduction_pool
-        for offspring in create_new_individual(
-            (individual1, individual2),
+        create_new_individual(
+            alpha_beta_parents,
             population_model.config_parameters.mutation_rate[BETA().name]
         )
+        for alpha_beta_parents in beta_reproduction_pool for _ in 1:2
     ]
+
     @info "New beta individuals -> $(length(new_beta_individuals))"
     lower_castes_mutated = vcat(
         [
@@ -37,12 +34,14 @@ function evolution(population_in_castes, population_model)
             for individual in population_in_castes[GAMMA()]
         ],
         [
-            mutate_individual(individual.chromosome, population_model.config_parameters, caste)
+            mutate_individual(individual.chromosome, population_model.config_parameters.mutation_rate[caste.name])
             for caste in [DELTA(), EPSILON()]
             for individual in population_in_castes[caste]
         ]
     )
     @info "Lower castes mutated -> $(length(lower_castes_mutated))"
+    @info "Lower castes mutated type -> $(typeof(lower_castes_mutated))"
+    @info "Lower castes mutated type -> $(typeof(lower_castes_mutated[1]))"
     return vcat(new_alpha_individuals, new_beta_individuals, lower_castes_mutated)
 end
 
@@ -51,8 +50,8 @@ function mutate_individual(chromosome, config_parameters, fitness_function, cast
     return local_search(mutated_chromosome, fitness_function, config_parameters.mutation_rate[caste.name], caste)
 end
 
-function mutate_individual(chromosome, config_parameters, caste)
-    return mutation_operator(chromosome, config_parameters.mutation_rate[caste.name])
+function mutate_individual(chromosome, mutation_probability)
+    return mutation_operator(chromosome, mutation_probability)
 end
 
 function create_new_individual(parents, mutation_rate)
