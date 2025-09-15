@@ -1,6 +1,5 @@
 include("../operators/selector.jl")
 include("../operators/crossover.jl")
-include("../operators/mutation.jl")
 include("../methods/local_search.jl")
 
 
