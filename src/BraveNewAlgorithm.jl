@@ -22,7 +22,6 @@ export
     include("utils.jl")
     include("commons.jl")
     include("operators/crossover.jl")
-    include("operators/mutation.jl")
     include("operators/selector.jl")
     include("methods/hatchery.jl")
     include("methods/evolution.jl")
