@@ -49,7 +49,6 @@ end
 
 function create_new_individual(parents, mutation_rate)
     offspring1, offspring2 = crossover_operator(parents)
-    @info "Mutation rate -> $(mutation_rate)"
     offspring1_mutated = mutation_operator(offspring1, mutation_rate)
     offspring2_mutated = mutation_operator(offspring2, mutation_rate)
     return offspring1_mutated, offspring2_mutated
