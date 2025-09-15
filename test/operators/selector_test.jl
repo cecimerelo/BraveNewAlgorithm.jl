@@ -20,8 +20,13 @@ castes = hatchery(population_model, embryos)
     @testset "Test selector_operator for ALPHA caste" begin
         reproduction_pool = selector_operator(ALPHA(), castes[ALPHA()])
 
-        @test eltype(reproduction_pool) == Tuple
-        @test eltype(reproduction_pool[1]) <: Individual
+        @info "reproduction_pool -> $(typeof(reproduction_pool))"
+        @info "reproduction_pool -> $(typeof(reproduction_pool[1]))"
+        @info "reproduction_pool -> $(typeof(reproduction_pool[1][1]))"
+
+        @test typeof(reproduction_pool) <: Vector{Tuple}
+        @test typeof(reproduction_pool[1]) <: Tuple{Individual, Individual}
+        @test typeof(reproduction_pool[1][1]) <: Individual
 
         total_length = [length(tuple) for tuple in reproduction_pool]
         sum_total_length = sum(total_length)
@@ -32,7 +37,7 @@ castes = hatchery(population_model, embryos)
         reproduction_pool = selector_operator(ALPHA(), castes[ALPHA()])
         beta_reproduction_pool = selector_operator(BETA(), castes[BETA()], reproduction_pool)
 
-        @test eltype(beta_reproduction_pool) == Tuple
+        @test typeof(beta_reproduction_pool) <: Vector{Tuple}
         @test beta_reproduction_pool[1][1].caste == ALPHA()
         @test beta_reproduction_pool[1][2].caste == BETA()
 

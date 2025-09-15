@@ -6,8 +6,8 @@ include("../methods/local_search.jl")
 function evolution(population_in_castes, population_model)
     @info "Population evolving"
     alpha_reproduction_pool = selector_operator(ALPHA(), population_in_castes[ALPHA()])
-    @info typeof(alpha_reproduction_pool)
-    @info typeof(alpha_reproduction_pool[1])
+    @info "evolution -> $(typeof(alpha_reproduction_pool))"
+    @info "evolution -> $(typeof(alpha_reproduction_pool[1]))"
 
     new_alpha_individuals = [
         offspring

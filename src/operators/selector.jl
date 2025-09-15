@@ -29,6 +29,10 @@ function selector_operator(caste::BETA, caste_population, alpha_reproduction_poo
         push!(selected, tuple)
     end
 
+    @info "beta selector_operator -> $(length(selected))"
+    @info "beta selector_operator -> $(typeof(selected))"
+    @info "beta selector_operator -> $(typeof(selected[1]))"
+    @info "beta selector_operator -> $(typeof(selected[1][1]))"
     return selected
 end
 
@@ -42,6 +46,10 @@ function build_reproduction_pool(caste_population)
         [
             binary_tournament(caste_population) for _ in 1:2
         ]
+    @info "build_reproduction_pool -> $(length(winners[1]))"
+    @info "build_reproduction_pool -> $(length(winners[2]))"
+    @info "build_reproduction_pool -> $(typeof(winners[1]))"
+    @info "build_reproduction_pool -> $(typeof(winners[1][1]))"
     return vcat(winners[1], winners[2])
 end
 
