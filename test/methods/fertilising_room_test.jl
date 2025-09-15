@@ -3,9 +3,6 @@ using .BraveNewAlgorithm
 using Test
 using BlackBoxOptimizationBenchmarking
 
-include("../../src/methods/fertilising_room.jl")
-include("../../src/utils.jl")
-
 config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
 fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]

@@ -1,13 +1,7 @@
 using .BraveNewAlgorithm
 
-include("../../src/methods/hatchery.jl")
-include("../../src/brave_new_algorithm.jl")
-include("../../src/commons.jl")
-include("../../src/utils.jl")
-include("../../src/methods/fertilising_room.jl")
-
-
 using Test
+using BlackBoxOptimizationBenchmarking
 
 POPULATION_SIZE_MISMATCHED = "The population divided in castes does not match the length of the initial population"
 

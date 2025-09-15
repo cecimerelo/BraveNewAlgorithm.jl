@@ -1,13 +1,8 @@
+using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 
 using Test
 
-include("../../src/utils.jl")
-include("../../src/methods/hatchery.jl")
-include("../../src/methods/evolution.jl")
-include("../../src/operators/selector.jl")
-include("../../src/operators/crossover.jl")
-include("../../src/methods/fertilising_room.jl")
 
 for config_file in ["config_file_1_test.json", "config_file_2_test.json", "config_file_3_test.json"]
     config_file_path = "./test/Config Files/$(config_file)"
