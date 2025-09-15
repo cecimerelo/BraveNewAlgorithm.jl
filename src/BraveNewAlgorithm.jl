@@ -19,8 +19,6 @@ export
     include("individual/fitness_function.jl")
     include("individual/population_model.jl")
     include("brave_new_algorithm.jl")
-
-    # Export all necessary types and functions from included files
     include("utils.jl")
     include("commons.jl")
     include("operators/crossover.jl")

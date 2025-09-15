@@ -7,7 +7,8 @@ include("../methods/local_search.jl")
 function evolution(population_in_castes, population_model)
     @info "Population evolving"
     alpha_reproduction_pool = selector_operator(ALPHA(), population_in_castes[ALPHA()])
-    beta_reproduction_pool = selector_operator(BETA(), population_in_castes[BETA()], alpha_reproduction_pool)
+    @info typeof(alpha_reproduction_pool)
+    @info typeof(alpha_reproduction_pool[1])
 
     new_alpha_individuals = [
         offspring
@@ -19,6 +20,8 @@ function evolution(population_in_castes, population_model)
         )
     ]
     @info "New alpha individuals -> $(length(new_alpha_individuals))"
+
+    beta_reproduction_pool = selector_operator(BETA(), population_in_castes[BETA()], alpha_reproduction_pool)
     new_beta_individuals = [
         offspring
         for individual1 in beta_reproduction_pool,
@@ -48,6 +51,9 @@ function mutate_individual(chromosome, config_parameters, caste)
 end
 
 function create_new_individual(parents, mutation_rate)
+    @info typeof(parents)
+    @info typeof(parents[1])
+    @info typeof(parents[2])
     offspring1, offspring2 = crossover_operator(parents)
     offspring1_mutated = mutation_operator(offspring1, mutation_rate)
     offspring2_mutated = mutation_operator(offspring2, mutation_rate)
