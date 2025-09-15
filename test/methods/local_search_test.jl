@@ -13,7 +13,7 @@ embryo = fertilising_room(population_model)
 
 
 @testset "Test local_search when called for GAMMA then improved chromosome returned" begin
-    new_chromosome = local_search(embryo.chromosome, population_model, GAMMA())
+    new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], GAMMA())
     @test typeof(new_chromosome) == Array{Float64,1}
     @test length(new_chromosome) == length(embryo.chromosome)
     @test population_model.fitness_function.calls_counter > 0
@@ -22,6 +22,6 @@ embryo = fertilising_room(population_model)
 end
 
 @testset "Test local_search when called for not GAMMA then same chromosome returned" begin
-    new_chromosome = local_search(embryo.chromosome, population_model, ALPHA())
+    new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[ALPHA().name], ALPHA())
     @test new_chromosome == embryo.chromosome
 end
