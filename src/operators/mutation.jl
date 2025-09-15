@@ -1,9 +1,10 @@
 """
     mutation_operator(offspring, mutation_percentage)
 
-Apply mutation to `offspring` based on `mutation_percentage`.
+Apply mutation to `offspring` based on `mutation_percentage`. The value of this should be between 0 and 100 (strict)
 """
 function mutation_operator(offspring, mutation_percentage)
+    (mutation_percentage < 100 && mutation_percentage > 0)|| throw(ArgumentError("Mutation percentage must be less than 100"))
     mutated_offspring = Array{Float64,1}()
     genes_to_mutate = floor(Int, mutation_percentage * length(offspring) / 100)
     indexes_to_mutate = rand(1:length(offspring), genes_to_mutate)
