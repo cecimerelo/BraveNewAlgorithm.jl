@@ -30,7 +30,7 @@ function evolution(population_in_castes, population_model)
     ]
     @info "New beta individuals -> $(length(new_beta_individuals))"
     lower_castes_mutated = [
-        mutate_individual(individual.chromosome, population_model.config_parameters, caste)
+        mutate_individual(individual.chromosome, population_model.config_parameters, population_model.fitness_function, caste)
         for caste in [GAMMA(), DELTA(), EPSILON()]
         for individual in population_in_castes[caste]
     ]
@@ -38,12 +38,12 @@ function evolution(population_in_castes, population_model)
     return vcat(new_alpha_individuals, new_beta_individuals, lower_castes_mutated)
 end
 
-function mutate_individual(chromosome, config_parameters, caste::GAMMA)
+function mutate_individual(chromosome, config_parameters, fitness_function, caste::GAMMA)
     mutated_chromosome = mutation_operator(chromosome, config_parameters.mutation_rate[caste.name])
-    return local_search(mutated_chromosome, population_model, caste)
+    return local_search(mutated_chromosome, fitness_function, config_parameters.mutation_rate[caste.name], caste)
 end
 
-function mutate_individual(chromosome, config_parameters, caste)
+function mutate_individual(chromosome, config_parameters, fitness_function, caste)
     return mutation_operator(chromosome, config_parameters.mutation_rate[caste.name])
 end
 
