@@ -20,12 +20,9 @@ population_in_castes = hatchery(population_model, embryos)
 
 @testset "Test hatchery when called then returns population divided in castes" begin
     @testset "Test when percentages sum 100" begin
-        castes = keys(population_in_castes)
-        @test ALPHA() in castes
-        @test BETA() in castes
-        @test GAMMA() in castes
-        @test DELTA() in castes
-        @test EPSILON() in castes
+        for caste in [ALPHA(), BETA(), GAMMA(), DELTA(), EPSILON()]
+            @test haskey(population_in_castes, caste)
+        end
 
         castes_length = [length(population) for (caste, population) in population_in_castes]
         total_length = sum(castes_length)
