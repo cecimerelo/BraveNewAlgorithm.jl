@@ -16,4 +16,9 @@ embryo = fertilising_room(population_model)
     for gene in embryo.chromosome
         (@test gene >= range[1] && gene <= range[2])
     end
+    @test embryo.f_value != 0
+    @test fitness_function.calls_counter == 1
+    @test typeof(embryo) <: Embryo
+    @test typeof(embryo.chromosome) <: Vector{Float64}
+    @test length(embryo.chromosome) == config_parameters_entity.chromosome_size
 end
