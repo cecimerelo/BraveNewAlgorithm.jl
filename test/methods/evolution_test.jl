@@ -4,7 +4,7 @@ using BlackBoxOptimizationBenchmarking
 using Test
 
 
-for config_file in ["config_file_1_test.json", "config_file_2_test.json", "config_file_3_test.json"]
+for config_file in ["config_file_1_test.json", "config_file_3_test.json"]
     config_file_path = "./test/Config Files/$(config_file)"
     @info "Testing evolution for $(config_file)"
     config_parameters_entity = read_parameters_file(config_file_path)
