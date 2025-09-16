@@ -1,5 +1,6 @@
 using .BraveNewAlgorithm
 
+using BlackBoxOptimizationBenchmarking
 using Test
 
 config_file_path = "./test/Config Files/config_file_1_test.json"

@@ -35,7 +35,7 @@ function read_parameters_file(file_path::String)
             percentage for (caste, percentage) in
             castes_percentages
         ]
-    @assert(sum(percentages) == 100, "The percentages should have sum 100")
+    @assert(sum(percentages) == 100, "The percentages should add up to 100")
 
     if (castes_percentages[alpha]*config_parameters[population_size]/100 % 2 != 0
         || castes_percentages[beta]*config_parameters[population_size]/100 % 2 != 0)
