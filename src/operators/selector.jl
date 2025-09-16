@@ -15,10 +15,6 @@ function selector_operator(caste::BETA, caste_population, alpha_reproduction_poo
     beta_reproduction_pool =  build_reproduction_pool(caste_population)
     alpha_reproduction_pool = from_array_of_tuples_to_array(alpha_reproduction_pool)
 
-    @assert(length(alpha_reproduction_pool) <= length(beta_reproduction_pool),
-            "Alpha population should be <= Beta population"
-        )
-
     reproductible_beta = sample(beta_reproduction_pool, length(alpha_reproduction_pool), replace=false)
 
     selected = Vector{Tuple}()

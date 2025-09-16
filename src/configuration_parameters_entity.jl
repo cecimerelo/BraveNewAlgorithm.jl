@@ -21,6 +21,8 @@ function read_parameters_file(file_path::String)
     @info "Reading parameters file"
     config_parameters = JSON.parsefile(file_path)
 
+    @assert( config_parameters[population_percentage][alpha] < config_parameters[population_percentage][beta], "Alpha population should be < Beta population")
+
     castes_percentages =
         Dict{String,Int}(
             alpha => config_parameters[population_percentage][alpha],
