@@ -30,6 +30,13 @@ function read_parameters_file(file_path::String)
             epsilon => config_parameters[population_percentage][epsilon]
         )
 
+    percentages =
+        [
+            percentage for (caste, percentage) in
+            castes_percentages
+        ]
+    @assert(sum(percentages) == 100, "The percentages should have sum 100")
+
     if (castes_percentages[alpha]*config_parameters[population_size]/100 % 2 != 0
         || castes_percentages[beta]*config_parameters[population_size]/100 % 2 != 0)
         error("Percentage by population divided by 100 needs to be even")

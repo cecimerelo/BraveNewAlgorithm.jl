@@ -5,12 +5,7 @@ sizes set on the configuration file
 using StatsBase
 
 function hatchery(population_model, embryos)
-    percentages =
-        [
-            percentage for (caste, percentage) in
-            population_model.config_parameters.castes_percentages
-        ]
-    @assert(sum(percentages) == 100, "The percentages should have sum 100")
+
     @info "Dividing the embryos in castes"
 
     embryos_length = length(embryos)
