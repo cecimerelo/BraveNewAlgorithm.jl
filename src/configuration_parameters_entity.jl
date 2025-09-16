@@ -35,11 +35,9 @@ function read_parameters_file(file_path::String)
         error("Percentage by population divided by 100 needs to be even")
     end
 
-    @info "Castes size $(castes_percentages[alpha]*config_parameters[population_size]/100)   $(castes_percentages[beta]*config_parameters[population_size]/100) $(castes_percentages[gamma]*config_parameters[population_size]/100) $(castes_percentages[delta]*config_parameters[population_size]/100) $(castes_percentages[epsilon]*config_parameters[population_size]/100)"
-
-    # the sum of all castes percentages multiplied by the population size needs to be equal to the population size
-    if (sum(castes_percentages.values)*config_parameters[population_size]/100 != config_parameters[population_size])
-        error("Population percentages by population need to add up to population size")
+    generated_population = map!(x -> round(Int, x*config_parameters[population_size]/100), values(castes_percentages))
+    if (sum(generated_population) != config_parameters[population_size])
+        error("Generated population will not match population size")
     end
 
     castes_mr =
