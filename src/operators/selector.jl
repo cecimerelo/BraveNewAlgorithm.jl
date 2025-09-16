@@ -44,8 +44,6 @@ function build_reproduction_pool(caste_population)
         [
             binary_tournament(caste_population) for _ in 1:2
         ]
-    @info "build_reproduction_pool -> $(length(winners[1]))"
-    @info "build_reproduction_pool -> $(length(winners[2]))"
 
     return vcat(winners[1], winners[2])
 end

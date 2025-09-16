@@ -17,6 +17,7 @@ function evolution(population_in_castes, population_model)
     @info "New alpha individuals -> $(length(new_alpha_individuals))"
 
     beta_reproduction_pool = selector_operator(BETA(), population_in_castes[BETA()], alpha_reproduction_pool)
+    @info "Beta reproduction pool -> $(length(beta_reproduction_pool))"
     new_beta_individuals = [
         create_new_individual(
             alpha_beta_parents,
