@@ -4,10 +4,8 @@ include("../methods/local_search.jl")
 
 
 function evolution(population_in_castes, population_model)
-    @info "Population evolving"
+    @info "\n\n→ Population evolving"
     alpha_reproduction_pool = selector_operator(ALPHA(), population_in_castes[ALPHA()])
-    @info "evolution -> $(typeof(alpha_reproduction_pool))"
-    @info "evolution -> $(typeof(alpha_reproduction_pool[1]))"
 
     new_alpha_individuals = [
         create_new_individual(
@@ -45,8 +43,7 @@ function evolution(population_in_castes, population_model)
         ]
     )
     @info "Lower castes mutated -> $(length(lower_castes_mutated))"
-    @info "Lower castes mutated type -> $(typeof(lower_castes_mutated))"
-    @info "Lower castes mutated type -> $(typeof(lower_castes_mutated[1]))"
+
     return vcat(new_alpha_individuals, new_beta_individuals, lower_castes_mutated)
 end
 
@@ -60,9 +57,6 @@ function mutate_individual(chromosome, mutation_probability)
 end
 
 function create_new_individual(parents, mutation_rate)
-    @info typeof(parents)
-    @info typeof(parents[1])
-    @info typeof(parents[2])
     offspring1, offspring2 = crossover_operator(parents)
     offspring1_mutated = mutation_operator(offspring1, mutation_rate)
     offspring2_mutated = mutation_operator(offspring2, mutation_rate)
