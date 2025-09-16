@@ -30,5 +30,8 @@ export
     local_search,
     read_parameters_file,
     calculate_edit_distance,
-    selector_operator
+    crossover_operator,
+    mutation_operator,
+    selector_operator,
+    create_new_individual
 end # module

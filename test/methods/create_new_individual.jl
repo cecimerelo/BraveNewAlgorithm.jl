@@ -1,4 +1,4 @@
-include("../../src/methods/evolution.jl")
+using .BraveNewAlgorithm
 
 using Test
 
