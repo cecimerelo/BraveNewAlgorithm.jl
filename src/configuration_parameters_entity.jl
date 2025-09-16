@@ -42,7 +42,7 @@ function read_parameters_file(file_path::String)
         error("Percentage by population divided by 100 needs to be even")
     end
 
-    generated_population = map!(x -> round(Int, x*config_parameters[population_size]/100), values(castes_percentages))
+    generated_population = map(x -> round(Int, x*config_parameters[population_size]/100), values(castes_percentages))
     if (sum(generated_population) != config_parameters[population_size])
         error("Generated population will not match population size")
     end
@@ -55,6 +55,8 @@ function read_parameters_file(file_path::String)
             delta => config_parameters[mutation_rate][delta],
             epsilon => config_parameters[mutation_rate][epsilon]
         )
+
+    @info "Configuration parameters read: $(castes_percentages)"
 
     return ConfigurationParametersEntity(
         config_parameters[chromosome_size], config_parameters[population_size],
