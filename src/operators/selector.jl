@@ -41,6 +41,7 @@ function selector_operator(caste, caste_population)
 end
 
 function build_reproduction_pool(caste_population)
+    @info "build_reproduction_pool caste_population length -> $(length(caste_population))"
     caste_population = Shuffle.shuffle(caste_population)
     winners =
         [

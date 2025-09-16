@@ -29,5 +29,6 @@ export
     evolution,
     local_search,
     read_parameters_file,
-    calculate_edit_distance
+    calculate_edit_distance,
+    selector_operator
 end # module
