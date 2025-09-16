@@ -21,10 +21,13 @@ end
 function get_number_of_embryos_for_each_caste(embryos, population_model)
     embryos_for_each_caste = Dict{String, Int}()
     config_parameters = population_model.config_parameters
-
+    @info config_parameters.castes_percentages
+    number_of_embryos = length(embryos)
+    @info "get_number_of_embryos_for_each_caste embryos -> $(number_of_embryos)"
     for (caste, percentage) in config_parameters.castes_percentages
-        elements_in_caste = round(Int, (percentage * length(embryos)) / 100)
-        @info "$(caste) -> $(percentage)%, elements in caste -> $(elements_in_caste)"
+        @info "get_number_of_embryos_for_each_caste $(caste) -> $(percentage)%, embryos -> $(number_of_embryos)"
+        elements_in_caste = round(Int, (percentage * number_of_embryos) / 100)
+        @info "get_number_of_embryos_for_each_caste $(caste) -> $(percentage)%, elements in caste -> $(elements_in_caste)"
         embryos_for_each_caste[caste] = elements_in_caste
     end
 

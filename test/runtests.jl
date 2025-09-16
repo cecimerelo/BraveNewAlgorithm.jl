@@ -3,12 +3,12 @@ Pkg.activate(".")
 
 include("../src/BraveNewAlgorithm.jl")
 
-# include("configuration_parameters_entity_test.jl")
+include("configuration_parameters_entity_test.jl")
 # include("methods/evolution_test.jl")
 # include("methods/create_new_individual.jl")
 # include("methods/from_genes_to_embryo_test.jl")
 # include("methods/hatchery_test.jl")
-include("methods/fertilising_room_test.jl")
+# include("methods/fertilising_room_test.jl")
 # include("methods/local_search_test.jl")
 
 # include("operators/crossover_test.jl")
