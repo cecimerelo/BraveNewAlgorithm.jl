@@ -11,17 +11,9 @@ population system to maintain exploration/exploitation balance.
 using Pkg
 Pkg.activate(".")
 
-# Load the BraveNewAlgorithm module
-include("../src/BraveNewAlgorithm.jl")
-using .BraveNewAlgorithm
+using BraveNewAlgorithm
 
-# Load required dependencies
-using BlackBoxOptimizationBenchmarking
 using JSON
-
-# Include utility functions
-include("../src/utils.jl")
-include("../src/commons.jl")
 
 function main()
     println("=== BraveNewAlgorithm.jl Usage Example ===\n")
