@@ -29,11 +29,11 @@ function simple_test()
             10,                   # population_size (small for fast testing)
             5,                    # max_generations (small for fast testing)
             Dict{String, Int}(    # caste percentages
-                "ALPHA" => 20,
+                "ALPHA" => 10,
                 "BETA" => 20,
                 "GAMMA" => 20,
                 "DELTA" => 20,
-                "EPSILON" => 20
+                "EPSILON" => 30
             ),
             Dict{String, Int}(    # mutation rates
                 "ALPHA" => 10,
