@@ -36,11 +36,11 @@ function simple_test()
                 "EPSILON" => 30
             ),
             Dict{String, Int}(    # mutation rates
-                "ALPHA" => 10,
-                "BETA" => 10,
-                "GAMMA" => 10,
-                "DELTA" => 10,
-                "EPSILON" => 10
+                "ALPHA" => 40,
+                "BETA" => 40,
+                "GAMMA" => 40,
+                "DELTA" => 40,
+                "EPSILON" => 40
             )
         )
 
