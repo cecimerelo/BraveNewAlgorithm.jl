@@ -26,11 +26,11 @@ function simple_test()
         # Create minimal configuration
         config_parameters = ConfigurationParametersEntity(
             3,                    # chromosome_size (small for fast testing)
-            10,                   # population_size (small for fast testing)
+            20,                   # population_size (changed to 20 for even division)
             5,                    # max_generations (small for fast testing)
             Dict{String, Int}(    # caste percentages
-                "ALPHA" => 10,
-                "BETA" => 20,
+                "ALPHA" => 10,    # 10% of 20 = 2 (even)
+                "BETA" => 20,     # 20% of 20 = 4 (even)
                 "GAMMA" => 20,
                 "DELTA" => 20,
                 "EPSILON" => 30
