@@ -24,5 +24,9 @@ for config_file in ["config_file_1_test.json", "config_file_3_test.json"]
         new_generation = evolution(population_in_castes, population_model)
 
         @test length(new_generation) == population_model.config_parameters.population_size
+        # for every element of new_generation, test that it's a chromosome
+        for individual in new_generation
+            @test typeof(individual) <: Vector{Float64}
+        end
     end
 end

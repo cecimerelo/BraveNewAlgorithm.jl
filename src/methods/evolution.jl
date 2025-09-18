@@ -12,9 +12,13 @@ function evolution(population_in_castes, population_model)
             alpha_parents,
             population_model.config_parameters.mutation_rate[ALPHA().name]
         )
-        for alpha_parents in alpha_reproduction_pool for _ in 1:2
+        for alpha_parents in alpha_reproduction_pool
     ]
     @info "New alpha individuals -> $(length(new_alpha_individuals))"
+
+    for individual in new_alpha_individuals
+        @info "alpha typeof(individual) -> $(typeof(individual))"
+    end
 
     beta_reproduction_pool = selector_operator(BETA(), population_in_castes[BETA()], alpha_reproduction_pool)
     @info "Beta reproduction pool -> $(length(beta_reproduction_pool))"
@@ -23,8 +27,12 @@ function evolution(population_in_castes, population_model)
             alpha_beta_parents,
             population_model.config_parameters.mutation_rate[BETA().name]
         )
-        for alpha_beta_parents in beta_reproduction_pool for _ in 1:2
+        for alpha_beta_parents in beta_reproduction_pool
     ]
+
+    for individual in new_beta_individuals
+        @info "beta typeof(individual) -> $(typeof(individual))"
+    end
 
     @info "New beta individuals -> $(length(new_beta_individuals))"
     lower_castes_mutated = vcat(
@@ -45,7 +53,9 @@ function evolution(population_in_castes, population_model)
     )
     @info "Lower castes mutated -> $(length(lower_castes_mutated))"
 
-    return vcat(new_alpha_individuals, new_beta_individuals, lower_castes_mutated)
+    return [ collect(Iterators.flatten(new_alpha_individuals));
+        collect(Iterators.flatten(new_beta_individuals));
+        lower_castes_mutated ]
 end
 
 function mutate_individual(chromosome, mutation_probability, fitness_function, caste::GAMMA)
