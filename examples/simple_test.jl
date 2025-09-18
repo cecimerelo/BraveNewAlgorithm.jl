@@ -26,8 +26,8 @@ function simple_test()
         # Create minimal configuration
         config_parameters = ConfigurationParametersEntity(
             3,                    # chromosome_size (small for fast testing)
-            10,                   # population_size (small for fast testing)
-            5,                    # max_generations (small for fast testing)
+            100,                   # population_size (small for fast testing)
+            15,                    # max_generations w/o change
             Dict{String, Int}(    # caste percentages
                 "ALPHA" => 10,
                 "BETA" => 20,
