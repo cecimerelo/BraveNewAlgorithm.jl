@@ -18,7 +18,7 @@ embryo = fertilising_room(population_model)
     @test length(new_chromosome) == length(embryo.chromosome)
     @test population_model.fitness_function.calls_counter > 0
     new_embryo = Embryo(new_chromosome, population_model.fitness_function)
-    @test new_embryo.f_value <= embryo.f_value
+    @test new_embryo.f_value < embryo.f_value
 end
 
 @testset "Test local_search when called for not GAMMA then same chromosome returned" begin
