@@ -14,14 +14,8 @@ function evolution(population_in_castes, population_model)
         )
         for alpha_parents in alpha_reproduction_pool
     ]
-    @info "New alpha individuals -> $(length(new_alpha_individuals))"
-
-    for individual in new_alpha_individuals
-        @info "alpha typeof(individual) -> $(typeof(individual))"
-    end
 
     beta_reproduction_pool = selector_operator(BETA(), population_in_castes[BETA()], alpha_reproduction_pool)
-    @info "Beta reproduction pool -> $(length(beta_reproduction_pool))"
     new_beta_individuals = [
         create_new_individual(
             alpha_beta_parents,
@@ -30,11 +24,6 @@ function evolution(population_in_castes, population_model)
         for alpha_beta_parents in beta_reproduction_pool
     ]
 
-    for individual in new_beta_individuals
-        @info "beta typeof(individual) -> $(typeof(individual))"
-    end
-
-    @info "New beta individuals -> $(length(new_beta_individuals))"
     lower_castes_mutated = vcat(
         [
             mutate_individual(
@@ -51,7 +40,6 @@ function evolution(population_in_castes, population_model)
             for individual in population_in_castes[caste]
         ]
     )
-    @info "Lower castes mutated -> $(length(lower_castes_mutated))"
 
     return [ collect(Iterators.flatten(new_alpha_individuals));
         collect(Iterators.flatten(new_beta_individuals));

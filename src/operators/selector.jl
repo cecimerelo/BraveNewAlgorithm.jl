@@ -25,7 +25,6 @@ function selector_operator(caste::BETA, caste_population, alpha_reproduction_poo
         push!(selected, tuple)
     end
 
-    @info "beta selector_operator -> $(length(selected))"
     return selected
 end
 
@@ -34,7 +33,6 @@ function selector_operator(caste, caste_population)
 end
 
 function build_reproduction_pool(caste_population)
-    @info "build_reproduction_pool caste_population length -> $(length(caste_population))"
     caste_population = Shuffle.shuffle(caste_population)
     winners =
         [
