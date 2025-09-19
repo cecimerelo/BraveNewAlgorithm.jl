@@ -3,9 +3,8 @@ using BlackBoxOptimizationBenchmarking
 using Test
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
-fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
-range = (-5.12, 5.12)
 fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
+range = (-5.12, 5.12)
 
 @testset "Test that Embryo is created with correct values" begin
     ff_called = 0
