@@ -33,5 +33,6 @@ export
     crossover_operator,
     mutation_operator,
     selector_operator,
-    create_new_individual
+    create_new_individual,
+    generate_chromosome
 end # module
