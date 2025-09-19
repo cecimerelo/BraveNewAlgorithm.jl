@@ -3,7 +3,6 @@ using BlackBoxOptimizationBenchmarking
 using Test
 
 config_file_path = "./test/Config Files/config_file_1_test.json"
-chromosome = rand(10)
 fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
 range = (-5.12, 5.12)
 fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
