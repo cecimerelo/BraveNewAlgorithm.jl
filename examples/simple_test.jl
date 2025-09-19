@@ -27,7 +27,7 @@ function simple_test()
         config_parameters = ConfigurationParametersEntity(
             3,                    # chromosome_size (small for fast testing)
             1000,                   # population_size (small for fast testing)
-            1000,                    # max_generations w/o change
+            100,                    # max_generations w/o change
             Dict{String, Int}(    # caste percentages
                 "ALPHA" => 10,
                 "BETA" => 20,
@@ -47,6 +47,8 @@ function simple_test()
         # Set up fitness function
         fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
         range = (-5.0, 5.0)
+        @info "Fitness function: $(fitness_function.fitness_function)"
+        @info "Fitness function optimal value: $(fitness_function.fitness_function.f_opt)"
         comparator = (element, ff) -> element >= ff.f_opt + 1e-6
 
         # Create population model
