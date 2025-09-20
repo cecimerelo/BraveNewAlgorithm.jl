@@ -17,13 +17,6 @@ embryos = [
         for _ in 1:population_model.config_parameters.population_size
     ]
 population_in_castes = hatchery(population_model, embryos)
-# show f_values of every member of the population
-for (caste, population) in population_in_castes
-    println("Caste: $(caste.name)")
-    for individual in population
-        println("   $(individual.f_value)")
-    end
-end
 
 @testset "Test hatchery when called then returns population divided in castes" begin
     @testset "Test when percentages sum 100" begin
