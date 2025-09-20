@@ -1,6 +1,6 @@
 include("../operators/mutation.jl")
 
-const MAX_LOCAL_SEARCH_ITERATIONS = 5
+const MAX_LOCAL_SEARCH_ITERATIONS = 10
 function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA)
     embryo = Embryo(offspring, fitness_function)
     f_value = embryo.f_value
