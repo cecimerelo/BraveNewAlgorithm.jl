@@ -15,10 +15,6 @@ using .BraveNewAlgorithm
 # Load required dependencies
 using BlackBoxOptimizationBenchmarking
 
-# Include utility functions
-include("../src/utils.jl")
-include("../src/commons.jl")
-
 function simple_test()
     println("Testing BraveNewAlgorithm basic functionality...")
 
