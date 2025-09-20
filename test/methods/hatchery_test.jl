@@ -50,8 +50,8 @@ end
             @test population[1].f_value <= population[end].f_value
         end
         @test population_in_castes[ALPHA()][end].f_value <= population_in_castes[BETA()][1].f_value
-        @test population_in_castes[BETA()][end].f_value <= population_in_castes[GAMMA()][1].f_value
-        @test population_in_castes[GAMMA()][end].f_value <= population_in_castes[DELTA()][1].f_value
+        @test population_in_castes[BETA()][end].f_value <= population_in_castes[DELTA()][1].f_value
         @test population_in_castes[DELTA()][end].f_value <= population_in_castes[EPSILON()][1].f_value
+        @test population_in_castes[EPSILON()][end].f_value <= population_in_castes[GAMMA()][1].f_value
     end
 end

@@ -26,6 +26,11 @@ function evolution(population_in_castes, population_model)
 
     lower_castes_mutated = vcat(
         [
+            mutate_individual(individual.chromosome, population_model.config_parameters.mutation_rate[caste.name])
+            for caste in [DELTA(), EPSILON()]
+            for individual in population_in_castes[caste]
+        ],
+        [
             mutate_individual(
                 individual.chromosome,
                 population_model.config_parameters.mutation_rate[GAMMA().name],
@@ -33,11 +38,6 @@ function evolution(population_in_castes, population_model)
                 GAMMA()
             )
             for individual in population_in_castes[GAMMA()]
-        ],
-        [
-            mutate_individual(individual.chromosome, population_model.config_parameters.mutation_rate[caste.name])
-            for caste in [DELTA(), EPSILON()]
-            for individual in population_in_castes[caste]
         ]
     )
 
