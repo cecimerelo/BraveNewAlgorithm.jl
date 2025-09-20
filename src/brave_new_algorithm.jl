@@ -37,9 +37,17 @@ function brave_new_algorithm(population_model::PopulationModel)
         @info "New embryos population -> $(length(new_embryos_population))"
         new_best_element = best_element_of_population(new_embryos_population)
 
+        # show f_values of every member of the population
+        for (caste, population) in population_in_castes
+            println("Caste: $(caste.name)")
+            for individual in population
+                println("   $(individual.f_value)")
+            end
+        end
+
         if new_best_element.f_value >= best_element.f_value
             generations_with_the_same_best_element = generations_with_the_same_best_element + 1
-            @warn "Best element has not changed"
+            @warn "Best element has not improved"
         else
             generations_with_the_same_best_element = 0
             best_element = new_best_element
