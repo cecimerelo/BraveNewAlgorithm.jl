@@ -34,16 +34,7 @@ function brave_new_algorithm(population_model::PopulationModel)
         population_in_castes = hatchery(population_model, embryos)
         new_chromosomes = evolution(population_in_castes, population_model)
         new_embryos_population = [Embryo(chromosome, population_model.fitness_function) for chromosome in new_chromosomes]
-        @info "New embryos population -> $(length(new_embryos_population))"
         new_best_element = best_element_of_population(new_embryos_population)
-
-        # show f_values of every member of the population
-        for (caste, population) in population_in_castes
-            println("Caste: $(caste.name)")
-            for individual in population
-                println("   $(individual.f_value)")
-            end
-        end
 
         if new_best_element.f_value >= best_element.f_value
             generations_with_the_same_best_element = generations_with_the_same_best_element + 1
