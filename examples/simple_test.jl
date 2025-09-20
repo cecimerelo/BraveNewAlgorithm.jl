@@ -26,14 +26,14 @@ function simple_test()
         # Create minimal configuration
         config_parameters = ConfigurationParametersEntity(
             3,                    # chromosome_size (small for fast testing)
-            100,                   # population_size (small for fast testing)
+            200,                   # population_size (small for fast testing)
             10,                    # max_generations w/o change
             Dict{String, Int}(    # caste percentages
-                "ALPHA" => 20,
-                "BETA" => 40,
-                "GAMMA" => 20,
-                "DELTA" => 10,
-                "EPSILON" => 10
+                "ALPHA" => 25,
+                "BETA" => 50,
+                "GAMMA" => 15,
+                "DELTA" => 5,
+                "EPSILON" => 5
             ),
             Dict{String, Int}(    # mutation rates
                 "ALPHA" => 40,
@@ -73,6 +73,8 @@ function simple_test()
         println("✅ Test passed!")
         println("   Completed generations: $generation")
         println("   Best fitness: $(round(best_fitness, digits=6))")
+        println("   Best chromosome: $(best_element.chromosome)")
+        println("   Target fitness: $(fitness_function.fitness_function.f_opt)")
         println("   Function evaluations: $(fitness_function.calls_counter)")
 
         return true
