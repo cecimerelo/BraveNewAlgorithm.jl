@@ -23,10 +23,6 @@ struct Embryo{T<:AbstractArray,N<:Real}
     Embryo(chromosome::T, f_value::N) where {T<: AbstractArray, N<:Real} = new{T,N}(chromosome, f_value)
     function Embryo(chromosome::T, ff::FitnessFunction) where {T<: AbstractArray}
         f_val::Float64 = ff(chromosome)
-        if f_val < 0
-            @warn "Fitness value is negative -> $(f_val)"
-            @info "Chromosome -> $(chromosome), Fitness Function -> $(ff)"
-        end
         new{T,Float64}(chromosome, f_val)
     end
 end
