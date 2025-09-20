@@ -15,15 +15,15 @@ using .BraveNewAlgorithm
 # Load required dependencies
 using BlackBoxOptimizationBenchmarking
 
-function simple_test()
+function simple_test(problem_dimensions, population_size, max_generations)
     println("Testing BraveNewAlgorithm basic functionality...")
 
     try
         # Create minimal configuration
         config_parameters = ConfigurationParametersEntity(
-            3,                    # chromosome_size (small for fast testing)
-            200,                   # population_size (small for fast testing)
-            10,                    # max_generations w/o change
+            problem_dimensions,                    # chromosome_size (small for fast testing)
+            population_size,                   # population_size (small for fast testing)
+            max_generations,                    # max_generations w/o change
             Dict{String, Int}(    # caste percentages
                 "ALPHA" => 25,
                 "BETA" => 50,
@@ -83,7 +83,10 @@ end
 
 # Run test if script is executed directly
 if abspath(PROGRAM_FILE) == @__FILE__
-    success = simple_test()
+    problem_dimensions = length(ARGS) > 0 ? parse(Int, ARGS[1]) : 3
+    population_size = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 200
+    max_generations = length(ARGS) > 2 ? parse(Int, ARGS[3]) : 10
+    success = simple_test(problem_dimensions, population_size, max_generations)
     if success
         println("\n🎉 Algorithm is working correctly!")
     else
