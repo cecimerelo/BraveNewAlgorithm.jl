@@ -9,7 +9,7 @@ range = (-5.12, 5.12)
 @testset "Test that Embryo is created with correct values" begin
     ff_called = 0
     for size in [2, 3, 5, 10, 20, 40]
-        for j in 1:10
+        for j in 1:1000
             chromosome = generate_chromosome(range, size)
             embryo = Embryo(chromosome, fitness_function)
             @test typeof(embryo) <: Embryo
