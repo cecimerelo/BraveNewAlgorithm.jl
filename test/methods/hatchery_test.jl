@@ -17,6 +17,13 @@ embryos = [
         for _ in 1:population_model.config_parameters.population_size
     ]
 population_in_castes = hatchery(population_model, embryos)
+# show f_values of every member of the population
+for (caste, population) in population_in_castes
+    println("Caste: $(caste.name)")
+    for individual in population
+        println("   $(individual.f_value)")
+    end
+end
 
 @testset "Test hatchery when called then returns population divided in castes" begin
     @testset "Test when percentages sum 100" begin
@@ -36,5 +43,15 @@ population_in_castes = hatchery(population_model, embryos)
         ]
         castes = Dict("ALPHA" => [embryos[1], embryos[2]])
         @test_throws AssertionError(POPULATION_SIZE_MISMATCHED) assert_population_divided_in_castes_match_initial_population_size(castes, 10)
+    end
+
+    @testset "Test that the fitness value of the embryos is in descending order by castes" begin
+        for (caste, population) in population_in_castes
+            @test population[1].f_value <= population[end].f_value
+        end
+        @test population_in_castes[ALPHA()][end].f_value <= population_in_castes[BETA()][1].f_value
+        @test population_in_castes[BETA()][end].f_value <= population_in_castes[GAMMA()][1].f_value
+        @test population_in_castes[GAMMA()][end].f_value <= population_in_castes[DELTA()][1].f_value
+        @test population_in_castes[DELTA()][end].f_value <= population_in_castes[EPSILON()][1].f_value
     end
 end
