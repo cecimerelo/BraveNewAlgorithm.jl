@@ -73,7 +73,6 @@ function simple_test()
         println("✅ Test passed!")
         println("   Completed generations: $generation")
         println("   Best fitness: $(round(best_fitness, digits=6))")
-        println("   Best chromosome: $(best_element.chromosome)")
         println("   Target fitness: $(fitness_function.fitness_function.f_opt)")
         println("   Function evaluations: $(fitness_function.calls_counter)")
 
