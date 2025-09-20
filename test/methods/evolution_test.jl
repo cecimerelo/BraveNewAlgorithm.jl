@@ -19,6 +19,14 @@ for config_file in ["config_file_1_test.json", "config_file_3_test.json"]
     ]
 
     population_in_castes = hatchery(population_model, embryos)
+    best_element_fitness = best_element_of_population(embryos).f_value
+    # show f_values of every member of the population
+    for (caste, population) in population_in_castes
+        println("Caste: $(caste.name)")
+        for individual in population
+            println("   $(individual.f_value)")
+        end
+    end
 
     @testset "Test evolution when called then new population returned for $(config_file)" begin
         new_generation = evolution(population_in_castes, population_model)
@@ -28,5 +36,24 @@ for config_file in ["config_file_1_test.json", "config_file_3_test.json"]
         for individual in new_generation
             @test typeof(individual) <: Vector{Float64}
         end
+
+        new_embryos_population = [Embryo(chromosome, population_model.fitness_function) for chromosome in new_generation]
+        population_in_castes = hatchery(population_model, new_embryos_population)
+
+        # show f_values of every member of the population
+        for (caste, population) in population_in_castes
+            println("Caste: $(caste.name)")
+            for individual in population
+                println("   $(individual.f_value)")
+            end
+        end
+
+        @test population_in_castes[ALPHA()][end].f_value <= population_in_castes[BETA()][1].f_value
+        @test population_in_castes[BETA()][end].f_value <= population_in_castes[DELTA()][1].f_value
+        @test population_in_castes[DELTA()][end].f_value <= population_in_castes[EPSILON()][1].f_value
+        @test population_in_castes[EPSILON()][end].f_value <= population_in_castes[GAMMA()][1].f_value
+
+        new_best_element_fitness = best_element_of_population(new_embryos_population).f_value
+        @test new_best_element_fitness <= best_element_fitness
     end
 end
