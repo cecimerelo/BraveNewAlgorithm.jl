@@ -39,11 +39,13 @@ for my $t ( qw(3  ) ) {
             my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
             push @results, [$pkg,$seconds,$generations, $target_fitness-$best_fitness , $evaluations];
           }
-    } while ( $successful < $ITERATIONS );
+        } while ( $successful < $ITERATIONS );
 
-    foreach  my $row (@results) {
-      say join(", ", @$row);
-      say $fh "$function, $t, $l, $max_gens, $alpha, ", join(", ", @$row);
+        foreach  my $row (@results) {
+          say join(", ", @$row);
+          say $fh "$function, $t, $l, $max_gens, $alpha, ", join(", ", @$row);
+        }
+      }
     }
   }
 }
