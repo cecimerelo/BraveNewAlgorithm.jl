@@ -15,7 +15,7 @@ using .BraveNewAlgorithm
 # Load required dependencies
 using BlackBoxOptimizationBenchmarking
 
-function simple_test(problem_dimensions, population_size, max_generations)
+function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage)
     println("Testing BraveNewAlgorithm basic functionality...")
 
     try
@@ -25,9 +25,9 @@ function simple_test(problem_dimensions, population_size, max_generations)
             population_size,                   # population_size (small for fast testing)
             max_generations,                    # max_generations w/o change
             Dict{String, Int}(    # caste percentages
-                "ALPHA" => 25,
-                "BETA" => 50,
-                "GAMMA" => 15,
+                "ALPHA" => alpha_percentage,
+                "BETA" => alpha_percentage*2,
+                "GAMMA" => 90-alpha_percentage*3,
                 "DELTA" => 5,
                 "EPSILON" => 5
             ),
@@ -86,7 +86,8 @@ if abspath(PROGRAM_FILE) == @__FILE__
     problem_dimensions = length(ARGS) > 0 ? parse(Int, ARGS[1]) : 3
     population_size = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 200
     max_generations = length(ARGS) > 2 ? parse(Int, ARGS[3]) : 10
-    success = simple_test(problem_dimensions, population_size, max_generations)
+    alpha_percentage = length(ARGS) > 3 ? parse(Int, ARGS[4]) : 25
+    success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage)
     if success
         println("\n🎉 Algorithm is working correctly!")
     else
