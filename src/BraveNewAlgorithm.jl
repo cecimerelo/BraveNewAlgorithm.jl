@@ -24,6 +24,7 @@ export
     # Export necessary functions from included files
     export build_population_model,
     fertilising_room,
+    multiple_fertilising_room,
     hatchery,
     assert_population_divided_in_castes_match_initial_population_size,
     evolution,
