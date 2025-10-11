@@ -1,10 +1,5 @@
 using .BraveNewAlgorithm
 
-include("../../src/utils.jl")
-include("../../src/operators/crossover.jl")
-include("../../src/operators/mutation.jl")
-include("../../src/methods/fertilising_room.jl")
-
 using Test
 using BlackBoxOptimizationBenchmarking
 

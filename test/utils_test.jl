@@ -1,9 +1,6 @@
 using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 
-include("../src/utils.jl")
-include("../src/methods/fertilising_room.jl")
-
 using Test
 
 @testset "Utils Module Test" begin

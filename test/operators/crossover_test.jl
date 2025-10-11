@@ -1,10 +1,6 @@
 using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 
-include("../../src/utils.jl")
-include("../../src/operators/crossover.jl")
-include("../../src/methods/fertilising_room.jl")
-
 using Test
 
 config_file_path = "./test/Config Files/config_file_1_test.json"

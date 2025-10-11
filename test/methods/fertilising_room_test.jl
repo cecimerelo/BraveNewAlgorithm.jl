@@ -3,9 +3,6 @@ using .BraveNewAlgorithm
 using Test
 using BlackBoxOptimizationBenchmarking
 
-include("../../src/methods/fertilising_room.jl")
-include("../../src/utils.jl")
-
 config_file_path = "./test/Config Files/config_file_1_test.json"
 config_parameters_entity = read_parameters_file(config_file_path)
 fitness_function = BlackBoxOptimizationBenchmarking.BBOBFunctions[1]
@@ -52,4 +49,9 @@ end
     initial_calls = ff.calls_counter
     ff(@view test_genes[:, 3])
     @test ff.calls_counter == initial_calls + 1
+    @test embryo.f_value != 0
+    @test fitness_function.calls_counter == 1
+    @test typeof(embryo) <: Embryo
+    @test typeof(embryo.chromosome) <: Vector{Float64}
+    @test length(embryo.chromosome) == config_parameters_entity.chromosome_size
 end

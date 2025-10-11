@@ -5,12 +5,7 @@ sizes set on the configuration file
 using StatsBase
 
 function hatchery(population_model, embryos)
-    percentages =
-        [
-            percentage for (caste, percentage) in
-            population_model.config_parameters.castes_percentages
-        ]
-    @assert(sum(percentages) == 100, "The percentages should have sum 100")
+
     @info "Dividing the embryos in castes"
 
     embryos_length = length(embryos)
@@ -26,10 +21,9 @@ end
 function get_number_of_embryos_for_each_caste(embryos, population_model)
     embryos_for_each_caste = Dict{String, Int}()
     config_parameters = population_model.config_parameters
-
+    number_of_embryos = length(embryos)
     for (caste, percentage) in config_parameters.castes_percentages
-        elements_in_caste = round(Int, (percentage * length(embryos)) / 100)
-        @info "$(caste) -> $(percentage)%, elements in caste -> $(elements_in_caste)"
+        elements_in_caste = round(Int, (percentage * number_of_embryos) / 100)
         embryos_for_each_caste[caste] = elements_in_caste
     end
 
@@ -43,7 +37,7 @@ end
 
 function divide_embryos_in_castes(embryos, embryos_for_each_caste)
     population_in_castes = Dict{Caste, Vector{Individual}}()
-    CASTES = [ALPHA(), BETA(), GAMMA(), DELTA(), EPSILON()]
+    CASTES = [ALPHA(), BETA(), DELTA(), EPSILON(), GAMMA()]
 
     caste_counter = 1
     for caste in CASTES

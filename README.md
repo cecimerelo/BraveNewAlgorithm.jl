@@ -2,7 +2,18 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-A metaheuristic optimization algorithm inspired by Aldous Huxley's "Brave New World" and its caste system. This algorithm improves the exploration/exploitation balance of population-based metaheuristics by using different castes with distinct roles in the evolutionary process.
+A metaheuristic optimization algorithm inspired by Aldous Huxley's "Brave New
+World" and its caste system. This algorithm improves the
+exploration/exploitation balance of population-based metaheuristics by using
+different castes with distinct roles in the evolutionary process.
+
+Among other things, this repository contains data for the experiments performed
+for the WALCOM 26 conference; check out the [`data/`](data/) subdirectory. We
+used the [`examples/BBOB_sphere.jl`](examples/BBOB_sphere.jl) script, that
+optimizes BBOB's `Sphere` function, for these experiments, run from the
+[`scripts`](scripts/) directory that includes measurement using the `pinpoint`
+tool.
+
 
 ## 🚀 Quick Start
 
