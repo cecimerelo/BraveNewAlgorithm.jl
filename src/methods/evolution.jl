@@ -35,7 +35,8 @@ function evolution(population_in_castes, population_model)
                 individual.chromosome,
                 population_model.config_parameters.mutation_rate[GAMMA().name],
                 population_model.fitness_function,
-                GAMMA()
+                GAMMA(),
+                population_model.config_parameters.max_generations
             )
             for individual in population_in_castes[GAMMA()]
         ]
@@ -46,7 +47,7 @@ function evolution(population_in_castes, population_model)
         lower_castes_mutated ]
 end
 
-function mutate_individual(chromosome, mutation_probability, fitness_function, caste::GAMMA)
+function mutate_individual(chromosome, mutation_probability, fitness_function, caste::GAMMA, max_generations = 10)
     mutated_chromosome = mutation_operator(chromosome, mutation_probability)
     return local_search(mutated_chromosome, fitness_function, mutation_probability, caste)
 end

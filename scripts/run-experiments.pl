@@ -27,7 +27,7 @@ for my $t ( qw(3 5) ) {
         my $successful = 0;
         my @results;
         do {
-          my $command = "/home/jmerelo/.juliaup/bin/julia examples/simple_test.jl $t $l $max_gens $alpha";
+          my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere.jl $t $l $max_gens $alpha";
           say $command;
           my $output = `pinpoint -- $command 2>&1`;
           say $output;

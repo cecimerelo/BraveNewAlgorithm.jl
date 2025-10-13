@@ -1,7 +1,7 @@
 include("../operators/mutation.jl")
 
 const MAX_LOCAL_SEARCH_ITERATIONS = 10
-function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA)
+function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA, max_generations = MAX_LOCAL_SEARCH_ITERATIONS)
     embryo = Embryo(offspring, fitness_function)
     f_value = embryo.f_value
     final_chromosome = offspring
