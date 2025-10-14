@@ -34,6 +34,8 @@ Instead of replacing genes with random values, this operator adds Gaussian noise
 - `mutation_percentage`: Percentage of genes to mutate (0-100)
 - `range`: Tuple (min, max) defining the valid range for gene values
 - `sigma_percentage`: Standard deviation as a percentage of the range width (default: 10.0)
+  The default of 10% provides a good balance between exploration and exploitation,
+  making small enough perturbations to improve solutions locally without disrupting them too much.
 
 # Returns
 - Mutated offspring with Gaussian noise added to selected genes
