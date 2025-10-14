@@ -1,7 +1,7 @@
 include("../operators/mutation.jl")
 
 const MAX_LOCAL_SEARCH_ITERATIONS = 10
-function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA, max_generations = MAX_LOCAL_SEARCH_ITERATIONS)
+function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA, range, max_generations = MAX_LOCAL_SEARCH_ITERATIONS)
     embryo = Embryo(offspring, fitness_function)
     f_value = embryo.f_value
     final_chromosome = offspring
@@ -9,7 +9,7 @@ function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA, 
     improved = true
 
     while improved
-        mutated_offspring = mutation_operator(final_chromosome, mutation_rate)
+        mutated_offspring = gaussian_mutation_operator(final_chromosome, mutation_rate, range)
         new_embryo = Embryo(mutated_offspring, fitness_function)
 
         if new_embryo.f_value >= f_value || new_embryo.f_value <= fitness_function.fitness_function.f_opt
@@ -27,6 +27,6 @@ function local_search(offspring, fitness_function, mutation_rate, caste::GAMMA, 
 
 end
 
-function local_search(offspring, fitness_function, mutation_rate, caste)
+function local_search(offspring, fitness_function, mutation_rate, caste, range)
     return offspring
 end
