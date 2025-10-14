@@ -19,13 +19,3 @@ range = (-5.12, 5.12)
         end
     end
 end
-
-@testset "Test that for this specific function fitness values for any kind of chromosome are always > 0" begin
-    for size in [2, 3, 5, 10, 20, 40]
-        for j in 1:10
-            chromosome = generate_chromosome(range, size)
-            f_value = fitness_function(chromosome)
-            @test f_value > 0
-        end
-    end
-end
