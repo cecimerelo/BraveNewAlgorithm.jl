@@ -24,7 +24,7 @@ function mutation_operator(offspring, mutation_percentage)
 end
 
 """
-    gaussian_mutation_operator(offspring, mutation_percentage, range, sigma_percentage=20.0)
+    gaussian_mutation_operator(offspring, mutation_percentage, range, sigma_percentage=10.0)
 
 Apply Gaussian mutation to `offspring` based on `mutation_percentage`. 
 Instead of replacing genes with random values, this operator adds Gaussian noise to existing values.
@@ -33,12 +33,12 @@ Instead of replacing genes with random values, this operator adds Gaussian noise
 - `offspring`: The chromosome to mutate
 - `mutation_percentage`: Percentage of genes to mutate (0-100)
 - `range`: Tuple (min, max) defining the valid range for gene values
-- `sigma_percentage`: Standard deviation as a percentage of the range width (default: 20.0)
+- `sigma_percentage`: Standard deviation as a percentage of the range width (default: 10.0)
 
 # Returns
 - Mutated offspring with Gaussian noise added to selected genes
 """
-function gaussian_mutation_operator(offspring, mutation_percentage, range, sigma_percentage=20.0)
+function gaussian_mutation_operator(offspring, mutation_percentage, range, sigma_percentage=10.0)
     (mutation_percentage < 100 && mutation_percentage > 0) || throw(ArgumentError("Mutation percentage must be between 0 and 100"))
     (sigma_percentage > 0 && sigma_percentage <= 100) || throw(ArgumentError("Sigma percentage must be between 0 and 100"))
     
