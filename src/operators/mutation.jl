@@ -1,5 +1,5 @@
 using Distributions
-using Random
+using Random  # For randperm to ensure unique mutation indices
 
 """
     mutation_operator(offspring, mutation_percentage)
