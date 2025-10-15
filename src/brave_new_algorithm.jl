@@ -16,7 +16,7 @@ function brave_new_algorithm(population_model::PopulationModel)
     Creating embryos,
                 Chromosome Size -> $(population_model.config_parameters.chromosome_size)
     """
-    embryos = multiple_fertilising_room(population_model)
+    embryos = fertilising_room(population_model)
     best_element = best_element_of_population(embryos)
 
     generation = 0
