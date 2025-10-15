@@ -20,11 +20,10 @@ embryo = fertilising_room(population_model)
 end
 
 @testset "Test multiple_fertilising_room when called then all embryos have genes in range" begin
-    pop_size = 10
-    embryos = multiple_fertilising_room(population_model, pop_size)
-    
-    @test length(embryos) == pop_size
-    
+    embryos = multiple_fertilising_room(population_model)
+
+    @test length(embryos) == population_model.config_parameters.population_size
+
     for embryo in embryos
         @test length(embryo.chromosome) == config_parameters_entity.chromosome_size
         for gene in embryo.chromosome
@@ -37,15 +36,15 @@ end
 @testset "Test FitnessFunction accepts AbstractArray (views)" begin
     test_genes = rand(Uniform(range[1], range[2]), config_parameters_entity.chromosome_size, 3)
     ff = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
-    
+
     # Test with view
     result1 = ff(@view test_genes[:, 1])
     @test isa(result1, Real)
-    
+
     # Test with regular vector
     result2 = ff(test_genes[:, 2])
     @test isa(result2, Real)
-    
+
     # Test that calls counter is incremented
     initial_calls = ff.calls_counter
     ff(@view test_genes[:, 3])
