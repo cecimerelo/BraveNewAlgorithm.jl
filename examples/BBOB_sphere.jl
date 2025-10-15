@@ -15,7 +15,7 @@ using .BraveNewAlgorithm
 # Load required dependencies
 using BlackBoxOptimizationBenchmarking
 
-function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, baseline=false)
+function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage )
     println("Testing BraveNewAlgorithm basic functionality...")
 
     try
@@ -87,8 +87,7 @@ if abspath(PROGRAM_FILE) == @__FILE__
     population_size = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 200
     max_generations = length(ARGS) > 2 ? parse(Int, ARGS[3]) : 10
     alpha_percentage = length(ARGS) > 3 ? parse(Int, ARGS[4]) : 25
-    baseline = length(ARGS) > 4 ? true : false
-    success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, baseline)
+    success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage)
     if success
         println("\n🎉 Algorithm is working correctly!")
     else
