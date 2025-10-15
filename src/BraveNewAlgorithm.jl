@@ -33,6 +33,7 @@ export
     calculate_edit_distance,
     crossover_operator,
     mutation_operator,
+    gaussian_mutation_operator,
     selector_operator,
     create_new_individual,
     generate_chromosome

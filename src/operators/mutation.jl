@@ -1,3 +1,5 @@
+using Distributions
+
 """
     mutation_operator(offspring, mutation_percentage)
 
@@ -12,6 +14,52 @@ function mutation_operator(offspring, mutation_percentage)
     for (index, gene) in enumerate(offspring)
         if index in indexes_to_mutate
             new_gene = rand()
+            push!(mutated_offspring, new_gene)
+        else
+            push!(mutated_offspring, gene)
+        end
+    end
+
+    return mutated_offspring
+end
+
+"""
+    gaussian_mutation_operator(offspring, mutation_percentage, range, sigma_percentage=10.0)
+
+Apply Gaussian mutation to `offspring` based on `mutation_percentage`. 
+Instead of replacing genes with random values, this operator adds Gaussian noise to existing values.
+
+# Arguments
+- `offspring`: The chromosome to mutate
+- `mutation_percentage`: Percentage of genes to mutate (0-100)
+- `range`: Tuple (min, max) defining the valid range for gene values
+- `sigma_percentage`: Standard deviation as a percentage of the range width (default: 10.0)
+  The default of 10% provides a good balance between exploration and exploitation,
+  making small enough perturbations to improve solutions locally without disrupting them too much.
+
+# Returns
+- Mutated offspring with Gaussian noise added to selected genes
+"""
+function gaussian_mutation_operator(offspring, mutation_percentage, range, sigma_percentage=10.0)
+    (mutation_percentage < 100 && mutation_percentage > 0) || throw(ArgumentError("Mutation percentage must be between 0 and 100"))
+    (sigma_percentage > 0 && sigma_percentage <= 100) || throw(ArgumentError("Sigma percentage must be between 0 and 100"))
+    
+    mutated_offspring = Array{Float64,1}()
+    genes_to_mutate = floor(Int, mutation_percentage * length(offspring) / 100)
+    indexes_to_mutate = rand(1:length(offspring), genes_to_mutate)
+    
+    # Calculate standard deviation based on range width
+    range_width = range[2] - range[1]
+    sigma = (sigma_percentage / 100.0) * range_width
+    
+    for (index, gene) in enumerate(offspring)
+        if index in indexes_to_mutate
+            # Add Gaussian noise to the existing gene value
+            noise = rand(Normal(0.0, sigma))
+            new_gene = gene + noise
+            
+            # Clamp to valid range
+            new_gene = clamp(new_gene, range[1], range[2])
             push!(mutated_offspring, new_gene)
         else
             push!(mutated_offspring, gene)
