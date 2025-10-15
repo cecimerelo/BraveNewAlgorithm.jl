@@ -13,11 +13,11 @@ using Pkg
 
 function setup_dependencies()
     println("🔧 Setting up BraveNewAlgorithm.jl dependencies...")
-    
+
     # Activate the project environment
     println("Activating project environment...")
     Pkg.activate(".")
-    
+
     # Install dependencies
     println("Installing dependencies (this may take a few minutes)...")
     try
@@ -33,9 +33,9 @@ end
 
 function main()
     println("="^60)
-    println("BraveNewAlgorithm.jl Setup")
+    println("BraveNewAlgorithm.jl examples setup")
     println("="^60)
-    
+
     # Setup dependencies
     if !setup_dependencies()
         println("\n💥 Setup failed! Please check the error messages above.")
@@ -45,11 +45,11 @@ function main()
         println("  make instantiate")
         exit(1)
     end
-    
+
     println("\n🎉 Setup completed successfully!")
     println("\nYou can now run the examples:")
     println("  julia examples/quickstart.jl")
-    println("  julia examples/basic_usage_example.jl")  
+    println("  julia examples/basic_usage_example.jl")
     println("  julia examples/simple_test.jl")
     println("\nTo verify installation:")
     println("  julia examples/simple_test.jl")
