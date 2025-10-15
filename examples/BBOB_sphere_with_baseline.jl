@@ -55,22 +55,31 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
             comparator
         )
 
-        println("Running algorithm for $(config_parameters.max_generations) generations...")
+        if baseline
+            println("Running baseline for $(config_parameters.max_generations) generations...")
+            embryos = [
+                fertilising_room(population_model)
+                for _ in 1:population_model.config_parameters.population_size
+            ]
+            best_element = best_element_of_population(embryos)
+            println("✅ Baseline run!")
+            println("   Completed generations: $generation")
+            println("   Best fitness: $(round(best_element.f_value, digits=6))")
+        else
+            println("Running algorithm for $(config_parameters.max_generations) generations...")
+            generation, results = brave_new_algorithm(population_model)
 
-        # Run algorithm
-        generation, results = brave_new_algorithm(population_model)
+            @assert generation >= 0 "Generation should be non-negative"
+            @assert !isempty(results.F_Values) "Results should contain fitness values"
+            @assert length(results.F_Values) == length(results.Generations) "Generations and F_Values should have same length"
 
-        # Verify results
-        @assert generation >= 0 "Generation should be non-negative"
-        @assert !isempty(results.F_Values) "Results should contain fitness values"
-        @assert length(results.F_Values) == length(results.Generations) "Generations and F_Values should have same length"
-
-        best_fitness = minimum(results.F_Values)
-        println("✅ Test passed!")
-        println("   Completed generations: $generation")
-        println("   Best fitness: $(round(best_fitness, digits=6))")
-        println("   Target fitness: $(fitness_function.fitness_function.f_opt)")
-        println("   Function evaluations: $(fitness_function.calls_counter)")
+            best_fitness = minimum(results.F_Values)
+            println("✅ Run algorithm!")
+            println("   Completed generations: $generation")
+            println("   Best fitness: $(round(best_fitness, digits=6))")
+            println("   Target fitness: $(fitness_function.fitness_function.f_opt)")
+            println("   Function evaluations: $(fitness_function.calls_counter)")
+        end
 
         return true
 
