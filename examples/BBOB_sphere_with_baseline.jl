@@ -63,7 +63,6 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
             ]
             best_element = best_element_of_population(embryos)
             println("✅ Baseline run!")
-            println("   Completed generations: $generation")
             println("   Best fitness: $(round(best_element.f_value, digits=6))")
         else
             println("Running algorithm for $(config_parameters.max_generations) generations...")

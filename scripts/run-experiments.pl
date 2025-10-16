@@ -9,8 +9,13 @@ use lib qw(lib ../lib ../../lib);
 use Utils qw(process_pinpoint_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
-my $data_dir = shift || "data";
 my $function = shift || "bna";
+my $baseline = 0;
+
+if ($function =~ /baseline/ ){
+  $baseline = 1;
+}
+my $data_dir = "data";
 
 my $ITERATIONS = 30;
 my ($mon,$day,$hh,$mm,$ss) = localtime() =~ /(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)/;
@@ -27,7 +32,7 @@ for my $t ( qw(3 5) ) {
         my $successful = 0;
         my @results;
         do {
-          my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere.jl $t $l $max_gens $alpha";
+          my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
           say $command;
           my $output = `pinpoint -- $command 2>&1`;
           say $output;
