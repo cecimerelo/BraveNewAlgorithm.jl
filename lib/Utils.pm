@@ -35,6 +35,17 @@ sub process_pinpoint_output {
     }
 }
 
+sub process_pinpoint_output_intel {
+  my $output = shift;
+  if ($output !~ /0.00\s+J/) {
+      my ( $ram, $cores, $psys, $gpu, $pkg ) = $output =~ /(\d+\.\d+)\s+J/g;
+      my ( $seconds ) = $output =~ /(\d+\.\d+) seconds/;
+      return $ram, $cores, $psys, $gpu, $pkg,$seconds;
+    } else {
+      return 0,0,0;
+    }
+}
+
 sub process_powermetrics_output {
   my $output_file_name = shift;
   my $content = mini_slurp $output_file_name;
