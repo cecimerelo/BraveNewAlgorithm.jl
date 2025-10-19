@@ -1,7 +1,5 @@
 data <- read.csv("data/evoapps-1.11.7-baseline-bna-baseline-16-Oct-11-08-20.csv")
 
-# accumulate the column "seconds" in a column "accumulated_time"
-
 data$accumulated_time <- cumsum(data$seconds)
 library(ggplot2)
 
