@@ -13,3 +13,4 @@ ggplot(data, aes(x = accumulated_time, y = PKG)) +
     y = "Energy Consumption "
   ) +
   theme_minimal()
+ggsave("plots/energy-consumption-over-time.png")
