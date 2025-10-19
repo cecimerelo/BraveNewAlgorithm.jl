@@ -41,3 +41,6 @@ summary_data <- data %>%
     sd_PKG = sd(PKG),
     trimmed_PKG = mean(PKG, trim = 0.2)
   )
+
+saveRDS(summary_data, "plots/energy-summary-data.rds")
+saveRDS(data, "plots/energy-full-data.rds")
