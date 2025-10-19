@@ -6,7 +6,7 @@ use warnings;
 use v5.14;
 
 use lib qw(lib ../lib ../../lib);
-use Utils qw(process_pinpoint_output);
+use Utils qw(process_pinpoint_output_intel);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $function = shift || "bna";
@@ -40,7 +40,7 @@ for my $t ( qw(3 5) ) {
           if ($gpu != 0 ) {
             $successful++;
             $total_seconds += $seconds;
-            say "$preffix, $function, $t,  $l,$pkg, $seconds";
+            say "$preffix, $function, $t,  $l, $ram, $psys, $pkg, $seconds";
             my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
             push @results, [$ram, $psys, $pkg,$seconds,$generations, $best_fitness-$target_fitness , $evaluations];
           }

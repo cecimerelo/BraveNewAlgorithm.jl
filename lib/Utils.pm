@@ -5,15 +5,11 @@ use Time::Piece;
 
 use feature qw(say);
 
-our @EXPORT_OK = qw( %command_lines %command_lines_mac process_powermetrics_output process_pinpoint_output mini_slurp);
+our @EXPORT_OK = qw( %command_lines %command_lines_mac process_powermetrics_output process_pinpoint_output mini_slurp process_pinpoint_output_intel);
 
 our %command_lines = ( deno => "/home/jmerelo/.deno/bin/deno run scripts/",
                      bun => "/home/jmerelo/.bun/bin/bun run scripts/",
                      node => "/home/jmerelo/.nvm/versions/v20.9.0/bin/node scripts/" );
-
-our %command_lines_mac = ( deno => "/opt/homebrew/bin/deno run scripts/",
-                     bun => "/Users/jjmerelo/.bun/bin/bun run scripts/",
-                           node => "/Users/jjmerelo/.nvm/versions/node/v20.9.0/bin/node scripts/" );
 
 sub mini_slurp {
   my $input_file_name = shift;
@@ -40,6 +36,7 @@ sub process_pinpoint_output_intel {
   if ($output !~ /0.00\s+J/) {
       my ( $ram, $cores, $psys, $gpu, $pkg ) = $output =~ /(\d+\.\d+)\s+J/g;
       my ( $seconds ) = $output =~ /(\d+\.\d+) seconds/;
+      say $ram, $cores, $psys, $gpu, $pkg,$seconds;
       return $ram, $cores, $psys, $gpu, $pkg,$seconds;
     } else {
       return 0,0,0;
