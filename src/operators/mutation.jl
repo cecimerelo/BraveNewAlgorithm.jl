@@ -1,6 +1,14 @@
 using Distributions
 using Random  # For randperm to ensure unique mutation indices
 
+macro uniform_in_range(range)
+    quote
+        local r = $(esc(range))
+        rand() * (last(r) - first(r)) + first(r)
+    end
+end
+
+
 """
     mutation_operator(offspring, mutation_percentage)
 
@@ -17,7 +25,7 @@ function mutation_operator(offspring, mutation_percentage, range)
 
         # Directly modify the mutated indices
         for mutation_index in indexes_to_mutate
-            mutated_offspring[mutation_index] = rand(range)
+            mutated_offspring[mutation_index] = @uniform_in_range(range)
         end
     end
 
