@@ -11,7 +11,7 @@ using Test
         Individual([3.0, 4.0], 0.8, ALPHA())
     )
 
-    offspring1, offspring2 = create_new_individual(parents, test_mutation_rate)
+    offspring1, offspring2 = create_new_individual(parents, test_mutation_rate, (-5.12, 5.12))
 
     # Test that function returns two offspring arrays
     @test typeof(offspring1) == Array{Float64,1}

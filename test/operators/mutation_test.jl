@@ -15,7 +15,7 @@ embryos = [
     for _ in 1:population_model.config_parameters.population_size
 ]
 
-mutated_chromosomes = [mutation_operator(embryo.chromosome, config_parameters_entity.mutation_rate["ALPHA"]) for embryo in embryos]
+mutated_chromosomes = [mutation_operator(embryo.chromosome, config_parameters_entity.mutation_rate["ALPHA"], range) for embryo in embryos]
 
 @testset "Test mutation_operator when called then different chromosome returned" begin
     for (embryo, mutated_chromosome) in zip(embryos, mutated_chromosomes)
@@ -28,14 +28,14 @@ end
     test_chromosome = [0.5, 1.0, -2.0, 3.0, -1.5]
     mutation_rate = 50  # 50% mutation rate
     test_range = (-5.12, 5.12)
-    
+
     # Test with default sigma
     mutated = gaussian_mutation_operator(test_chromosome, mutation_rate, test_range)
-    
+
     @test length(mutated) == length(test_chromosome)
     @test typeof(mutated) == Array{Float64,1}
     @test eltype(mutated) == Float64
-    
+
     # Check all values are within range
     for gene in mutated
         @test gene >= test_range[1] && gene <= test_range[2]
@@ -47,7 +47,7 @@ end
     test_chromosome = [5.0, -5.0, 0.0]
     mutation_rate = 99  # High mutation rate (must be < 100)
     test_range = (-5.12, 5.12)
-    
+
     # Run multiple times to ensure clamping works
     for _ in 1:10
         mutated = gaussian_mutation_operator(test_chromosome, mutation_rate, test_range)
@@ -61,13 +61,13 @@ end
     test_chromosome = [0.0, 0.0, 0.0, 0.0, 0.0]
     mutation_rate = 99  # High mutation rate (must be < 100)
     test_range = (-5.12, 5.12)
-    
+
     # Test with small sigma (should produce smaller changes)
     mutated_small = gaussian_mutation_operator(test_chromosome, mutation_rate, test_range, 5.0)
-    
+
     # Test with large sigma (should produce larger changes)
     mutated_large = gaussian_mutation_operator(test_chromosome, mutation_rate, test_range, 50.0)
-    
+
     @test all(gene >= test_range[1] && gene <= test_range[2] for gene in mutated_small)
     @test all(gene >= test_range[1] && gene <= test_range[2] for gene in mutated_large)
 end
@@ -76,31 +76,31 @@ end
     test_chromosome = [1.0, 2.0, 3.0, 4.0, 5.0]
     mutation_rate = 20  # Only 20% should be mutated
     test_range = (-5.12, 5.12)
-    
+
     mutated = gaussian_mutation_operator(test_chromosome, mutation_rate, test_range)
-    
+
     # Count how many genes changed
     changes = sum(test_chromosome .!= mutated)
     expected_changes = floor(Int, mutation_rate * length(test_chromosome) / 100)
-    
+
     @test changes == expected_changes
 end
 
 @testset "Test gaussian_mutation_operator argument validation" begin
     test_chromosome = [0.0, 0.0]
     test_range = (-5.0, 5.0)
-    
+
     # Test invalid mutation percentage
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, 0, test_range)
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, 100, test_range)
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, -10, test_range)
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, 150, test_range)
-    
+
     # Test invalid sigma percentage
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, 50, test_range, 0)
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, 50, test_range, -10)
     @test_throws ArgumentError gaussian_mutation_operator(test_chromosome, 50, test_range, 150)
-    
+
     # Test valid cases don't throw
     @test isa(gaussian_mutation_operator(test_chromosome, 50, test_range), Array{Float64,1})
     @test isa(gaussian_mutation_operator(test_chromosome, 99, test_range, 20.0), Array{Float64,1})
