@@ -8,11 +8,9 @@ This is a minimal test to ensure the algorithm can run
 using Pkg
 Pkg.activate(".")
 
-# Load the BraveNewAlgorithm module
 include("../src/BraveNewAlgorithm.jl")
 using .BraveNewAlgorithm
 
-# Load required dependencies
 using BlackBoxOptimizationBenchmarking
 
 function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage )
