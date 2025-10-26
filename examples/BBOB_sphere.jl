@@ -55,10 +55,8 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
 
         println("Running algorithm for $(config_parameters.max_generations) generations...")
 
-        # Run algorithm
         generation, results = brave_new_algorithm(population_model)
 
-        # Verify results
         @assert generation >= 0 "Generation should be non-negative"
         @assert !isempty(results.F_Values) "Results should contain fitness values"
         @assert length(results.F_Values) == length(results.Generations) "Generations and F_Values should have same length"
