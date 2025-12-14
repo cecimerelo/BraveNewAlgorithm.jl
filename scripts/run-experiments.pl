@@ -34,7 +34,7 @@ for my $t ( qw(3 5) ) {
         do {
           my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
           say $command;
-          my $output = `pinpoint -- $command 2>&1`;
+          my $output = `pinpoint -i 100 -- $command 2>&1`;
           say $output;
           my ( $gpu, $pkg, $seconds ) = process_pinpoint_output $output;
           if ($gpu != 0 ) {
