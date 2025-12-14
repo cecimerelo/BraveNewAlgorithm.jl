@@ -43,19 +43,31 @@ function build_reproduction_pool(caste_population)
 end
 
 function binary_tournament(caste_population)
-    reproduction_pool = Vector{Individual}()
-    copy_of = deepcopy(caste_population)
-    population_in_pairs = random_pairs(copy_of)
+    n = length(caste_population)
+    n2 = n >>> 1                 # floor(n/2)
+    # If odd, one element will be ignored; alternatively, handle wrap-around as desired.
 
-    for (x,y) in population_in_pairs
-        if x.f_value > y.f_value
-            push!(reproduction_pool, y)
-        elseif x.f_value < y.f_value
-            push!(reproduction_pool, x)
+    # Shuffle indices to avoid moving/populating elements
+    idx = collect(1:n)
+    Random.shuffle!(idx)
+
+    pool = Vector{eltype(caste_population)}(undef, n2)
+    j = 1
+    @inbounds for k in 1:n2
+        x = caste_population[idx[j]]
+        y = caste_population[idx[j+1]]
+        j += 2
+
+        fx = x.f_value
+        fy = y.f_value
+
+        if fx < fy
+            pool[k] = x
+        elseif fx > fy
+            pool[k] = y
         else
-            individual = rand([x,y])
-            push!(reproduction_pool, individual)
+            pool[k] = ifelse(rand(Bool), x, y)  # no alloc
         end
     end
-    return reproduction_pool
+    return pool
 end

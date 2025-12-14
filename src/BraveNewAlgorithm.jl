@@ -35,6 +35,7 @@ export
     mutation_operator,
     gaussian_mutation_operator,
     selector_operator,
+    binary_tournament,
     create_new_individual,
     generate_chromosome
 end # module
