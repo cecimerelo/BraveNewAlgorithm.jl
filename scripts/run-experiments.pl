@@ -24,7 +24,7 @@ my $suffix = "$day-$mon-$hh-$mm-$ss";
 open my $fh, ">", "$data_dir/$preffix-$function-$suffix.csv";
 say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations";
 
-my $alpha = 10
+my $alpha = 10;
 for my $t ( qw(3 5) ) {
   for my $l ( qw(200 400) ) {
     for my $max_gens ( qw(10 25) ) {
