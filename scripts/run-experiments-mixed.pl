@@ -25,7 +25,6 @@ for my $t ( qw(3 5) ) {
   for my $l ( qw(200 400) ) {
     for my $max_gens ( qw(10 25) ) {
       for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
-        my @results;
         for my $baseline ( qw( 1 0 ) ) {
           my $pre_preffix = ($baseline eq "1")?"base-" : "";
           say "\nRunning pre_preffix";
@@ -36,9 +35,9 @@ for my $t ( qw(3 5) ) {
           my ( $gpu, $pkg, $seconds ) = process_pinpoint_output $output;
           say "$pre_preffix$preffix, $function, $t,  $l,$pkg, $seconds";
           my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
-          push @results, [$pkg,$seconds,$generations, $best_fitness-$target_fitness, $evaluations];
-          say join(", ", @$results);
-          say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @$results);
+          my @results = ($pkg,$seconds,$generations, $best_fitness-$target_fitness, $evaluations);
+          say join(", ", @results);
+          say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @results);
         }
       }
     }
