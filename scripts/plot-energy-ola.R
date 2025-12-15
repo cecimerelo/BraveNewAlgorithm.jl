@@ -1,19 +1,17 @@
-data_1 <- read.csv("data/evoapps-1.11.7-baseline-bna-baseline-16-Oct-11-08-20.csv")
-data_2 <- read.csv("data/evoapps-1.11.7-baseline-bna-baseline-2-19-Oct-19-25-31.csv")
 data_3 <- read.csv("data/ola-base-ola-baseline-14-Dec-12-06-42.csv")
+data_4 <- read.csv("data/ola-1.11.7-v2-baseline-v2-14-Dec-20-40-47.csv")
 
-data_1$group <- 1
-data_2$group <- 1
 data_3$group <- 2
+data_4$group <- 3
 
-data <- rbind(data_1, data_2,data_3)
+data <- rbind(data_4,data_3)
 
 library(ggplot2)
 
-data$color <- ifelse(data$population_size == 200, "red", "blue")
+data$color <- ifelse(data$group == 2, "red", "blue")
 data$shape <- ifelse(data$dimension == 3, 21,23)
 ggplot(data, aes(x = seconds, y = PKG)) +
-  geom_point(color=data$color, shape=data$shape,size=1+data$group) +
+  geom_point(color=data$color, shape=data$shape,size=data$population_size/100) +
   labs(
     title = "Energy Consumption Over Time",
     x = "Time",
@@ -42,5 +40,15 @@ summary_data <- data %>%
     trimmed_PKG = mean(PKG, trim = 0.2)
   )
 
-saveRDS(summary_data, "plots/energy-summary-data.rds")
-saveRDS(data, "plots/energy-full-data.rds")
+for (dim in c(3,5)) {
+  for (pop in c(200,400)) {
+    data_subset <- data %>%
+      filter(dimension == dim, population_size == pop)
+    group_2 <- data_subset$PKG[data_subset$group == 2]
+    group_3 <- data_subset$PKG[data_subset$group == 3]
+    test_result <- wilcox.test(group_2, group_3)
+    cat("Dimension:", dim, "Population Size:", pop, "p-value:", test_result$p.value, "\n")
+  }
+}
+
+
