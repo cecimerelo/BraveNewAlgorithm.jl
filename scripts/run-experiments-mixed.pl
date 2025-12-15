@@ -37,8 +37,8 @@ for my $t ( qw(3 5) ) {
           say "$pre_preffix$preffix, $function, $t,  $l,$pkg, $seconds";
           my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
           push @results, [$pkg,$seconds,$generations, $best_fitness-$target_fitness, $evaluations];
-          say join(", ", @results);
-          say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @results);
+          say join(", ", @$results);
+          say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @$results);
         }
       }
     }
