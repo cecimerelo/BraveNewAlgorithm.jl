@@ -28,11 +28,14 @@ for my $t ( qw(5 3) ) {
         for my $baseline ( qw( 1 0 ) ) {
           my $pre_preffix = ($baseline eq "1")?"base-" : "";
           say "\nRunning pre_preffix";
-          my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
-          say $command;
-          my $output = `pinpoint -i 100 -- $command 2>&1`;
-          say $output;
-          my ( $gpu, $pkg, $seconds ) = process_pinpoint_output $output;
+          my ( $gpu, $pkg, $seconds );
+          do {
+            my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
+            say $command;
+            my $output = `pinpoint -i 100 -- $command 2>&1`;
+            say $output;
+            ( $gpu, $pkg, $seconds ) = process_pinpoint_output $output;
+          } while ( $gpu == 0 );
           say "$pre_preffix$preffix, $function, $t,  $l,$pkg, $seconds";
           my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
           my @results = ($pkg,$seconds,$generations, $best_fitness-$target_fitness, $evaluations);
