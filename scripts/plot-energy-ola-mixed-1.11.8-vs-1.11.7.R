@@ -6,18 +6,23 @@ mixed_data_regular$group <- "1.11.7"
 mixed_data <- rbind(mixed_data_regular, mixed_data_inverted)
 for (i in 2:nrow(mixed_data)) {
   if (mixed_data$work[i] == "ola-mixed" | mixed_data$work[i] == "ola-mixed-inverted") {
+    if (mixed_data$PKG[i]*mixed_data$PKG[i-1] == 0)  {
+      next
+    }
     mixed_data$delta_seconds[i] <- mixed_data$seconds[i] - mixed_data$seconds[i-1]
     mixed_data$delta_PKG[i] <- mixed_data$PKG[i] - mixed_data$PKG[i-1]
   }
 }
 
 library(ggplot2)
+library(dplyr)
+mixed_data_workload <- mixed_data %>% filter(delta_PKG != 0)
 
-mixed_data$color <- ifelse(mixed_data$group == "1.11.8", "red", "blue")
-mixed_data$shape <- ifelse(mixed_data$dimension == 3, 21,23)
-mixed_data$size <- ifelse(mixed_data$population_size == 200, 3,6)
-ggplot(mixed_data, aes(x = delta_seconds, y = delta_PKG)) +
-  geom_point(color=mixed_data$color, shape=mixed_data$shape, size=mixed_data$size) +
+mixed_data_workload$color <- ifelse(mixed_data_workload$group == "1.11.8", "red", "blue")
+mixed_data_workload$shape <- ifelse(mixed_data_workload$dimension == 3, 21,23)
+mixed_data_workload$size <- ifelse(mixed_data_workload$population_size == 200, 3,6)
+ggplot(mixed_data_workload, aes(x = delta_seconds, y = delta_PKG)) +
+  geom_point(color=mixed_data_workload$color, shape=mixed_data_workload$shape, size=mixed_data_workload$size) +
   labs(
     title = "Energy Consumption Over Time",
     x = "Time",
@@ -25,9 +30,9 @@ ggplot(mixed_data, aes(x = delta_seconds, y = delta_PKG)) +
   ) +
   theme_minimal() + xlim(0,5)+ ylim(0,250)
 
-library(dplyr)
 summary_data <- mixed_data %>%
-  group_by(work,population_size, dimension, max_gens) %>%
+  filter( PKG != 0) %>%
+  group_by(work,population_size, dimension, max_gens, group) %>%
   summarise(
     mean_PKG = mean(PKG),
     median_PKG = median(PKG),
