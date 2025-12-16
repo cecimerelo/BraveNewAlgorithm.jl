@@ -27,12 +27,12 @@ for my $t ( qw(5 3) ) {
       for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
         for my $baseline ( qw( 1 0 ) ) {
           my $pre_preffix = ($baseline eq "1")?"base-" : "";
-          say "\nRunning pre_preffix";
-          my ( $gpu, $pkg, $seconds );
+          say "\nRunning $pre_preffix";
+          my ( $gpu, $pkg, $seconds, $output );
           do {
             my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
             say $command;
-            my $output = `pinpoint -i 100 -- $command 2>&1`;
+            $output = `pinpoint -i 100 -- $command 2>&1`;
             say $output;
             ( $gpu, $pkg, $seconds ) = process_pinpoint_output $output;
           } while ( $gpu == 0 );
