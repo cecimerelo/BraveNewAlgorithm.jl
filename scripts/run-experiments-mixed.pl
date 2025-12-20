@@ -29,9 +29,9 @@ for my $t ( qw(5 3) ) {
           my $pre_preffix = ($baseline eq "1")?"base-" : "";
           say "\nRunning $pre_preffix";
           my ( $gpu, $pkg, $seconds, $output );
+          my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
+          say $command;
           do {
-            my $command = "/home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
-            say $command;
             $output = `pinpoint -i 100 -- $command 2>&1`;
             say $output;
             ( $gpu, $pkg, $seconds ) = process_pinpoint_output $output;
