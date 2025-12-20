@@ -10,9 +10,10 @@ end
 
 
 """
-    mutation_operator(offspring, mutation_percentage)
+    mutation_operator(offspring, mutation_percentage, range)
 
-Apply mutation to `offspring` based on `mutation_percentage`. The value of this should be between 0 and 100 (strict)
+Apply mutation to `offspring` based on `mutation_percentage` within a `range`. The value of this should be between 0 and 100 (strict).
+The `range` should be a tuple (min, max) defining the valid range for gene values.
 """
 function mutation_operator(offspring, mutation_percentage, range)
     (mutation_percentage < 100 && mutation_percentage > 0)|| throw(ArgumentError("Mutation percentage must be less than 100"))
