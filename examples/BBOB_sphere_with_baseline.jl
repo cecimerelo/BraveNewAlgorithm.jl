@@ -50,7 +50,7 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
         )
 
         if baseline
-            println("Running baseline for $(config_parameters.max_generations) generations...")
+            println("Running baseline for $(population_size) individuals and $(problem_dimensions) dimension...")
             embryos = multiple_fertilising_room(population_model)
             best_element = best_element_of_population(embryos)
             println("✅ Baseline run!")
