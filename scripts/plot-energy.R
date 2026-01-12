@@ -1,18 +1,28 @@
 data_1 <- read.csv("data/evoapps-1.11.7-baseline-bna-baseline-16-Oct-11-08-20.csv")
 data_2 <- read.csv("data/evoapps-1.11.7-baseline-bna-baseline-2-19-Oct-19-25-31.csv")
+data_3 <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
+data_4 <- read.csv("data/ola-1.11.7-v2-baseline-v2-14-Dec-20-40-47.csv")
 
+data_1$accumulated_time <- cumsum(data_1$seconds)
 data_1$group <- "1"
+
+data_2$accumulated_time <- cumsum(data_2$seconds)
 data_2$group <- "2"
 
-data <- rbind(data_1, data_2)
+data_3$accumulated_time <- cumsum(data_3$seconds)
+data_3$group <- "3"
 
-data$accumulated_time <- cumsum(data$seconds)
+data_4$accumulated_time <- cumsum(data_4$seconds)
+data_4$group <- "4"
+
+data <- rbind(data_1, data_2,data_3,data_4)
+
 library(ggplot2)
 
 data$color <- ifelse(data$population_size == 200, "red", "blue")
 data$shape <- ifelse(data$dimension == 3, 21,23)
-ggplot(data, aes(x = accumulated_time, y = PKG)) +
-  geom_line() + geom_point(color=data$color, shape=data$shape,size=3) +
+ggplot(data, aes(x = accumulated_time, y = PKG, group=group)) +
+  geom_line(color=data$group) + geom_point(color=data$color, shape=data$shape,size=1) +
   labs(
     title = "Energy Consumption Over Time",
     x = "Accumulated Time",
@@ -34,7 +44,7 @@ ggplot(data, aes(x = factor(population_size), y = PKG, color=factor(dimension)))
 
 library(dplyr)
 summary_data <- data %>%
-  group_by(population_size, dimension) %>%
+  group_by(population_size, dimension,group) %>%
   summarise(
     mean_PKG = mean(PKG),
     median_PKG = median(PKG),
