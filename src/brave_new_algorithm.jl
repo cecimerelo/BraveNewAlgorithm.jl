@@ -31,6 +31,16 @@ function brave_new_algorithm(population_model::PopulationModel)
         population_in_castes = hatchery(population_model, embryos)
         new_chromosomes = evolution(population_in_castes, population_model)
         new_embryos_population = [Embryo(chromosome, population_model.fitness_function) for chromosome in new_chromosomes]
+        
+        # Elitism: inject the best individual from previous generation
+        # Remove the worst individual to maintain population size
+        worst_element = worst_element_of_population(new_embryos_population)
+        worst_index = findfirst(e -> e === worst_element, new_embryos_population)
+        deleteat!(new_embryos_population, worst_index)
+        # Create a new Embryo with the best chromosome to maintain type consistency
+        best_embryo_copy = Embryo(collect(best_element.chromosome), best_element.f_value)
+        push!(new_embryos_population, best_embryo_copy)
+        
         new_best_element = best_element_of_population(new_embryos_population)
 
         if new_best_element.f_value >= best_element.f_value

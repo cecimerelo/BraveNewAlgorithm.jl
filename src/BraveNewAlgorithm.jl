@@ -14,6 +14,7 @@ export
         brave_new_algorithm
 
     export best_element_of_population
+    export worst_element_of_population
 
     include("individual/castes.jl")
     include("individual/fitness_function.jl")
