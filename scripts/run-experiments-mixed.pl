@@ -21,7 +21,7 @@ open my $fh, ">", "$data_dir/$preffix-$function-$suffix.csv";
 say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations";
 
 my $alpha = 10;
-for my $t ( qw(5 3) ) {
+for my $t ( qw(10 5 3) ) {
   for my $l ( qw(400 200) ) {
     for my $max_gens ( qw(10 25) ) {
       for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
