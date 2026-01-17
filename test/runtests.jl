@@ -5,6 +5,7 @@ include("../src/BraveNewAlgorithm.jl")
 
 include("configuration_parameters_entity_test.jl")
 include("methods/evolution_test.jl")
+include("methods/elitism_test.jl")
 include("methods/create_new_individual.jl")
 include("methods/from_genes_to_embryo_test.jl")
 include("methods/hatchery_test.jl")
