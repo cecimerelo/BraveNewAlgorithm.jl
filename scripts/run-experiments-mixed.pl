@@ -29,7 +29,7 @@ for my $t ( qw(10 5 3) ) {
           run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline );
         }
       }
-      run_command_for_preffix( $fh, $t, $l, $max_gens, 0 );
+      run_command_for_preffix( $fh, $t, $l, $max_gens, 1 );
     }
   }
 }
