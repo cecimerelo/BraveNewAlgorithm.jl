@@ -1,7 +1,3 @@
-using Pkg
-Pkg.activate(".")
-
-include("../../src/BraveNewAlgorithm.jl")
 using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 using Test
