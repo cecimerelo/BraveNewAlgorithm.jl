@@ -4,8 +4,6 @@ delete_element_from_array(array, elements) = for element in elements
 
 best_element_of_population(population) = partialsort(population, 1, by = t -> t.f_value, lt = isless)
 
-worst_element_of_population(population) = partialsort(population, length(population), by = t -> t.f_value, lt = isless)
-
 function random_pairs(iterable)
     tuples = Vector{Tuple}()
     while !isempty(iterable) && length(iterable) > 1

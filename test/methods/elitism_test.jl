@@ -29,11 +29,12 @@ using Test
     new_chromosomes = evolution(population_in_castes, population_model)
     new_embryos_population = [Embryo(chromosome, population_model.fitness_function) for chromosome in new_chromosomes]
     
-    # Apply elitism: inject best, remove worst
-    worst_element = worst_element_of_population(new_embryos_population)
-    worst_index = findfirst(e -> e === worst_element, new_embryos_population)
-    deleteat!(new_embryos_population, worst_index)
-    push!(new_embryos_population, initial_best)
+    # Apply elitism: sort, remove worst, insert best
+    sort!(new_embryos_population, by=t -> t.f_value)
+    pop!(new_embryos_population)  # Remove worst (last element)
+    best_embryo_copy = Embryo(collect(initial_best.chromosome), initial_best.f_value)
+    insert_idx = searchsortedfirst(new_embryos_population, best_embryo_copy, by=t -> t.f_value)
+    insert!(new_embryos_population, insert_idx, best_embryo_copy)
     
     # Test 1: Population size is maintained
     @test length(new_embryos_population) == population_model.config_parameters.population_size
@@ -43,14 +44,14 @@ using Test
     @test best_chromosomes_match == true
     
     # Test 3: Best fitness never degrades
-    new_best = best_element_of_population(new_embryos_population)
+    new_best = new_embryos_population[1]  # First element in sorted array
     @test new_best.f_value <= initial_best.f_value
     
     @info "New best f_value: $(new_best.f_value)"
     @info "Best individual preserved: $best_chromosomes_match"
 end
 
-@testset "Test worst_element_of_population function" begin
+@testset "Test elitism: sorted population properties" begin
     config_file_path = "./test/Config Files/config_file_1_test.json"
     config_parameters_entity = read_parameters_file(config_file_path)
     fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
@@ -64,8 +65,11 @@ end
         for _ in 1:10
     ]
     
-    best = best_element_of_population(embryos)
-    worst = worst_element_of_population(embryos)
+    # Sort the population
+    sort!(embryos, by=t -> t.f_value)
+    
+    best = embryos[1]
+    worst = embryos[end]
     
     # Test: worst should have highest f_value (for minimization)
     @test worst.f_value >= best.f_value
@@ -73,12 +77,15 @@ end
     # Test: worst should be the maximum
     all_f_values = [e.f_value for e in embryos]
     @test worst.f_value == maximum(all_f_values)
+    
+    # Test: best should be the minimum
+    @test best.f_value == minimum(all_f_values)
 end
 
 @testset "Test elitism through multiple generations with brave_new_algorithm" begin
     # Setup with limited generations for fast testing
     config_parameters = ConfigurationParametersEntity(
-        3,  # Small chromosome size
+        10, # Larger chromosome size to accommodate mutation rates
         20, # Small population
         5,  # Few generations
         Dict{String, Int}(
