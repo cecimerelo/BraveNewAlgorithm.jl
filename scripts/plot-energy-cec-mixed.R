@@ -23,7 +23,6 @@ for (i in seq(from=2,to=nrow(mixed_data_regular),by=2)) {
 
 
 mixed_data_regular_workload <- mixed_data_regular %>% filter( delta_PKG != 0)
-# compute mean, median, trimmed mean, sd and interquartile range of delta_PKG grouped by dimension and population_size
 
 library(dplyr)
 summary_data_regular <- mixed_data_regular_workload %>%
