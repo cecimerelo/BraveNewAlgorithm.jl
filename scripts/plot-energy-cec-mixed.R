@@ -152,7 +152,8 @@ summary_data_sandwich_v5 <- create_summary(processed_sandwich_v5)
 processed_sandwich <- rbind(processed_sandwich_v1,
                               processed_sandwich_v2,
                               processed_sandwich_v3,
-                              processed_sandwich_v4)
+                              processed_sandwich_v4,
+                              processed_sandwich_v5)
 
 summary_sandwich <- create_summary(processed_sandwich)
 
