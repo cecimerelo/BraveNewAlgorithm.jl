@@ -33,6 +33,7 @@ summary_data_regular <- mixed_data_regular_workload %>%
     trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
     iqr_delta_PKG = IQR(delta_PKG),
+    conf_interval_delta_PKG = sprintf("[%s, %s]", round(t.test(delta_PKG)$conf.int[1], 2), round(t.test(delta_PKG)$conf.int[2], 2)),
     iqr_PKG = IQR(PKG)
   )
 
