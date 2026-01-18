@@ -112,3 +112,35 @@ summary_data_sandwich_v2 <- mixed_data_sandwich_v2_workload %>%
     sd_delta_PKG = sd(delta_PKG),
     iqr_delta_PKG = IQR(delta_PKG)
   )
+
+lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
+lion_baseline %>% group_by(dimension,population_size) %>%
+  summarise(median_energy=median(PKG), sd_energy=sd(PKG),
+            trimmed_mean_energy=mean(PKG,trim=0.2),
+            median_time=median(seconds), sd_time=sd(seconds),
+            trimmed_mean_time=mean(seconds, trim=0.2)) -> summary_lion_baseline
+
+lion_results <- read.csv("data/lion-1.11.7-bna-fix-rand-bna-fix-rand-12-Jan-15-22-19.csv")
+lion_results$delta_PKG <- 0
+lion_results$delta_seconds <- 0
+for (dim in c(3,5)) {
+  for ( pop_size in c(200,400)) {
+    number_of_rows <- nrow(lion_results[ lion_results$dimension==dim & lion_results$population_size==pop_size,])
+    lion_results[ lion_results$dimension==dim & lion_results$population_size==pop_size,]$delta_PKG <-
+      lion_results[ lion_results$dimension==dim & lion_results$population_size==pop_size,]$PKG  -
+      rep(summary_lion_baseline[ summary_lion_baseline$population_size == pop_size & summary_lion_baseline$dimension==dim, ]$median_energy,number_of_rows)
+
+    lion_results[ lion_results$dimension==dim & lion_results$population_size==pop_size,]$delta_seconds <-
+      lion_results[ lion_results$dimension==dim & lion_results$population_size==pop_size,]$seconds  -
+      rep(summary_lion_baseline[ summary_lion_baseline$population_size == pop_size & summary_lion_baseline$dimension==dim, ]$median_time,number_of_rows)
+  }
+}
+
+lion_results %>% group_by(dimension,population_size) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG),
+    median_delta_PKG = median(delta_PKG),
+    trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG)
+  ) -> summary_lion_results
