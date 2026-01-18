@@ -33,7 +33,8 @@ summary_data_regular <- mixed_data_regular_workload %>%
     median_delta_PKG = median(delta_PKG),
     trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG)
+    iqr_delta_PKG = IQR(delta_PKG),
+    iqr_PKG = IQR(PKG)
   )
 
 
@@ -76,7 +77,8 @@ summary_data_sandwich <- mixed_data_sandwich_workload %>%
     median_delta_PKG = median(delta_PKG),
     trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG)
+    iqr_delta_PKG = IQR(delta_PKG),
+    iqr_PKG = IQR(PKG)
   )
 
 
@@ -110,7 +112,8 @@ summary_data_sandwich_v2 <- mixed_data_sandwich_v2_workload %>%
     median_delta_PKG = median(delta_PKG),
     trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG)
+    iqr_delta_PKG = IQR(delta_PKG),
+    iqr_PKG = IQR(PKG)
   )
 
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
@@ -142,5 +145,6 @@ lion_results %>% group_by(dimension,population_size) %>%
     median_delta_PKG = median(delta_PKG),
     trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG)
+    iqr_delta_PKG = IQR(delta_PKG),
+    iqr_PKG = IQR(PKG)
   ) -> summary_lion_results
