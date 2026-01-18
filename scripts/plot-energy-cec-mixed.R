@@ -81,7 +81,8 @@ create_summary <- function(data) {
         trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
         sd_delta_PKG = sd(delta_PKG),
         iqr_delta_PKG = IQR(delta_PKG),
-        iqr_PKG = IQR(PKG)
+        iqr_PKG = IQR(PKG),
+        conf_interval_delta_PKG = sprintf("[%s, %s]", round(t.test(delta_PKG)$conf.int[1], 2), round(t.test(delta_PKG)$conf.int[2], 2))
       )
   )
 }
@@ -142,6 +143,8 @@ processed_sandwich <- rbind(processed_sandwich_v1,
 
 summary_sandwich <- create_summary(processed_sandwich)
 
+
+# Old results
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
 lion_baseline %>% group_by(dimension,population_size) %>%
   summarise(median_energy=median(PKG), sd_energy=sd(PKG),
