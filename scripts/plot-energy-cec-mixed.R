@@ -136,12 +136,26 @@ ggplot(mixed_data_sandwich_v4, aes(x = cum_seconds, y = PKG,group=work,color=wor
 processed_sandwich_v4 <- process_deltas(mixed_data_sandwich_v4)
 summary_data_sandwich_v4 <- create_summary(processed_sandwich_v4)
 
+mixed_data_sandwich_v5 <- read.csv("data/cec-1.11.8-cec-sandwich-v5-18-Jan-17-48-30.csv")
+mixed_data_sandwich_v5$group <- "sandwich_v5"
+mixed_data_sandwich_v5$cum_seconds <- cumsum(mixed_data_sandwich$seconds)
+ggplot(mixed_data_sandwich_v5, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+processed_sandwich_v5 <- process_deltas(mixed_data_sandwich_v5)
+summary_data_sandwich_v5 <- create_summary(processed_sandwich_v5)
+
+# Combine all data
 processed_sandwich <- rbind(processed_sandwich_v1,
                               processed_sandwich_v2,
                               processed_sandwich_v3,
                               processed_sandwich_v4)
 
 summary_sandwich <- create_summary(processed_sandwich)
+
 
 
 # Old results
