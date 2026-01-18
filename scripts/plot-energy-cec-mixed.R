@@ -56,31 +56,38 @@ ggplot(mixed_data_sandwich, aes(x = cum_seconds, y = PKG,group=work,color=work))
   ) +
   theme_minimal()
 
+process_deltas <- function(data) {
+  n <- nrow(data)
+  data$delta_PKG <- rep(NA_real_, n)
+  data$delta_seconds <- rep(NA_real_, n)
+  for (k in seq(from=0,to=n-1,by=61)) {
+    for (i in seq(from=2,to=60,by=2)) {
+      index <- k+i
+      data$delta_seconds[index] <- data$seconds[index] - (data$seconds[index-1]+ data$seconds[index+1])/2
+      data$delta_PKG[index] <- data$PKG[index] - (data$PKG[index-1] + data$PKG[index+1])/2
 
-n <- nrow(mixed_data_sandwich)
-mixed_data_sandwich$delta_PKG <- rep(NA_real_, n)
-mixed_data_sandwich$delta_seconds <- rep(NA_real_, n)
-for (k in seq(from=0,to=n-1,by=61)) {
-  for (i in seq(from=2,to=60,by=2)) {
-    index <- k+i
-    mixed_data_sandwich$delta_seconds[index] <- mixed_data_sandwich$seconds[index] - (mixed_data_sandwich$seconds[index-1]+ mixed_data_sandwich$seconds[index+1])/2
-    mixed_data_sandwich$delta_PKG[index] <- mixed_data_sandwich$PKG[index] - (mixed_data_sandwich$PKG[index-1] + mixed_data_sandwich$PKG[index+1])/2
-
+    }
   }
+  return(data %>% filter( delta_PKG != 0))
 }
 
-mixed_data_sandwich_workload <- mixed_data_sandwich %>% filter( delta_PKG != 0)
-summary_data_sandwich <- mixed_data_sandwich_workload %>%
-  group_by(dimension, population_size, max_gens ) %>%
-  summarise(
-    mean_delta_PKG = mean(delta_PKG),
-    median_delta_PKG = median(delta_PKG),
-    trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
-    sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG),
-    iqr_PKG = IQR(PKG)
+create_summary <- function(data) {
+  return(
+    data %>%
+      group_by(dimension, population_size, max_gens ) %>%
+      summarise(
+        mean_delta_PKG = mean(delta_PKG),
+        median_delta_PKG = median(delta_PKG),
+        trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+        sd_delta_PKG = sd(delta_PKG),
+        iqr_delta_PKG = IQR(delta_PKG),
+        iqr_PKG = IQR(PKG)
+      )
   )
+}
 
+processed_sandwich_v1 <- process_deltas(mixed_data_sandwich)
+summary_data_sandwich_v1 <- create_summary(processed_sandwich_v1)
 
 mixed_data_sandwich_v2 <- read.csv("data/cec-1.11.8-cec-sandwich-v2-18-Jan-09-39-50.csv")
 mixed_data_sandwich_v2$group <- "sandwich_v2"
@@ -94,27 +101,46 @@ ggplot(mixed_data_sandwich_v2, aes(x = cum_seconds, y = PKG,group=work,color=wor
     y = "Energy Consumption "
   ) +
   theme_minimal()
-n <- nrow(mixed_data_sandwich_v2)
-mixed_data_sandwich_v2$delta_PKG <- rep(NA_real_, n)
-mixed_data_sandwich_v2$delta_seconds <- rep(NA_real_, n)
-for (k in seq(from=0,to=n-1,by=61)) {
-  for (i in seq(from=2,to=60,by=2)) {
-    index <- k+i
-    mixed_data_sandwich_v2$delta_seconds[index] <- mixed_data_sandwich$seconds[index] - (mixed_data_sandwich_v2$seconds[index-1]+ mixed_data_sandwich_v2$seconds[index+1])/2
-    mixed_data_sandwich_v2$delta_PKG[index] <- mixed_data_sandwich_v2$PKG[index] - (mixed_data_sandwich_v2$PKG[index-1] + mixed_data_sandwich_v2$PKG[index+1])/2
-  }
-}
-mixed_data_sandwich_v2_workload <- mixed_data_sandwich_v2 %>% filter( delta_PKG != 0)
-summary_data_sandwich_v2 <- mixed_data_sandwich_v2_workload %>%
-  group_by(dimension, population_size, max_gens ) %>%
-  summarise(
-    mean_delta_PKG = mean(delta_PKG),
-    median_delta_PKG = median(delta_PKG),
-    trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
-    sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG),
-    iqr_PKG = IQR(PKG)
-  )
+
+processed_sandwich_v2 <- process_deltas(mixed_data_sandwich_v2)
+summary_data_sandwich_v2 <- create_summary(processed_sandwich_v2)
+
+mixed_data_sandwich_v3 <- read.csv("data/cec-1.11.8-cec-sandwich-v3-18-Jan-11-55-49.csv")
+mixed_data_sandwich_v3$group <- "sandwich_v3"
+mixed_data_sandwich_v3$cum_seconds <- cumsum(mixed_data_sandwich_v3$seconds)
+ggplot(mixed_data_sandwich_v3, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
+  geom_line() +
+  labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) +
+  theme_minimal()
+
+processed_sandwich_v3 <- process_deltas(mixed_data_sandwich_v3)
+summary_data_sandwich_v3 <- create_summary(processed_sandwich_v3)
+
+
+mixed_data_sandwich_v4 <- read.csv("data/cec-1.11.8-cec-sandwich-v4-18-Jan-13-40-03.csv")
+mixed_data_sandwich_v4$group <- "sandwich_v4"
+mixed_data_sandwich_v4$cum_seconds <- cumsum(mixed_data_sandwich_v4$seconds)
+ggplot(mixed_data_sandwich_v4, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
+  geom_line() +
+  labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+
+processed_sandwich_v4 <- process_deltas(mixed_data_sandwich_v4)
+summary_data_sandwich_v4 <- create_summary(processed_sandwich_v4)
+
+processed_sandwich <- rbind(processed_sandwich_v1,
+                              processed_sandwich_v2,
+                              processed_sandwich_v3,
+                              processed_sandwich_v4)
+
+summary_sandwich <- create_summary(processed_sandwich)
 
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
 lion_baseline %>% group_by(dimension,population_size) %>%
