@@ -80,7 +80,7 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
     end
 end
 
-if abspath(PROGRAM_FILE) == @__FILE__
+(@main)(ARGS) = if abspath(PROGRAM_FILE) == @__FILE__
     problem_dimensions = length(ARGS) > 0 ? parse(Int, ARGS[1]) : 3
     population_size = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 200
     max_generations = length(ARGS) > 2 ? parse(Int, ARGS[3]) : 10
