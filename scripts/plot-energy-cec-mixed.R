@@ -158,6 +158,51 @@ processed_sandwich <- rbind(processed_sandwich_v1,
 summary_sandwich <- create_summary(processed_sandwich)
 
 
+# New results
+results_v12_v1 <- read.csv("data/cec-1.12.4-cec-sandwich-v1-20-Jan-12-35-01.csv")
+results_v12_v1$group <- "v12_v1"
+results_v12_v1$cum_seconds <- cumsum(results_v12_v1$seconds)
+ggplot(results_v12_v1, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+processed_results_v12_v1 <- process_deltas(results_v12_v1)
+summary_results_v12_v1 <- create_summary(processed_results_v12_v1)
+
+results_v12_v2 <- read.csv("data/cec-1.12.4-cec-sandwich-v2-20-Jan-15-14-48.csv")
+results_v12_v2$group <- "v12_v2"
+results_v12_v2$cum_seconds <- cumsum(results_v12_v2$seconds)
+ggplot(results_v12_v2, aes(x = cum_seconds, y = PKG, group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+processed_results_v12_v2 <- process_deltas(results_v12_v2)
+summary_results_v12_v2 <- create_summary(processed_results_v12_v2)
+
+results_v12_v3 <- read.csv("data/cec-1.12.4-cec-sandwich-v3-20-Jan-17-31-35.csv")
+results_v12_v3$group <- "v12_v3"
+results_v12_v3$cum_seconds <- cumsum(results_v12_v3$seconds)
+ggplot(results_v12_v3, aes(x = cum_seconds, y = PKG, group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+
+processed_results_v12_v3 <- process_deltas(results_v12_v3)
+summary_results_v12_v3 <- create_summary(processed_results_v12_v3)
+
+# Combine all new results
+processed_results_v12 <- rbind(processed_results_v12_v1,
+                               processed_results_v12_v2,
+                               processed_results_v12_v3)
+
+summary_results_v12 <- create_summary(processed_results_v12)
+
 
 # Old results
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
