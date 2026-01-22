@@ -196,13 +196,41 @@ ggplot(results_v12_v3, aes(x = cum_seconds, y = PKG, group=work,color=work)) +
 processed_results_v12_v3 <- process_deltas(results_v12_v3)
 summary_results_v12_v3 <- create_summary(processed_results_v12_v3)
 
+results_v12_v4 <- read.csv("data/cec-1.12.4-cec-sandwich-v4-21-Jan-07-36-17.csv")
+results_v12_v4$group <- "v12_v4"
+results_v12_v4$cum_seconds <- cumsum(results_v12_v4$seconds)
+ggplot(results_v12_v4, aes(x = cum_seconds, y = PKG,
+       group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+processed_results_v12_v4 <- process_deltas(results_v12_v4)
+summary_results_v12_v4 <- create_summary(processed_results_v12_v4)
+
+results_v12_v5 <- read.csv("data/cec-1.12.4-cec-sandwich-v5-21-Jan-09-37-26.csv")
+results_v12_v5$group <- "v12_v5"
+results_v12_v5$cum_seconds <- cumsum(results_v12_v5$seconds)
+ggplot(results_v12_v5, aes(x = cum_seconds, y = PKG,
+       group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
+
+processed_results_v12_v5 <- process_deltas(results_v12_v5)
+summary_results_v12_v5 <- create_summary(processed_results_v12_v5)
+
 # Combine all new results
 processed_results_v12 <- rbind(processed_results_v12_v1,
                                processed_results_v12_v2,
-                               processed_results_v12_v3)
+                               processed_results_v12_v3,
+                               processed_results_v12_v4,
+                               processed_results_v12_v5)
 
 summary_results_v12 <- create_summary(processed_results_v12)
-
 
 # Old results
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
