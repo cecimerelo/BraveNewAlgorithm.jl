@@ -245,10 +245,15 @@ results_new_kernel_v4 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v4-27
 processed_results_new_kernel_v4 <- process_deltas(results_new_kernel_v4)
 summary_results_new_kernel_v4 <- create_summary(processed_results_new_kernel_v4)
 
+results_new_kernel_v5 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v5-27-Jan-10-16-05.csv", "new_kernel_v5")
+processed_results_new_kernel_v5 <- process_deltas(results_new_kernel_v5)
+summary_results_new_kernel_v5 <- create_summary(processed_results_new_kernel_v5)
+
 processed_results_new_kernel <- rbind(processed_results_new_kernel_v1,
                                     processed_results_new_kernel_v2,
                                     processed_results_new_kernel_v3,
-                                    processed_results_new_kernel_v4)
+                                    processed_results_new_kernel_v4,
+                                    processed_results_new_kernel_v5)
 
 summary_results_new_kernel <- create_summary(processed_results_new_kernel)
 
