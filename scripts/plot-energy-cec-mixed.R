@@ -227,16 +227,18 @@ summary_results_v12 <- create_summary(processed_results_v12)
 
 
 # Results with new kernel
-results_new_kernel_v1 <- read.csv("data/cec-1.12.4-25.10-cec-mixed-v1-26-Jan-08-30-26.csv")
-results_new_kernel_v1$group <- "new_kernel_v1"
-results_new_kernel_v1$cum_seconds <- cumsum(results_new_kernel_v1$seconds)
-ggplot(results_new_kernel_v1, aes(x = cum_seconds, y = PKG,
-       group=work,color=work)) +
-  geom_line() + labs(
-    title = "Energy Consumption Over Time",
-    x = "Time",
-    y = "Energy Consumption "
-  ) + theme_minimal()
+results_new_kernel_v1 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v1-26-Jan-08-30-26.csv", "new_kernel_v1")
+processed_results_new_kernel_v1 <- process_deltas(results_new_kernel_v1)
+summary_results_new_kernel_v1 <- create_summary(processed_results_new_kernel_v1)
+
+results_new_kernel_v2 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v2-26-Jan-12-20-59.csv", "new_kernel_v2")
+processed_results_new_kernel_v2 <- process_deltas(results_new_kernel_v2)
+summary_results_new_kernel_v2 <- create_summary(processed_results_new_kernel_v2)
+
+results_new_kernel_v3 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v3-26-Jan-17-42-27.csv", "new_kernel_v3")
+processed_results_new_kernel_v3 <- process_deltas(results_new_kernel_v3)
+summary_results_new_kernel_v3 <- create_summary(processed_results_new_kernel_v3)
+
 
 # Old results
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
