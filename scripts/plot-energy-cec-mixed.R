@@ -1,60 +1,17 @@
-mixed_data_regular <- read.csv("data/cec-1.11.8-cec-initial-17-Jan-12-08-26.csv")
-mixed_data_regular$group <- "regular"
-mixed_data_regular$cum_seconds <- cumsum(mixed_data_regular$seconds)
-mixed_data_regular$linewidth <- ifelse( mixed_data_regular$dimension == 10, 4,
-                                       ifelse( mixed_data_regular$dimension ==5, 2, 1))
-library(ggplot2)
-ggplot(mixed_data_regular, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
-  geom_line(linewidth=mixed_data_regular$linewidth) +
-  labs(
-    title = "Energy Consumption Over Time",
-    x = "Time",
-    y = "Energy Consumption "
-  ) +
-  theme_minimal()
-
-mixed_data_regular_self_correlation <- acf(mixed_data_regular$PKG, lag.max=60)
-
-
-for (i in seq(from=2,to=nrow(mixed_data_regular),by=2)) {
-  mixed_data_regular$delta_seconds[i] <- mixed_data_regular$seconds[i] - mixed_data_regular$seconds[i-1]
-  mixed_data_regular$delta_PKG[i] <- mixed_data_regular$PKG[i] - mixed_data_regular$PKG[i-1]
+process_and_plot <- function(file_path, group_name) {
+  data <- read.csv(file_path)
+  data$group <- group_name
+  data$cum_seconds <- cumsum(data$seconds)
+  print( ggplot(data, aes(x = cum_seconds, y = PKG, group=work, color=work)) +
+    geom_line() +
+    labs(
+      title = paste("Energy Consumption Over Time -", group_name),
+      x = "Time",
+      y = "Energy Consumption "
+    ) +
+    theme_minimal())
+  return(data)
 }
-
-
-mixed_data_regular_workload <- mixed_data_regular %>% filter( delta_PKG != 0)
-
-library(dplyr)
-summary_data_regular <- mixed_data_regular_workload %>%
-  group_by(dimension, population_size, max_gens ) %>%
-  summarise(
-    mean_delta_PKG = mean(delta_PKG),
-    median_delta_PKG = median(delta_PKG),
-    trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
-    sd_delta_PKG = sd(delta_PKG),
-    iqr_delta_PKG = IQR(delta_PKG),
-    conf_interval_delta_PKG = sprintf("[%s, %s]", round(t.test(delta_PKG)$conf.int[1], 2), round(t.test(delta_PKG)$conf.int[2], 2)),
-    iqr_PKG = IQR(PKG)
-  )
-
-
-mixed_data_sandwich <- read.csv("data/cec-1.11.8-cec-sandwich-17-Jan-20-05-31.csv")
-mixed_data_sandwich$group <- "sandwich"
-mixed_data_sandwich$cum_seconds <- cumsum(mixed_data_sandwich$seconds)
-
-mixed_data_sandwich_base <- mixed_data_sandwich %>% filter( work == "base-cec-sandwich")
-mixed_data_sandwich_base_self_correlation <- acf(mixed_data_sandwich_base$PKG, lag.max=60)
-mixed_data_sandwich_workload <- mixed_data_sandwich %>% filter( work == "cec-sandwich")
-mixed_data_sandwich_workload_self_correlation <- acf(mixed_data_sandwich_workload$PKG, lag.max=60)
-
-ggplot(mixed_data_sandwich, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
-  geom_line() +
-  labs(
-    title = "Energy Consumption Over Time",
-    x = "Time",
-    y = "Energy Consumption "
-  ) +
-  theme_minimal()
 
 process_deltas <- function(data) {
   n <- nrow(data)
@@ -87,6 +44,63 @@ create_summary <- function(data) {
   )
 }
 
+mixed_data_regular <- read.csv("data/cec-1.11.8-cec-initial-17-Jan-12-08-26.csv")
+mixed_data_regular$group <- "regular"
+mixed_data_regular$cum_seconds <- cumsum(mixed_data_regular$seconds)
+mixed_data_regular$linewidth <- ifelse( mixed_data_regular$dimension == 10, 4,
+                                       ifelse( mixed_data_regular$dimension ==5, 2, 1))
+library(ggplot2)
+ggplot(mixed_data_regular, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
+  geom_line(linewidth=mixed_data_regular$linewidth) +
+  labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) +
+  theme_minimal()
+
+mixed_data_regular_self_correlation <- acf(mixed_data_regular$PKG, lag.max=60)
+
+
+for (i in seq(from=2,to=nrow(mixed_data_regular),by=2)) {
+  mixed_data_regular$delta_seconds[i] <- mixed_data_regular$seconds[i] - mixed_data_regular$seconds[i-1]
+  mixed_data_regular$delta_PKG[i] <- mixed_data_regular$PKG[i] - mixed_data_regular$PKG[i-1]
+}
+
+library(dplyr)
+mixed_data_regular_workload <- mixed_data_regular %>% filter( delta_PKG != 0)
+
+summary_data_regular <- mixed_data_regular_workload %>%
+  group_by(dimension, population_size, max_gens ) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG),
+    median_delta_PKG = median(delta_PKG),
+    trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG),
+    conf_interval_delta_PKG = sprintf("[%s, %s]", round(t.test(delta_PKG)$conf.int[1], 2), round(t.test(delta_PKG)$conf.int[2], 2)),
+    iqr_PKG = IQR(PKG)
+  )
+
+
+mixed_data_sandwich <- read.csv("data/cec-1.11.8-cec-sandwich-17-Jan-20-05-31.csv")
+mixed_data_sandwich$group <- "sandwich"
+mixed_data_sandwich$cum_seconds <- cumsum(mixed_data_sandwich$seconds)
+
+mixed_data_sandwich_base <- mixed_data_sandwich %>% filter( work == "base-cec-sandwich")
+mixed_data_sandwich_base_self_correlation <- acf(mixed_data_sandwich_base$PKG, lag.max=60)
+mixed_data_sandwich_workload <- mixed_data_sandwich %>% filter( work == "cec-sandwich")
+mixed_data_sandwich_workload_self_correlation <- acf(mixed_data_sandwich_workload$PKG, lag.max=60)
+
+ggplot(mixed_data_sandwich, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
+  geom_line() +
+  labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) +
+  theme_minimal()
+
 processed_sandwich_v1 <- process_deltas(mixed_data_sandwich)
 summary_data_sandwich_v1 <- create_summary(processed_sandwich_v1)
 
@@ -106,33 +120,12 @@ ggplot(mixed_data_sandwich_v2, aes(x = cum_seconds, y = PKG,group=work,color=wor
 processed_sandwich_v2 <- process_deltas(mixed_data_sandwich_v2)
 summary_data_sandwich_v2 <- create_summary(processed_sandwich_v2)
 
-mixed_data_sandwich_v3 <- read.csv("data/cec-1.11.8-cec-sandwich-v3-18-Jan-11-55-49.csv")
-mixed_data_sandwich_v3$group <- "sandwich_v3"
-mixed_data_sandwich_v3$cum_seconds <- cumsum(mixed_data_sandwich_v3$seconds)
-ggplot(mixed_data_sandwich_v3, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
-  geom_line() +
-  labs(
-    title = "Energy Consumption Over Time",
-    x = "Time",
-    y = "Energy Consumption "
-  ) +
-  theme_minimal()
-
+mixed_data_sandwich_v3 <- process_and_plot("data/cec-1.11.8-cec-sandwich-v3-18-Jan-11-55-49.csv", "sandwich_v3")
 processed_sandwich_v3 <- process_deltas(mixed_data_sandwich_v3)
 summary_data_sandwich_v3 <- create_summary(processed_sandwich_v3)
 
 
-mixed_data_sandwich_v4 <- read.csv("data/cec-1.11.8-cec-sandwich-v4-18-Jan-13-40-03.csv")
-mixed_data_sandwich_v4$group <- "sandwich_v4"
-mixed_data_sandwich_v4$cum_seconds <- cumsum(mixed_data_sandwich_v4$seconds)
-ggplot(mixed_data_sandwich_v4, aes(x = cum_seconds, y = PKG,group=work,color=work)) +
-  geom_line() +
-  labs(
-    title = "Energy Consumption Over Time",
-    x = "Time",
-    y = "Energy Consumption "
-  ) + theme_minimal()
-
+mixed_data_sandwich_v4 <- process_and_plot("data/cec-1.11.8-cec-sandwich-v4-18-Jan-13-40-03.csv", "sandwich_v4")
 processed_sandwich_v4 <- process_deltas(mixed_data_sandwich_v4)
 summary_data_sandwich_v4 <- create_summary(processed_sandwich_v4)
 
@@ -231,6 +224,19 @@ processed_results_v12 <- rbind(processed_results_v12_v1,
                                processed_results_v12_v5)
 
 summary_results_v12 <- create_summary(processed_results_v12)
+
+
+# Results with new kernel
+results_new_kernel_v1 <- read.csv("data/cec-1.12.4-25.10-cec-mixed-v1-26-Jan-08-30-26.csv")
+results_new_kernel_v1$group <- "new_kernel_v1"
+results_new_kernel_v1$cum_seconds <- cumsum(results_new_kernel_v1$seconds)
+ggplot(results_new_kernel_v1, aes(x = cum_seconds, y = PKG,
+       group=work,color=work)) +
+  geom_line() + labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Energy Consumption "
+  ) + theme_minimal()
 
 # Old results
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
