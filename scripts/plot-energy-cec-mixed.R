@@ -29,6 +29,7 @@ process_deltas <- function(data) {
 }
 
 create_summary <- function(data) {
+  data$energy_per_evaluation <- data$delta_PKG / data$evaluations
   return(
     data %>%
       group_by(dimension, population_size, max_gens ) %>%
@@ -36,6 +37,7 @@ create_summary <- function(data) {
         mean_delta_PKG = mean(delta_PKG),
         median_delta_PKG = median(delta_PKG),
         trimmed_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+        trimmed_mean_energy_per_evaluation = mean(energy_per_evaluation, trim=0.2),
         sd_delta_PKG = sd(delta_PKG),
         iqr_delta_PKG = IQR(delta_PKG),
         iqr_PKG = IQR(PKG),
@@ -238,6 +240,17 @@ summary_results_new_kernel_v2 <- create_summary(processed_results_new_kernel_v2)
 results_new_kernel_v3 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v3-26-Jan-17-42-27.csv", "new_kernel_v3")
 processed_results_new_kernel_v3 <- process_deltas(results_new_kernel_v3)
 summary_results_new_kernel_v3 <- create_summary(processed_results_new_kernel_v3)
+
+results_new_kernel_v4 <- process_and_plot("data/cec-1.12.4-25.10-cec-mixed-v4-27-Jan-08-09-20.csv", "new_kernel_v4")
+processed_results_new_kernel_v4 <- process_deltas(results_new_kernel_v4)
+summary_results_new_kernel_v4 <- create_summary(processed_results_new_kernel_v4)
+
+processed_results_new_kernel <- rbind(processed_results_new_kernel_v1,
+                                    processed_results_new_kernel_v2,
+                                    processed_results_new_kernel_v3,
+                                    processed_results_new_kernel_v4)
+
+summary_results_new_kernel <- create_summary(processed_results_new_kernel)
 
 
 # Old results
