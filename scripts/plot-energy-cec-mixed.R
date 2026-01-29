@@ -257,6 +257,33 @@ processed_results_new_kernel <- rbind(processed_results_new_kernel_v1,
 
 summary_results_new_kernel <- create_summary(processed_results_new_kernel)
 
+results_11_9_v1 <- process_and_plot("data/cec-1.11.9-25.10-cec-mixed-v1-28-Jan-09-03-54.csv", "11.9_v1")
+processed_results_11_9_v1 <- process_deltas(results_11_9_v1)
+summary_results_11_9_v1 <- create_summary(processed_results_11_9_v1)
+
+results_11_9_v2 <- process_and_plot("data/cec-1.11.9-25.10-cec-mixed-v2-28-Jan-11-17-30.csv", "11.9_v2")
+processed_results_11_9_v2 <- process_deltas(results_11_9_v2)
+summary_results_11_9_v2 <- create_summary(processed_results_11_9_v2)
+
+results_11_9_v3 <- process_and_plot("data/cec-1.11.9-25.10-cec-mixed-v3-28-Jan-13-32-40.csv", "11.9_v3")
+processed_results_11_9_v3 <- process_deltas(results_11_9_v3)
+summary_results_11_9_v3 <- create_summary(processed_results_11_9_v3)
+
+results_11_9_v4 <- process_and_plot("data/cec-1.11.9-25.10-cec-mixed-v3-28-Jan-13-32-40.csv", "11.9_v4")
+processed_results_11_9_v4 <- process_deltas(results_11_9_v4)
+summary_results_11_9_v4 <- create_summary(processed_results_11_9_v4)
+
+results_11_9_v5 <- process_and_plot("data/cec-1.11.9-25.10-cec-mixed-v5-29-Jan-08-50-11.csv", "11.9_v5")
+processed_results_11_9_v5 <- process_deltas(results_11_9_v5)
+summary_results_11_9_v5 <- create_summary(processed_results_11_9_v5)
+
+processed_results_11_9 <- rbind(processed_results_11_9_v1,
+                               processed_results_11_9_v2,
+                               processed_results_11_9_v3,
+                               processed_results_11_9_v4,
+                               processed_results_11_9_v5)
+summary_results_11_9 <- create_summary(processed_results_11_9)
+
 
 # Old results
 lion_baseline <- read.csv("data/lion-1.11.7-baseline-bna-baseline-12-Jan-14-46-15.csv")
