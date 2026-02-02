@@ -6,7 +6,7 @@ use warnings;
 use v5.14;
 
 use lib qw(lib ../lib ../../lib);
-use Utils qw(process_pinpoint_output);
+use Utils qw(process_pinpoint_output process_sensors_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $function = shift || "bna";
@@ -26,11 +26,11 @@ for my $t ( qw(10 5 3) ) {
     for my $max_gens ( qw(10 25) ) {
       for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
         for my $baseline ( qw( 1 0 ) ) {
-          my $initial_temperature = run_sensors;
+          my $initial_temperature = run_sensors();
           run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline, $initial_temperature );
         }
       }
-      my $initial_temperature = run_sensors;
+      my $initial_temperature = run_sensors();
       run_command_for_preffix( $fh, $t, $l, $max_gens, 1, $initial_temperature );
     }
   }
