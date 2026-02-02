@@ -5,7 +5,9 @@ use Time::Piece;
 
 use feature qw(say);
 
-our @EXPORT_OK = qw( %command_lines %command_lines_mac process_powermetrics_output process_pinpoint_output mini_slurp process_pinpoint_output_intel);
+our @EXPORT_OK = qw( %command_lines %command_lines_mac
+                     process_powermetrics_output process_pinpoint_output mini_slurp process_pinpoint_output_intel
+                     process_sensors_output);
 
 our %command_lines = ( deno => "/home/jmerelo/.deno/bin/deno run scripts/",
                      bun => "/home/jmerelo/.bun/bin/bun run scripts/",
@@ -65,3 +67,11 @@ sub convert_to_date {
   my $no_weekday = substr $date_string, 4;
   return Time::Piece->strptime( $no_weekday,'%b %d %H:%M:%S %Y %z');
 }
+
+sub process_sensors_output {
+  my $output = shift;
+  my $die = shift || 1;
+  my ($temperature) = ($output =~ qr/Tccd${die}\:\s+\+(\d+\.\d+)/);
+  return $temperature;
+}
+
