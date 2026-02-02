@@ -1,0 +1,15 @@
+name: Run tests
+
+on:
+  push:
+    paths:
+      - t/*
+      - lib/*.pm
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run tests
+        run: prove
