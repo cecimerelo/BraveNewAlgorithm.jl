@@ -1,4 +1,4 @@
-work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations,initial_temp
+work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations,initial_temp_1, initial_temp_2
 base-europar-test-2, 10, 400, 10, 10, 683.11, 8.21238107, , 0, , 30.6, 29.6
 europar-test-2, 10, 400, 10, 10, 656.14, 10.38938226, 34, 4.115634, 126235, 57.1, 53.5
 base-europar-test-2, 10, 400, 10, 10, 406.49, 7.34693928, , 0, , 35.0, 32.0
