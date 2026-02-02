@@ -1,9 +1,9 @@
-europar.test <- read.csv("data/europar-europar-test-2-Feb-11-39-38.csv")
+europar.test <- read.csv("data/europar-europar-test-3-2-Feb-18-19-59.csv")
 
 library(ggplot2)
 
 europar.test$initial_temp <- (europar.test$initial_temp_1 + europar.test$initial_temp_2)/2
-europar.test$color <- ifelse(europar.test$work == "europar-test", "red", "blue")
+europar.test$color <- ifelse(europar.test$work == "europar-test-3", "red", "blue")
 
 ggplot(europar.test, aes(x = initial_temp, y = PKG)) +
   geom_smooth(method = "lm", aes(color=work), se=FALSE) +
