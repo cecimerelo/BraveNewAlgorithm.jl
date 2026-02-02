@@ -97,6 +97,7 @@ for my $t ($output, $output2) {
 
   my @temperatures = process_sensors_output( $t );
 
+  is( $#temperatures , 1, "Extracted two temperatures @temperatures" );
   for my $temp (@temperatures) {
     ok( $temp, "Something is extracted: $temp");
     like( $temp, qr/^\d+\.\d+$/, "$temp looks like a temperature");

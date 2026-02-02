@@ -26,12 +26,12 @@ for my $t ( qw(10 5 3) ) {
     for my $max_gens ( qw(10 25) ) {
       for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
         for my $baseline ( qw( 1 0 ) ) {
-          my $initial_temperature = run_sensors();
-          run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline, $initial_temperature );
+          my @initial_temperature = run_sensors();
+          run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline, @initial_temperature );
         }
       }
-      my $initial_temperature = run_sensors();
-      run_command_for_preffix( $fh, $t, $l, $max_gens, 1, $initial_temperature );
+      my @initial_temperature = run_sensors();
+      run_command_for_preffix( $fh, $t, $l, $max_gens, 1, @initial_temperature );
     }
   }
 }
@@ -51,7 +51,7 @@ sub process_bna_output {
 }
 
 sub run_command_for_preffix {
-  my ($fh, $t, $l, $max_gens, $baseline, $initial_temperature) = @_;
+  my ($fh, $t, $l, $max_gens, $baseline, @initial_temperature) = @_;
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   say "\nRunning $pre_preffix";
   my ( $gpu, $pkg, $seconds, $output );
@@ -66,5 +66,5 @@ sub run_command_for_preffix {
   my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
   my @results = ($pkg,$seconds,$generations, $best_fitness-$target_fitness, $evaluations);
   say join(", ", @results);
-  say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @results), ", ", $initial_temperature;
+  say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @results), ", ", join(", ", @initial_temperature);
 }

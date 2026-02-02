@@ -70,7 +70,7 @@ sub convert_to_date {
 
 sub process_sensors_output {
   my $output = shift;
-  my @temperatures = ($output =~ qr/Tccd\d+\:\s+\+(\d+\.\d+)/);
+  my @temperatures = ($output =~ m/Tccd\d+\:\s+\+(\d+\.\d+)/g);
   return @temperatures;
 }
 
