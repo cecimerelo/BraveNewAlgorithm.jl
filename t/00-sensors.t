@@ -95,10 +95,12 @@ EOC
 
 for my $t ($output, $output2) {
 
-  my $temperature = process_sensors_output( $t );
+  my @temperatures = process_sensors_output( $t );
 
-  ok( $temperature, "Something is extracted: $temperature");
-  like( $temperature, qr/^\d+\.\d+$/, "$temperature looks like a temperature");
+  for my $temp (@temperatures) {
+    ok( $temp, "Something is extracted: $temp");
+    like( $temp, qr/^\d+\.\d+$/, "$temp looks like a temperature");
+  }
 }
 
 done_testing();
