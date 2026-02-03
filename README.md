@@ -167,21 +167,21 @@ ellipsoid_func = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[
 For **exploitation-focused** problems:
 ```julia
 "POPULATION_PERCENTAGE" => Dict(
-    "ALPHA" => 25, "BETA" => 30, "GAMMA" => 25, "DELTA" => 15, "EPSILON" => 5
+    "ALPHA" => 25, "BETA" => 50, "GAMMA" => 5, "DELTA" => 15, "EPSILON" => 5
 )
 ```
 
 For **exploration-focused** problems:
 ```julia
 "POPULATION_PERCENTAGE" => Dict(
-    "ALPHA" => 10, "BETA" => 15, "GAMMA" => 25, "DELTA" => 25, "EPSILON" => 25
+    "ALPHA" => 10, "BETA" => 20, "GAMMA" => 20, "DELTA" => 25, "EPSILON" => 25
 )
 ```
 
 For **balanced** optimization:
 ```julia
 "POPULATION_PERCENTAGE" => Dict(
-    "ALPHA" => 15, "BETA" => 20, "GAMMA" => 30, "DELTA" => 20, "EPSILON" => 15
+    "ALPHA" => 15, "BETA" => 30, "GAMMA" => 30, "DELTA" => 20, "EPSILON" => 5
 )
 ```
 
