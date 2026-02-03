@@ -1,4 +1,4 @@
-name: Run tests
+name: Run Julia tests
 
 on: [push, pull_request]
 
@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        julia-version: ["1", "1.11", "lts"]
+        julia-version: ["1", "1.11", "1.12", "lts"]
     steps:
       - uses: actions/checkout@v5
       - uses: julia-actions/setup-julia@v2
