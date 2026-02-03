@@ -14,7 +14,6 @@ optimizes BBOB's `Sphere` function, for these experiments, run from the
 [`scripts`](scripts/) directory that includes measurement using the `pinpoint`
 tool.
 
-
 ## 🚀 Quick Start
 
 ```bash
@@ -83,11 +82,11 @@ config_parameters = ConfigurationParametersEntity(
     30,                   # population_size
     100,                  # max_generations
     Dict{String, Int}(    # caste percentages
-        "ALPHA" => 10, "BETA" => 20, "GAMMA" => 30, 
+        "ALPHA" => 10, "BETA" => 20, "GAMMA" => 30,
         "DELTA" => 25, "EPSILON" => 15
     ),
     Dict{String, Int}(    # mutation rates per caste
-        "ALPHA" => 5, "BETA" => 8, "GAMMA" => 12, 
+        "ALPHA" => 5, "BETA" => 8, "GAMMA" => 12,
         "DELTA" => 15, "EPSILON" => 20
     )
 )
