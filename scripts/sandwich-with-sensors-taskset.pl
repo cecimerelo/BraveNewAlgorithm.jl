@@ -6,7 +6,7 @@ use warnings;
 use v5.14;
 
 use lib qw(lib ../lib ../../lib);
-use Utils qw(process_pinpoint_output);
+use Utils qw(process_pinpoint_output process_sensors_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $function = shift || "bna";
@@ -18,7 +18,7 @@ my ($mon,$day,$hh,$mm,$ss) = localtime() =~ /(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)
 my $suffix = "$day-$mon-$hh-$mm-$ss";
 
 open my $fh, ">", "$data_dir/$preffix-$function-$suffix.csv";
-say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations";
+say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations,initial_temp_1, initial_temp_2";
 
 my $alpha = 10;
 for my $t ( qw(10 5 3) ) {
@@ -26,15 +26,22 @@ for my $t ( qw(10 5 3) ) {
     for my $max_gens ( qw(10 25) ) {
       for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
         for my $baseline ( qw( 1 0 ) ) {
-          run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline );
+          my @initial_temperature = run_sensors();
+          run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline, @initial_temperature );
         }
       }
-      run_command_for_preffix( $fh, $t, $l, $max_gens, 1 );
+      my @initial_temperature = run_sensors();
+      run_command_for_preffix( $fh, $t, $l, $max_gens, 1, @initial_temperature );
     }
   }
 }
 
 close $fh;
+
+sub run_sensors {
+  my $output = `sensors`;
+  return process_sensors_output( $output );
+}
 
 sub process_bna_output {
   my $output = shift;
@@ -44,7 +51,7 @@ sub process_bna_output {
 }
 
 sub run_command_for_preffix {
-  my ($fh, $t, $l, $max_gens, $baseline) = @_;
+  my ($fh, $t, $l, $max_gens, $baseline, @initial_temperature) = @_;
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   say "\nRunning $pre_preffix";
   my ( $gpu, $pkg, $seconds, $output );
@@ -59,5 +66,5 @@ sub run_command_for_preffix {
   my ($generations, $best_fitness, $target_fitness, $evaluations ) = process_bna_output( $output );
   my @results = ($pkg,$seconds,$generations, $best_fitness-$target_fitness, $evaluations);
   say join(", ", @results);
-  say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @results);
+  say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ", join(", ", @results), ", ", join(", ", @initial_temperature);
 }
