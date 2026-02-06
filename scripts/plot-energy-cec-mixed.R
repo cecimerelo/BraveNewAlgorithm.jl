@@ -1,3 +1,5 @@
+source("R/process_deltas.R")
+
 process_and_plot <- function(file_path, group_name) {
   data <- read.csv(file_path)
   data$group <- group_name
@@ -11,21 +13,6 @@ process_and_plot <- function(file_path, group_name) {
     ) +
     theme_minimal())
   return(data)
-}
-
-process_deltas <- function(data) {
-  n <- nrow(data)
-  data$delta_PKG <- rep(NA_real_, n)
-  data$delta_seconds <- rep(NA_real_, n)
-  for (k in seq(from=0,to=n-1,by=61)) {
-    for (i in seq(from=2,to=60,by=2)) {
-      index <- k+i
-      data$delta_seconds[index] <- data$seconds[index] - (data$seconds[index-1]+ data$seconds[index+1])/2
-      data$delta_PKG[index] <- data$PKG[index] - (data$PKG[index-1] + data$PKG[index+1])/2
-
-    }
-  }
-  return(data %>% filter( delta_PKG != 0))
 }
 
 create_summary <- function(data) {
