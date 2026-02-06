@@ -1,3 +1,5 @@
+source("R/process_deltas.R")
+
 library(ggplot2)
 library(dplyr)
 
@@ -53,5 +55,15 @@ ggplot(europar_test_base, aes(x = initial_temp, y = PKG)) +
   ) + theme_minimal()
 
 temperature_model <- lm(PKG ~ initial_temp+ dimension + population_size, data = europar_test_base)
-library(ggplot2)
 
+europar_test_processed <- process_deltas( europar_test )
+
+ggplot(europar_test_processed, aes(x = initial_temp, y = delta_PKG)) +
+  geom_point(color=europar_test_processed$dimension ) +
+  labs(
+    title = "Energy Consumption Over Time",
+    x = "Time",
+    y = "Temperature "
+  ) + theme_minimal()
+
+workload_temperature_model <- lm(delta_PKG ~ initial_temp + dimension + population_size, data = europar_test_processed)
