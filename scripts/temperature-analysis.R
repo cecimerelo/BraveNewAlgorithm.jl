@@ -43,10 +43,9 @@ europar_test <- rbind(europar_test_1, europar_test_2, europar_test_3, europar_te
 
 europar_test_base <- europar_test %>% filter(base == TRUE)
 
-
 europar_test_base$dimension <- as.factor(europar_test_base$dimension)
 ggplot(europar_test_base, aes(x = initial_temp, y = PKG)) +
-  geom_smooth(method = "lm", aes(color=dimension), se=FALSE) +
+  geom_smooth(method = "glm", aes(color=dimension), formula=y ~ I(x^3)+ I(x^2) + x) +
   geom_point(color=europar_test_base$dimension ) +
   labs(
     title = "Energy Consumption Over Temperature",
@@ -57,20 +56,28 @@ ggplot(europar_test_base, aes(x = initial_temp, y = PKG)) +
 temperature_model <- glm(PKG ~ initial_temp+ dimension + population_size, data = europar_test_base)
 temperature_model_exponential <- glm(PKG ~ I(exp(initial_temp))+ dimension + population_size, data = europar_test_base)
 temperature_model_quadratic <- glm(PKG ~ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
+temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
 
 AIC1 <- AIC(temperature_model,temperature_model_exponential)
-AIC2 <- AIC(temperature_model,temperature_model_quadratic)
+anova_1 <- anova(temperature_model,temperature_model_quadratic)
+anova_cubic <- anova(temperature_model_quadratic, temperature_model_cubic)
 
 europar_test_processed <- process_deltas( europar_test )
 
+europar_test_processed$dimension <- as.factor(europar_test_processed$dimension)
 ggplot(europar_test_processed, aes(x = initial_temp, y = delta_PKG)) +
   geom_point(color=europar_test_processed$dimension ) +
+  geom_smooth(method = "glm", aes(color=dimension), formula=y ~ I(x^3)+ I(x^2) + x) +
   labs(
     title = "Energy Consumption Over Time",
-    x = "Time",
-    y = "Temperature "
+    x = "Temperature",
+    y = "Delta PKG"
   ) + theme_minimal()
 
-workload_temperature_model <- glm(delta_PKG ~ initial_temp + dimension + population_size, data = europar_test_processed)
-workload_temperature_model_exponential <- glm(delta_PKG ~ I(exp(initial_temp)) + dimension + population_size, data = europar_test_processed )
-AIC2 <- AIC(workload_temperature_model, workload_temperature_model_exponential)
+workload_temperature_model <- glm(delta_PKG ~ initial_temp + dimension + population_size+evaluations, data = europar_test_processed)
+workload_temperature_model_exponential <- glm(delta_PKG ~ I(exp(initial_temp)) + dimension + population_size+evaluations, data = europar_test_processed )
+workload_temperature_model_quadratic <- glm(delta_PKG ~ I(initial_temp^2) + initial_temp + dimension + population_size+evaluations, data = europar_test_processed)
+anova_workload <- anova(workload_temperature_model, workload_temperature_model_quadratic)
+
+workload_temperature_model_cubic <- glm(delta_PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size+evaluations, data = europar_test_processed)
+anova_workload_cubic <- anova(workload_temperature_model_quadratic, workload_temperature_model_cubic)
