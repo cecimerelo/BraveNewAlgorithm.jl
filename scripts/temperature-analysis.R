@@ -54,7 +54,12 @@ ggplot(europar_test_base, aes(x = initial_temp, y = PKG)) +
     y = "Energy Consumption "
   ) + theme_minimal()
 
-temperature_model <- lm(PKG ~ initial_temp+ dimension + population_size, data = europar_test_base)
+temperature_model <- glm(PKG ~ initial_temp+ dimension + population_size, data = europar_test_base)
+temperature_model_exponential <- glm(PKG ~ I(exp(initial_temp))+ dimension + population_size, data = europar_test_base)
+temperature_model_quadratic <- glm(PKG ~ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
+
+AIC1 <- AIC(temperature_model,temperature_model_exponential)
+AIC2 <- AIC(temperature_model,temperature_model_quadratic)
 
 europar_test_processed <- process_deltas( europar_test )
 
@@ -66,4 +71,6 @@ ggplot(europar_test_processed, aes(x = initial_temp, y = delta_PKG)) +
     y = "Temperature "
   ) + theme_minimal()
 
-workload_temperature_model <- lm(delta_PKG ~ initial_temp + dimension + population_size, data = europar_test_processed)
+workload_temperature_model <- glm(delta_PKG ~ initial_temp + dimension + population_size, data = europar_test_processed)
+workload_temperature_model_exponential <- glm(delta_PKG ~ I(exp(initial_temp)) + dimension + population_size, data = europar_test_processed )
+AIC2 <- AIC(workload_temperature_model, workload_temperature_model_exponential)
