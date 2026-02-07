@@ -9,23 +9,15 @@ process_europar <- function(file_name, work_name) {
   df$color <- ifelse(df$work == work_name, "red", "blue")
   df$base <- ifelse(df$work == work_name, FALSE, TRUE)
   df$shape <- ifelse(df$dimension == 10,21,ifelse(df$dimension == 5, 22,23))
-
-  ggplot(df, aes(x = initial_temp, y = PKG)) +
-    geom_smooth(method = "lm", aes(color=work), se=FALSE) +
-    geom_point(color=df$color ) +
-    labs(
-      title = "Energy Consumption Over Temperature",
-      x = "Temperature",
-      y = "Energy Consumption "
-    ) +
-    theme_minimal()
-
+  df$size <- ifelse(df$work == work_name, 4,3)
   df$cum_seconds <- cumsum(df$seconds)
   df$initial_temp <- as.numeric(df$initial_temp)
-  print(ggplot(df, aes(x = cum_seconds, y = PKG)) +
-    scale_color_viridis_c() +
-    geom_point( aes(color=initial_temp, shape=factor(shape)) ) +
-    labs(
+
+  print(ggplot(df, aes(x = cum_seconds, y = PKG, size= work ) )+
+      scale_color_viridis_c() +
+        scale_size_manual( values = c(3,5)) +
+      geom_point( aes(color=initial_temp, shape=factor(shape)), alpha=0.5 ) +
+      labs(
       title = "Energy Consumption Over time",
       x = "Time",
       y = "Energy Consumption "
