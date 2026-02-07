@@ -49,6 +49,7 @@ temperature_model <- glm(PKG ~ initial_temp+ dimension + population_size, data =
 temperature_model_exponential <- glm(PKG ~ I(exp(initial_temp))+ dimension + population_size, data = europar_test_base)
 temperature_model_quadratic <- glm(PKG ~ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
 temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
+temperature_model_interact <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_test_base)
 
 AIC1 <- AIC(temperature_model,temperature_model_exponential)
 anova_1 <- anova(temperature_model,temperature_model_quadratic)
@@ -72,6 +73,7 @@ workload_temperature_model_quadratic <- glm(delta_PKG ~ I(initial_temp^2) + init
 anova_workload <- anova(workload_temperature_model, workload_temperature_model_quadratic)
 
 workload_temperature_model_cubic <- glm(delta_PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size+evaluations, data = europar_test_processed)
+workload_temperature_model_interact <- glm(delta_PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size+evaluations, data = europar_test_processed)
 anova_workload_cubic <- anova(workload_temperature_model_quadratic, workload_temperature_model_cubic)
 
 library(dplyr)
