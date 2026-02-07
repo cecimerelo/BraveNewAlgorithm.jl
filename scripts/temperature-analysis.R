@@ -104,3 +104,6 @@ europar_taskset_base %>% group_by(dimension, population_size) %>%
     iqr_PKG = IQR(PKG)
   ) -> summary_taskset_base
 
+taskset_temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_taskset_base)
+
+taskset_temperature_model_cubic_interact <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_taskset_base)
