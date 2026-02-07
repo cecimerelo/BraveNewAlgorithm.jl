@@ -8,6 +8,7 @@ process_europar <- function(file_name, work_name) {
   df$initial_temp <- (df$initial_temp_1 + df$initial_temp_2)/2
   df$color <- ifelse(df$work == work_name, "red", "blue")
   df$base <- ifelse(df$work == work_name, FALSE, TRUE)
+  df$shape <- ifelse(df$dimension == 10,21,ifelse(df$dimension == 5, 22,23))
 
   ggplot(df, aes(x = initial_temp, y = PKG)) +
     geom_smooth(method = "lm", aes(color=work), se=FALSE) +
@@ -22,9 +23,8 @@ process_europar <- function(file_name, work_name) {
   df$cum_seconds <- cumsum(df$seconds)
   df$initial_temp <- as.numeric(df$initial_temp)
   print(ggplot(df, aes(x = cum_seconds, y = PKG)) +
-    # change color scale based on initial_temp
     scale_color_viridis_c() +
-    geom_point( aes(color=initial_temp) ) +
+    geom_point( aes(color=initial_temp, shape=factor(shape)) ) +
     labs(
       title = "Energy Consumption Over time",
       x = "Time",
@@ -81,3 +81,30 @@ anova_workload <- anova(workload_temperature_model, workload_temperature_model_q
 
 workload_temperature_model_cubic <- glm(delta_PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size+evaluations, data = europar_test_processed)
 anova_workload_cubic <- anova(workload_temperature_model_quadratic, workload_temperature_model_cubic)
+
+library(dplyr)
+
+europar_test_base %>%
+  group_by(dimension, population_size) %>%
+  summarise(
+    mean_PKG = mean(PKG),
+    median_PKG = median(PKG),
+    sd_PKG = sd(PKG),
+    trimmed_PKG = mean(PKG, trim = 0.2)
+  ) -> summary_test_base
+
+europar_taskset_1 <- process_europar("data/europar-taskset-1-6-Feb-12-29-38.csv", "taskset-1")
+europar_taskset_2 <- process_europar("data/europar-taskset-2-6-Feb-17-15-39.csv", "taskset-2")
+
+europar_taskset <- rbind(europar_taskset_1, europar_taskset_2)
+
+europar_taskset_base <- europar_taskset %>% filter(base == TRUE)
+
+europar_taskset_base %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_PKG = mean(PKG),
+    median_PKG = median(PKG),
+    sd_PKG = sd(PKG),
+    trimmed_PKG = mean(PKG, trim = 0.2)
+  ) -> summary_taskset_base
+
