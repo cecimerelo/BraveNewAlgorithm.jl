@@ -87,8 +87,9 @@ europar_test_base %>%
 
 europar_taskset_1 <- process_europar("data/europar-taskset-1-6-Feb-12-29-38.csv", "taskset-1")
 europar_taskset_2 <- process_europar("data/europar-taskset-2-6-Feb-17-15-39.csv", "taskset-2")
+europar_taskset_3 <- process_europar("data/europar-taskset-3-7-Feb-09-18-05.csv", "taskset-3")
 
-europar_taskset <- rbind(europar_taskset_1, europar_taskset_2)
+europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3)
 
 europar_taskset_base <- europar_taskset %>% filter(base == TRUE)
 
