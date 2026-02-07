@@ -82,14 +82,16 @@ europar_test_base %>%
     mean_PKG = mean(PKG),
     median_PKG = median(PKG),
     sd_PKG = sd(PKG),
-    trimmed_PKG = mean(PKG, trim = 0.2)
+    trimmed_PKG = mean(PKG, trim = 0.2),
+    iqr_PKG = IQR(PKG)
   ) -> summary_test_base
 
 europar_taskset_1 <- process_europar("data/europar-taskset-1-6-Feb-12-29-38.csv", "taskset-1")
 europar_taskset_2 <- process_europar("data/europar-taskset-2-6-Feb-17-15-39.csv", "taskset-2")
 europar_taskset_3 <- process_europar("data/europar-taskset-3-7-Feb-09-18-05.csv", "taskset-3")
+europar_taskset_4 <- process_europar("data/europar-taskset-4-7-Feb-11-09-48.csv", "taskset-4")
 
-europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3)
+europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3, europar_taskset_4)
 
 europar_taskset_base <- europar_taskset %>% filter(base == TRUE)
 
@@ -98,6 +100,7 @@ europar_taskset_base %>% group_by(dimension, population_size) %>%
     mean_PKG = mean(PKG),
     median_PKG = median(PKG),
     sd_PKG = sd(PKG),
-    trimmed_PKG = mean(PKG, trim = 0.2)
+    trimmed_PKG = mean(PKG, trim = 0.2),
+    iqr_PKG = IQR(PKG)
   ) -> summary_taskset_base
 
