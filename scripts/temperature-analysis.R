@@ -55,6 +55,9 @@ AIC1 <- AIC(temperature_model,temperature_model_exponential)
 anova_1 <- anova(temperature_model,temperature_model_quadratic)
 anova_cubic <- anova(temperature_model_quadratic, temperature_model_cubic)
 
+library(car)
+anova_model <- Anova( temperature_model_interact, type="III")
+
 europar_test_processed <- process_deltas( europar_test )
 
 europar_test_processed$dimension <- as.factor(europar_test_processed$dimension)
@@ -75,6 +78,8 @@ anova_workload <- anova(workload_temperature_model, workload_temperature_model_q
 workload_temperature_model_cubic <- glm(delta_PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size+evaluations, data = europar_test_processed)
 workload_temperature_model_interact <- glm(delta_PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size+evaluations, data = europar_test_processed)
 anova_workload_cubic <- anova(workload_temperature_model_quadratic, workload_temperature_model_cubic)
+
+anova_workload <- Anova(workload_temperature_model_interact, type="III")
 
 library(dplyr)
 
