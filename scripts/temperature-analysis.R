@@ -147,6 +147,18 @@ temperature_comparison <- data.frame(
   temperature = c(temperatures_test_longer$temperature, temperatures_taskset_longer$temperature)
 )
 
+temperature_comparison %>% group_by(work, temperature_type) %>%
+  summarise(
+    mean_temperature = mean(temperature),
+    median_temperature = median(temperature),
+    sd_temperature = sd(temperature),
+    trimmed_temperature = mean(temperature, trim = 0.2),
+    iqr_temperature = IQR(temperature)
+  ) -> summary_temperature_comparison
+
+wilcox_across_experiments_1 <- wilcox.test(temperatures_test_longer[ temperatures_test_longer$temperature_type == "europar_test.initial_temp_1", ]$temperature, temperatures_taskset_longer[temperatures_taskset_longer$temperature_type=="europar_taskset.initial_temp_1",]$temperature)
+wilcox_across_experiments_2 <- wilcox.test(temperatures_test_longer[ temperatures_test_longer$temperature_type == "europar_test.initial_temp_2", ]$temperature, temperatures_taskset_longer[temperatures_taskset_longer$temperature_type=="europar_taskset.initial_temp_2",]$temperature)
+
 ggplot(temperature_comparison, aes(x=temperature_type, y=temperature, fill=work)) +
   geom_violin(position = position_dodge(width = 0.8)) +
   labs(
