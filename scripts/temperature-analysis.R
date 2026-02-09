@@ -51,6 +51,8 @@ temperatures_df <- data.frame( europar_test$initial_temp_1, europar_test$initial
 library(tidyverse)
 temperatures_df %>% pivot_longer(cols = everything(), names_to = "temperature_type", values_to = "temperature") -> temperatures_test_longer
 
+correlation_initial <- cor(europar_test$initial_temp_1, europar_test$initial_temp_2)
+
 ggplot(temperatures_test_longer,aes(x = temperature_type,y=temperature)) +
   geom_violin()+
   labs(
@@ -125,6 +127,8 @@ europar_test_base %>%
     iqr_PKG = IQR(PKG)
   ) -> summary_test_base
 
+
+# taskset in die 1 ---------------------------------------------------------------------------
 europar_taskset_1 <- process_europar("data/europar-taskset-1-6-Feb-12-29-38.csv", "taskset-1")
 plot_temperature(europar_taskset_1)
 europar_taskset_2 <- process_europar("data/europar-taskset-2-6-Feb-17-15-39.csv", "taskset-2")
@@ -138,6 +142,12 @@ europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3
 temperatures_taskset_df <- data.frame( europar_taskset$initial_temp_1, europar_taskset$initial_temp_2 )
 
 temperatures_taskset_df %>% pivot_longer(cols = everything(), names_to = "temperature_type", values_to = "temperature") -> temperatures_taskset_longer
+
+library(cocor)
+correlation_taskset <- cor(europar_taskset$initial_temp_1, europar_taskset$initial_temp_2)
+
+
+relationship_correlations <- cocor.indep.groups(r1=cor(europar_test$initial_temp_1, europar_test$initial_temp_2), r2=cor(europar_taskset$initial_temp_1, europar_taskset$initial_temp_2),n1=length(europar_test$initial_temp_1),n2=length(europar_taskset$initial_temp_1))
 
 ggplot(temperatures_taskset_longer, aes(x = temperature_type,y=temperature)) +
   geom_violin()+
