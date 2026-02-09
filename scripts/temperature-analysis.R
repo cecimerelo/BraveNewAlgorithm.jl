@@ -202,8 +202,12 @@ europar_taskset_die2_1 <- process_europar("data/europar-die-2-taskset-1-9-Feb-09
 plot_temperature(europar_taskset_die2_1)
 europar_taskset_die2_2 <- process_europar("data/europar-die-2-taskset-2-9-Feb-12-48-31.csv", "taskset-2")
 plot_temperature(europar_taskset_die2_2)
+europar_taskset_die2_3 <- process_europar("data/europar-die-2-taskset-3-9-Feb-17-49-44.csv", "taskset-3")
+plot_temperature(europar_taskset_die2_3)
 
-temperatures_taskset_die2_df <- data.frame( europar_taskset_die2_1$initial_temp_1, europar_taskset_die2_1$initial_temp_2, europar_taskset_die2_1$work )
+europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3)
+
+temperatures_taskset_die2_df <- data.frame( europar_taskset_die2$initial_temp_1, europar_taskset_die2$initial_temp_2, europar_taskset_die2_1$work )
 colnames(temperatures_taskset_die2_df) <- c("initial_temp_1", "initial_temp_2", "work")
 temperatures_taskset_die2_df %>% pivot_longer(cols = starts_with("initial_temp"), names_to = "temperature_type", values_to = "temperature") -> temperatures_taskset_die2_longer
 ggplot(temperatures_taskset_die2_longer, aes(color = temperature_type,y=temperature,x=work)) +
@@ -213,3 +217,24 @@ ggplot(temperatures_taskset_die2_longer, aes(color = temperature_type,y=temperat
     x = "Temperature",
     y = "Frequency"
   ) + theme_minimal()
+
+ggplot(temperatures_taskset_die2_longer, aes(x = temperature_type,y=temperature,color=work)) +
+  geom_boxplot(notch=T)+
+  labs(
+    title = "Distribution of Temperatures",
+    x = "Temperature type",
+    y = "Temperature"
+  ) + theme_minimal()
+
+
+europar_taskset_die2_base <- europar_taskset_die2 %>% filter(base == TRUE)
+
+europar_taskset_die2_base %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_PKG = mean(PKG),
+    median_PKG = median(PKG),
+    sd_PKG = sd(PKG),
+    trimmed_PKG = mean(PKG, trim = 0.2),
+    iqr_PKG = IQR(PKG)
+  ) -> summary_taskset_die2_base
+
