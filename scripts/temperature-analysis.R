@@ -190,3 +190,14 @@ taskset_temperature_model_cubic_interact <- glm(PKG ~ I(initial_temp^3)+ I(initi
 
 europar_taskset_die2_1 <- process_europar("data/europar-die-2-taskset-1-9-Feb-09-52-47.csv", "taskset-1")
 plot_temperature(europar_taskset_die2_1)
+
+temperatures_taskset_die2_df <- data.frame( europar_taskset_die2_1$initial_temp_1, europar_taskset_die2_1$initial_temp_2, europar_taskset_die2_1$work )
+colnames(temperatures_taskset_die2_df) <- c("initial_temp_1", "initial_temp_2", "work")
+temperatures_taskset_die2_df %>% pivot_longer(cols = starts_with("initial_temp"), names_to = "temperature_type", values_to = "temperature") -> temperatures_taskset_die2_longer
+ggplot(temperatures_taskset_die2_longer, aes(color = temperature_type,y=temperature,x=work)) +
+  geom_violin()+
+  labs(
+    title = "Distribution of Temperatures",
+    x = "Temperature",
+    y = "Frequency"
+  ) + theme_minimal()
