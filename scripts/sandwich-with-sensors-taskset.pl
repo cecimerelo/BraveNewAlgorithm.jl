@@ -55,7 +55,7 @@ sub run_command_for_preffix {
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   say "\nRunning $pre_preffix";
   my ( $gpu, $pkg, $seconds, $output );
-  my $command = "taskset -c 0-7,16-23 /home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
+  my $command = "taskset -c 8-15,24-31 /home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
   say $command;
   do {
     $output = `pinpoint -i 100 -- $command 2>&1`;
