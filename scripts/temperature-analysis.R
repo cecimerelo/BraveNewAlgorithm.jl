@@ -26,12 +26,38 @@ process_europar <- function(file_name, work_name) {
   return(df)
 }
 
-europar_test_1 <- process_europar("data/europar-europar-test-2-Feb-11-39-38.csv", "europar-test")
-europar_test_2 <- process_europar("data/europar-europar-test-2-2-Feb-13-31-25.csv", "europar-test-2")
-europar_test_3 <- process_europar("data/europar-europar-test-3-2-Feb-18-19-59.csv", "europar-test-3")
-europar_test_4 <- process_europar("data/europar-europar-test-4-3-Feb-08-31-46.csv", "europar-test-4")
+plot_temperature <- function(df) {
+  print(ggplot(df, aes(x = cum_seconds)) +
+    geom_point(color= "red", aes(y=initial_temp_1) ) +
+     geom_point(color= "pink", aes(y=initial_temp_2) ) +
+    labs(
+      title = "Temperature over time",
+      x = "Time (s)",
+      y = "temperature "
+    ) + theme_minimal())
+}
 
+europar_test_1 <- process_europar("data/europar-europar-test-2-Feb-11-39-38.csv", "europar-test")
+plot_temperature(europar_test_1)
+europar_test_2 <- process_europar("data/europar-europar-test-2-2-Feb-13-31-25.csv", "europar-test-2")
+plot_temperature(europar_test_2)
+europar_test_3 <- process_europar("data/europar-europar-test-3-2-Feb-18-19-59.csv", "europar-test-3")
+plot_temperature(europar_test_3)
+europar_test_4 <- process_europar("data/europar-europar-test-4-3-Feb-08-31-46.csv", "europar-test-4")
+plot_temperature(europar_test_4)
 europar_test <- rbind(europar_test_1, europar_test_2, europar_test_3, europar_test_4)
+
+temperatures_df <- data.frame( europar_test$initial_temp_1, europar_test$initial_temp_2 )
+library(tidyverse)
+temperatures_df %>% pivot_longer(cols = everything(), names_to = "temperature_type", values_to = "temperature") -> temperatures_test_longer
+
+ggplot(temperatures_test_longer,aes(x = temperature_type,y=temperature)) +
+  geom_violin()+
+  labs(
+    title = "Distribution of Temperatures",
+    x = "Temperature",
+    y = "Frequency"
+  ) + theme_minimal()
 
 europar_test_base <- europar_test %>% filter(base == TRUE)
 
@@ -94,11 +120,40 @@ europar_test_base %>%
   ) -> summary_test_base
 
 europar_taskset_1 <- process_europar("data/europar-taskset-1-6-Feb-12-29-38.csv", "taskset-1")
+plot_temperature(europar_taskset_1)
 europar_taskset_2 <- process_europar("data/europar-taskset-2-6-Feb-17-15-39.csv", "taskset-2")
+plot_temperature(europar_taskset_2)
 europar_taskset_3 <- process_europar("data/europar-taskset-3-7-Feb-09-18-05.csv", "taskset-3")
+plot_temperature(europar_taskset_3)
 europar_taskset_4 <- process_europar("data/europar-taskset-4-7-Feb-11-09-48.csv", "taskset-4")
+plot_temperature(europar_taskset_4)
 
 europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3, europar_taskset_4)
+temperatures_taskset_df <- data.frame( europar_taskset$initial_temp_1, europar_taskset$initial_temp_2 )
+
+temperatures_taskset_df %>% pivot_longer(cols = everything(), names_to = "temperature_type", values_to = "temperature") -> temperatures_taskset_longer
+
+ggplot(temperatures_taskset_longer, aes(x = temperature_type,y=temperature)) +
+  geom_violin()+
+  labs(
+    title = "Distribution of Temperatures",
+    x = "Temperature",
+    y = "Frequency"
+  ) + theme_minimal()
+
+temperature_comparison <- data.frame(
+  work = c(rep("Test", length(temperatures_test_longer$temperature_type)), rep("Taskset", length(temperatures_taskset_longer$temperature_type))),
+  temperature_type = c(temperatures_test_longer$temperature_type, temperatures_taskset_longer$temperature_type),
+  temperature = c(temperatures_test_longer$temperature, temperatures_taskset_longer$temperature)
+)
+
+ggplot(temperature_comparison, aes(x=temperature_type, y=temperature, fill=work)) +
+  geom_violin(position = position_dodge(width = 0.8)) +
+  labs(
+    title = "Distribution of Temperatures",
+    x = "Temperature Type",
+    y = "Temperature Value",
+  ) + theme_minimal()
 
 europar_taskset_base <- europar_taskset %>% filter(base == TRUE)
 
