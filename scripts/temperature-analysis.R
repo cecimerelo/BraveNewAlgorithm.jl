@@ -190,6 +190,8 @@ taskset_temperature_model_cubic_interact <- glm(PKG ~ I(initial_temp^3)+ I(initi
 
 europar_taskset_die2_1 <- process_europar("data/europar-die-2-taskset-1-9-Feb-09-52-47.csv", "taskset-1")
 plot_temperature(europar_taskset_die2_1)
+europar_taskset_die2_2 <- process_europar("data/europar-die-2-taskset-2-9-Feb-12-48-31.csv", "taskset-2")
+plot_temperature(europar_taskset_die2_2)
 
 temperatures_taskset_die2_df <- data.frame( europar_taskset_die2_1$initial_temp_1, europar_taskset_die2_1$initial_temp_2, europar_taskset_die2_1$work )
 colnames(temperatures_taskset_die2_df) <- c("initial_temp_1", "initial_temp_2", "work")
