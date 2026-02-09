@@ -76,6 +76,12 @@ temperature_model_exponential <- glm(PKG ~ I(exp(initial_temp))+ dimension + pop
 temperature_model_quadratic <- glm(PKG ~ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
 temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_test_base)
 temperature_model_interact <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_test_base)
+temperature_model_interact_quadratic <- glm(PKG ~ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_test_base)
+
+library(marginaleffects)
+predictions_base <- avg_predictions(temperature_model_interact_quadratic,
+                                    newdata = transform( europar_test_base, initial_temp = min(europar_test_base$initial_temp)),
+                                    by = c("dimension","population_size"))
 
 AIC1 <- AIC(temperature_model,temperature_model_exponential)
 anova_1 <- anova(temperature_model,temperature_model_quadratic)
@@ -181,3 +187,6 @@ europar_taskset_base %>% group_by(dimension, population_size) %>%
 taskset_temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp + dimension + population_size, data = europar_taskset_base)
 
 taskset_temperature_model_cubic_interact <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_taskset_base)
+
+europar_taskset_die2_1 <- process_europar("data/europar-die-2-taskset-1-9-Feb-09-52-47.csv", "taskset-1")
+plot_temperature(europar_taskset_die2_1)
