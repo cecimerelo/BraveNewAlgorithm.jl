@@ -266,9 +266,25 @@ europar_taskset_die2_2 <- process_europar("data/europar-die-2-taskset-2-9-Feb-12
 plot_temperature(europar_taskset_die2_2)
 europar_taskset_die2_3 <- process_europar("data/europar-die-2-taskset-3-9-Feb-17-49-44.csv", "taskset-3")
 plot_temperature(europar_taskset_die2_3)
+europar_taskset_die2_4 <- process_europar("data/europar-die-2-taskset-4-10-Feb-07-32-28.csv", "taskset-4")
+plot_temperature(europar_taskset_die2_4)
 
-europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3)
+europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3, europar_taskset_die2_4)
 taskset_die2_temp_range <- c(min(min(europar_taskset_die2$initial_temp_1), min(europar_taskset_die2$initial_temp_2)), max(max(europar_taskset_die2$initial_temp_1), max(europar_taskset_die2$initial_temp_2)) )
+
+europar_taskset_die2 %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_initial_temp_1 = mean(initial_temp_1),
+    median_initial_temp_1 = median(initial_temp_1),
+    sd_initial_temp_1 = sd(initial_temp_1),
+    trimmed_initial_temp_1 = mean(initial_temp_1, trim = 0.2),
+    iqr_initial_temp_1 = IQR(initial_temp_1),
+    mean_initial_temp_2 = mean(initial_temp_2),
+    median_initial_temp_2 = median(initial_temp_2),
+    sd_initial_temp_2 = sd(initial_temp_2),
+    trimmed_initial_temp_2 = mean(initial_temp_2, trim = 0.2),
+    iqr_initial_temp_2 = IQR(initial_temp_2)
+  ) -> summary_taskset_die2_temperatures
 
 temperatures_taskset_die2_df <- data.frame( europar_taskset_die2$initial_temp_1, europar_taskset_die2$initial_temp_2, europar_taskset_die2_1$work )
 colnames(temperatures_taskset_die2_df) <- c("initial_temp_1", "initial_temp_2", "work")
