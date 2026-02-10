@@ -46,6 +46,7 @@ plot_temperature(europar_test_3)
 europar_test_4 <- process_europar("data/europar-europar-test-4-3-Feb-08-31-46.csv", "europar-test-4")
 plot_temperature(europar_test_4)
 europar_test <- rbind(europar_test_1, europar_test_2, europar_test_3, europar_test_4)
+test_temp_range <- c(min(min(europar_test$initial_temp_1), min(europar_test$initial_temp_2)), max(max(europar_test$initial_temp_1), max(europar_test$initial_temp_2)) )
 
 temperatures_df <- data.frame( europar_test$initial_temp_1, europar_test$initial_temp_2 )
 library(tidyverse)
@@ -139,6 +140,10 @@ europar_taskset_4 <- process_europar("data/europar-taskset-4-7-Feb-11-09-48.csv"
 plot_temperature(europar_taskset_4)
 
 europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3, europar_taskset_4)
+
+# Compute temperature range for taskset including both initial_temp_1 and initial_temp_2
+taskset_temp_range <- c(min(min(europar_taskset$initial_temp_1), min(europar_taskset$initial_temp_2)), max(max(europar_taskset$initial_temp_1), max(europar_taskset$initial_temp_2)) )
+
 temperatures_taskset_df <- data.frame( europar_taskset$initial_temp_1, europar_taskset$initial_temp_2 )
 
 temperatures_taskset_df %>% pivot_longer(cols = everything(), names_to = "temperature_type", values_to = "temperature") -> temperatures_taskset_longer
@@ -206,6 +211,7 @@ europar_taskset_die2_3 <- process_europar("data/europar-die-2-taskset-3-9-Feb-17
 plot_temperature(europar_taskset_die2_3)
 
 europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3)
+taskset_die2_temp_range <- c(min(min(europar_taskset_die2$initial_temp_1), min(europar_taskset_die2$initial_temp_2)), max(max(europar_taskset_die2$initial_temp_1), max(europar_taskset_die2$initial_temp_2)) )
 
 temperatures_taskset_die2_df <- data.frame( europar_taskset_die2$initial_temp_1, europar_taskset_die2$initial_temp_2, europar_taskset_die2_1$work )
 colnames(temperatures_taskset_die2_df) <- c("initial_temp_1", "initial_temp_2", "work")
