@@ -128,6 +128,28 @@ europar_test_base %>%
     iqr_PKG = IQR(PKG)
   ) -> summary_test_base
 
+europar_test %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_initial_temp_1 = mean(initial_temp_1),
+    median_initial_temp_1 = median(initial_temp_1),
+    sd_initial_temp_1 = sd(initial_temp_1),
+    trimmed_initial_temp_1 = mean(initial_temp_1, trim = 0.2),
+    iqr_initial_temp_1 = IQR(initial_temp_1),
+    mean_initial_temp_2 = mean(initial_temp_2),
+    median_initial_temp_2 = median(initial_temp_2),
+    sd_initial_temp_2 = sd(initial_temp_2),
+    trimmed_initial_temp_2 = mean(initial_temp_2, trim = 0.2),
+    iqr_initial_temp_2 = IQR(initial_temp_2)
+  ) -> summary_test_temperatures
+
+europar_test_processed %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG),
+    median_delta_PKG = median(delta_PKG),
+    sd_delta_PKG = sd(delta_PKG),
+    trimmed_delta_PKG = mean(delta_PKG, trim = 0.2),
+    iqr_delta_PKG = IQR(delta_PKG)
+  ) -> summary_test_deltas
 
 # taskset in die 1 ---------------------------------------------------------------------------
 europar_taskset_1 <- process_europar("data/europar-taskset-1-6-Feb-12-29-38.csv", "taskset-1")
@@ -140,6 +162,20 @@ europar_taskset_4 <- process_europar("data/europar-taskset-4-7-Feb-11-09-48.csv"
 plot_temperature(europar_taskset_4)
 
 europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3, europar_taskset_4)
+
+europar_taskset %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_initial_temp_1 = mean(initial_temp_1),
+    median_initial_temp_1 = median(initial_temp_1),
+    sd_initial_temp_1 = sd(initial_temp_1),
+    trimmed_initial_temp_1 = mean(initial_temp_1, trim = 0.2),
+    iqr_initial_temp_1 = IQR(initial_temp_1),
+    mean_initial_temp_2 = mean(initial_temp_2),
+    median_initial_temp_2 = median(initial_temp_2),
+    sd_initial_temp_2 = sd(initial_temp_2),
+    trimmed_initial_temp_2 = mean(initial_temp_2, trim = 0.2),
+    iqr_initial_temp_2 = IQR(initial_temp_2)
+  )  -> summary_taskset_temperatures
 
 # Compute temperature range for taskset including both initial_temp_1 and initial_temp_2
 taskset_temp_range <- c(min(min(europar_taskset$initial_temp_1), min(europar_taskset$initial_temp_2)), max(max(europar_taskset$initial_temp_1), max(europar_taskset$initial_temp_2)) )
@@ -203,6 +239,27 @@ taskset_temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2
 
 taskset_temperature_model_cubic_interact <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_taskset_base)
 
+europar_taskset_processed <- process_deltas( europar_taskset )
+europar_taskset_processed$dimension <- as.factor(europar_taskset_processed$dimension)
+ggplot(europar_taskset_processed, aes(x = initial_temp_1, y = delta_PKG)) +
+  geom_point(color=europar_taskset_processed$dimension ) +
+  geom_smooth(method = "glm", aes(color=dimension), formula=y ~ I(x^2) + x + dimension*population_size) +
+  labs(
+    title = "Energy Consumption Over Time",
+    x = "Temperature",
+    y = "Delta PKG"
+  ) + theme_minimal()
+
+europar_taskset_processed %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG),
+    median_delta_PKG = median(delta_PKG),
+    sd_delta_PKG = sd(delta_PKG),
+    trimmed_delta_PKG = mean(delta_PKG, trim = 0.2),
+    iqr_delta_PKG = IQR(delta_PKG)
+  ) -> summary_taskset_deltas
+
+# Using die 2, which is usually less occupied ------------------------------------------------------------
 europar_taskset_die2_1 <- process_europar("data/europar-die-2-taskset-1-9-Feb-09-52-47.csv", "taskset-1")
 plot_temperature(europar_taskset_die2_1)
 europar_taskset_die2_2 <- process_europar("data/europar-die-2-taskset-2-9-Feb-12-48-31.csv", "taskset-2")
