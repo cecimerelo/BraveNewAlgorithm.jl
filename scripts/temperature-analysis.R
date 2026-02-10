@@ -239,6 +239,8 @@ taskset_temperature_model_cubic <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2
 
 taskset_temperature_model_cubic_interact <- glm(PKG ~ I(initial_temp^3)+ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_taskset_base)
 
+taskset_temperature_model_quadratic_interact <- glm(PKG ~ I(initial_temp^2) + initial_temp*dimension*population_size, data = europar_taskset_base)
+
 europar_taskset_processed <- process_deltas( europar_taskset )
 europar_taskset_processed$dimension <- as.factor(europar_taskset_processed$dimension)
 ggplot(europar_taskset_processed, aes(x = initial_temp_1, y = delta_PKG)) +
@@ -259,6 +261,43 @@ europar_taskset_processed %>% group_by(dimension, population_size) %>%
     iqr_delta_PKG = IQR(delta_PKG)
   ) -> summary_taskset_deltas
 
+taskset_workload_temperature_model <- glm(delta_PKG ~ I(initial_temp_1^2) + initial_temp_1*dimension *population_size*evaluations, data = europar_taskset_processed)
+
+studentized_residuals <- rstudent(taskset_workload_temperature_model)
+
+outliers <- which(abs(studentized_residuals) > 3)
+europar_taskset_processed_no_outliers <- europar_taskset_processed[-outliers, ]
+
+median_temperature_1 <- median(europar_taskset_processed$initial_temp_1)
+mad_temperature_1 <- mad(europar_taskset_processed$initial_temp_1)
+
+median_temperature_2 <- median(europar_taskset_processed$initial_temp_2)
+mad_temperature_2 <- mad(europar_taskset_processed$initial_temp_2)
+
+threshold_temperature_1 <- median_temperature_1 + 3 * mad_temperature_1
+threshold_temperature_2 <- median_temperature_2 + 3 * mad_temperature_2
+
+europar_taskset_processed_no_outliers_MAD <- europar_taskset_processed %>%
+  filter(initial_temp_1 <= threshold_temperature_1, initial_temp_2 <= threshold_temperature_2)
+
+europar_taskset_processed_no_outliers_MAD %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG),
+    median_delta_PKG = median(delta_PKG),
+    sd_delta_PKG = sd(delta_PKG),
+    trimmed_delta_PKG = mean(delta_PKG, trim = 0.2),
+    iqr_delta_PKG = IQR(delta_PKG)
+  ) -> summary_taskset_deltas_no_outliers_MAD
+
+europar_taskset_processed_no_outliers %>% group_by(dimension, population_size) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG),
+    median_delta_PKG = median(delta_PKG),
+    sd_delta_PKG = sd(delta_PKG),
+    trimmed_delta_PKG = mean(delta_PKG, trim = 0.2),
+    iqr_delta_PKG = IQR(delta_PKG)
+  ) -> summary_taskset_deltas_no_outliers
+
 # Using die 2, which is usually less occupied ------------------------------------------------------------
 europar_taskset_die2_1 <- process_europar("data/europar-die-2-taskset-1-9-Feb-09-52-47.csv", "taskset-1")
 plot_temperature(europar_taskset_die2_1)
@@ -268,8 +307,10 @@ europar_taskset_die2_3 <- process_europar("data/europar-die-2-taskset-3-9-Feb-17
 plot_temperature(europar_taskset_die2_3)
 europar_taskset_die2_4 <- process_europar("data/europar-die-2-taskset-4-10-Feb-07-32-28.csv", "taskset-4")
 plot_temperature(europar_taskset_die2_4)
+europar_taskset_die2_5 <- process_europar("data/europar-die-2-taskset-5-10-Feb-11-53-53.csv", "taskset-5")
+plot_temperature(europar_taskset_die2_5)
 
-europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3, europar_taskset_die2_4)
+europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3, europar_taskset_die2_4, europar_taskset_die2_5)
 taskset_die2_temp_range <- c(min(min(europar_taskset_die2$initial_temp_1), min(europar_taskset_die2$initial_temp_2)), max(max(europar_taskset_die2$initial_temp_1), max(europar_taskset_die2$initial_temp_2)) )
 
 europar_taskset_die2 %>% group_by(dimension, population_size) %>%
