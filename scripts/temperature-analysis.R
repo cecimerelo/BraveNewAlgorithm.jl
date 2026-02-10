@@ -263,6 +263,8 @@ europar_taskset_processed %>% group_by(dimension, population_size) %>%
 
 taskset_workload_temperature_model <- glm(delta_PKG ~ I(initial_temp_1^2) + initial_temp_1*dimension *population_size*evaluations, data = europar_taskset_processed)
 
+anova_taskset_workload <- Anova(taskset_workload_temperature_model, type="III")
+
 studentized_residuals <- rstudent(taskset_workload_temperature_model)
 
 outliers <- which(abs(studentized_residuals) > 3)
