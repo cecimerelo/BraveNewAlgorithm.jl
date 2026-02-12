@@ -54,11 +54,10 @@ sub process_bna_output {
 
 sub run_command_for_preffix {
   my ($fh, $t, $l, $max_gens, $baseline, @initial_temperature) = @_;
-  my $this_taskset = $initial_temperature[0] > $initial_temperature[1]?$taskset[1]:$taskset[0];
+  my $this_taskset = $initial_temperature[0] > $initial_temperature[1]?$tasksets[1]:$tasksets[0];
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   my ( $gpu, $pkg, $seconds, $output );
   my $command = "taskset -c $this_taskset /home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
-  say "\nRunning $command";
   say $command;
   do {
     $output = `pinpoint -i 100 -- $command 2>&1`;
