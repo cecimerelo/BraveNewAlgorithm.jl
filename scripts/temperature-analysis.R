@@ -394,3 +394,14 @@ icsme_balanced_2 <- process_europar("data/icsme-balanced-balanced-2-12-Feb-09-55
 plot_temperature(icsme_balanced_2)
 icsme_balanced_3 <- process_europar("data/icsme-balanced-balanced-3-12-Feb-12-35-27.csv", "balanced-3")
 plot_temperature(icsme_balanced_3)
+icsme_balanced_4 <- process_europar("data/icsme-balanced-balanced-4-12-Feb-17-13-09.csv", "balanced-4")
+plot_temperature(icsme_balanced_4)
+icsme_balanced <- rbind(icsme_balanced_1, icsme_balanced_2, icsme_balanced_3, icsme_balanced_4)
+
+ggplot(icsme_balanced, aes(x=initial_temp, y=PKG)) +
+  geom_point(color=icsme_balanced$dimension ) +
+  labs( title = "Energy Consumption Over Temperature", x = "Temperature", y = "Energy Consumption " ) + theme_minimal()
+
+ggplot(icsme_balanced, aes(x=cum_seconds, y = initial_temp_1 - initial_temp_2, color=initial_temp)) + scale_color_viridis_c() + geom_point() + guides( color = guide_colorbar(title = "Initial Temperature")) + theme_minimal()
+
+save(icsme_balanced, file = "data/icsme_balanced.rds")
