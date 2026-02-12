@@ -46,6 +46,7 @@ plot_temperature(europar_test_3)
 europar_test_4 <- process_europar("data/europar-europar-test-4-3-Feb-08-31-46.csv", "europar-test-4")
 plot_temperature(europar_test_4)
 europar_test <- rbind(europar_test_1, europar_test_2, europar_test_3, europar_test_4)
+save(europar_test, file = "data/europar_test.rds")
 test_temp_range <- c(min(min(europar_test$initial_temp_1), min(europar_test$initial_temp_2)), max(max(europar_test$initial_temp_1), max(europar_test$initial_temp_2)) )
 
 temperatures_df <- data.frame( europar_test$initial_temp_1, europar_test$initial_temp_2 )
