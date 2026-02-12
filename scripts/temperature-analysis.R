@@ -390,3 +390,7 @@ europar_taskset_die2_base %>% group_by(dimension, population_size) %>%
 # Testing with balanced dies
 icsme_balanced_1 <- process_europar("data/icsme-balanced-balanced-1-12-Feb-08-02-40.csv", "balanced-1")
 plot_temperature(icsme_balanced_1)
+icsme_balanced_2 <- process_europar("data/icsme-balanced-balanced-2-12-Feb-09-55-51.csv", "balanced-2")
+plot_temperature(icsme_balanced_2)
+icsme_balanced_3 <- process_europar("data/icsme-balanced-balanced-3-12-Feb-12-35-27.csv", "balanced-3")
+plot_temperature(icsme_balanced_3)
