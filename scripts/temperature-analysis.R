@@ -46,6 +46,14 @@ plot_temperature(europar_test_3)
 europar_test_4 <- process_europar("data/europar-europar-test-4-3-Feb-08-31-46.csv", "europar-test-4")
 plot_temperature(europar_test_4)
 europar_test <- rbind(europar_test_1, europar_test_2, europar_test_3, europar_test_4)
+
+ggplot(europar_test, aes(x=initial_temp, y=PKG)) + geom_point(color=europar_test$dimension )  + labs( title = "Energy Consumption Over Temperature", x = "Temperature", y = "Energy Consumption " ) + theme_minimal()
+
+ggplot(europar_test, aes(x=cum_seconds, y = initial_temp_1 - initial_temp_2, color=initial_temp)) +
+  scale_color_viridis_c() +
+  geom_point() +
+  guides( color = guide_colorbar(title = "Initial Temperature"))  + theme_minimal()
+
 save(europar_test, file = "data/europar_test.rds")
 test_temp_range <- c(min(min(europar_test$initial_temp_1), min(europar_test$initial_temp_2)), max(max(europar_test$initial_temp_1), max(europar_test$initial_temp_2)) )
 
@@ -163,6 +171,14 @@ europar_taskset_4 <- process_europar("data/europar-taskset-4-7-Feb-11-09-48.csv"
 plot_temperature(europar_taskset_4)
 
 europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3, europar_taskset_4)
+
+ggplot(europar_taskset, aes(x=initial_temp, y=PKG)) + geom_point(color=europar_taskset$dimension ) + labs( title = "Energy Consumption Over Temperature", x = "Temperature", y = "Energy Consumption " ) + theme_minimal()
+
+ggplot(europar_taskset, aes(x=cum_seconds, y = initial_temp_1 - initial_temp_2, color=initial_temp)) +
+  scale_color_viridis_c() +
+  geom_point() +
+  guides( color = guide_colorbar(title = "Initial Temperature"))  + theme_minimal()
+
 save(europar_taskset, file = "data/europar_taskset.rds")
 
 europar_taskset %>% group_by(dimension, population_size) %>%
@@ -315,6 +331,14 @@ europar_taskset_die2_5 <- process_europar("data/europar-die-2-taskset-5-10-Feb-1
 plot_temperature(europar_taskset_die2_5)
 
 europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3, europar_taskset_die2_4, europar_taskset_die2_5)
+
+ggplot(europar_taskset_die2, aes(x=initial_temp, y=PKG)) + geom_point(color=europar_taskset_die2$dimension ) + labs( title = "Energy Consumption Over Temperature", x = "Temperature", y = "Energy Consumption " ) + theme_minimal()
+
+ggplot(europar_taskset_die2, aes(x=cum_seconds, y = initial_temp_1 - initial_temp_2, color=initial_temp)) +
+  scale_color_viridis_c() +
+  geom_point() +
+  guides( color = guide_colorbar(title = "Initial Temperature"))  + theme_minimal()
+
 save(europar_taskset_die2, file = "data/europar_taskset_die2.rds")
 taskset_die2_temp_range <- c(min(min(europar_taskset_die2$initial_temp_1), min(europar_taskset_die2$initial_temp_2)), max(max(europar_taskset_die2$initial_temp_1), max(europar_taskset_die2$initial_temp_2)) )
 
