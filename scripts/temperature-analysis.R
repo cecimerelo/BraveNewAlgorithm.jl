@@ -163,6 +163,7 @@ europar_taskset_4 <- process_europar("data/europar-taskset-4-7-Feb-11-09-48.csv"
 plot_temperature(europar_taskset_4)
 
 europar_taskset <- rbind(europar_taskset_1, europar_taskset_2, europar_taskset_3, europar_taskset_4)
+save(europar_taskset, file = "data/europar_taskset.rds")
 
 europar_taskset %>% group_by(dimension, population_size) %>%
   summarise(
@@ -314,6 +315,7 @@ europar_taskset_die2_5 <- process_europar("data/europar-die-2-taskset-5-10-Feb-1
 plot_temperature(europar_taskset_die2_5)
 
 europar_taskset_die2 <- rbind(europar_taskset_die2_1, europar_taskset_die2_2, europar_taskset_die2_3, europar_taskset_die2_4, europar_taskset_die2_5)
+save(europar_taskset_die2, file = "data/europar_taskset_die2.rds")
 taskset_die2_temp_range <- c(min(min(europar_taskset_die2$initial_temp_1), min(europar_taskset_die2$initial_temp_2)), max(max(europar_taskset_die2$initial_temp_1), max(europar_taskset_die2$initial_temp_2)) )
 
 europar_taskset_die2 %>% group_by(dimension, population_size) %>%
@@ -361,3 +363,6 @@ europar_taskset_die2_base %>% group_by(dimension, population_size) %>%
     iqr_PKG = IQR(PKG)
   ) -> summary_taskset_die2_base
 
+# Testing with balanced dies
+icsme_balanced_1 <- process_europar("data/icsme-balanced-balanced-1-12-Feb-08-02-40.csv", "balanced-1")
+plot_temperature(icsme_balanced_1)
