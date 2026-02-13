@@ -405,3 +405,7 @@ ggplot(icsme_balanced, aes(x=initial_temp, y=PKG)) +
 ggplot(icsme_balanced, aes(x=cum_seconds, y = initial_temp_1 - initial_temp_2, color=initial_temp)) + scale_color_viridis_c() + geom_point() + guides( color = guide_colorbar(title = "Initial Temperature")) + theme_minimal()
 
 save(icsme_balanced, file = "data/icsme_balanced.rds")
+
+# testing with hot first
+icsm_hot_first_1 <- process_europar("data/icsme-unbalanced-1-13-Feb-07-21-46.csv", "unbalanced-1")
+plot_temperature(icsm_hot_first_1)
