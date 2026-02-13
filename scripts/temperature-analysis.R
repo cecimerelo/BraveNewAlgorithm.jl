@@ -409,3 +409,6 @@ save(icsme_balanced, file = "data/icsme_balanced.rds")
 # testing with hot first
 icsm_hot_first_1 <- process_europar("data/icsme-unbalanced-1-13-Feb-07-21-46.csv", "unbalanced-1")
 plot_temperature(icsm_hot_first_1)
+
+icsm_hot_first_2 <- process_europar("data/icsme-unbalanced-2-13-Feb-12-27-47.csv", "unbalanced-2")
+plot_temperature(icsm_hot_first_2)
