@@ -412,3 +412,6 @@ plot_temperature(icsm_hot_first_1)
 
 icsm_hot_first_2 <- process_europar("data/icsme-unbalanced-2-13-Feb-12-27-47.csv", "unbalanced-2")
 plot_temperature(icsm_hot_first_2)
+
+icsm_hot_first_3 <- process_europar("data/icsme-unbalanced-3-13-Feb-17-09-01.csv", "unbalanced-3")
+plot_temperature(icsm_hot_first_3)
