@@ -415,3 +415,11 @@ plot_temperature(icsm_hot_first_2)
 
 icsm_hot_first_3 <- process_europar("data/icsme-unbalanced-3-13-Feb-17-09-01.csv", "unbalanced-3")
 plot_temperature(icsm_hot_first_3)
+
+icsm_hot_first_4 <- process_europar("data/icsme-unbalanced-4-14-Feb-08-54-32.csv", "unbalanced-4")
+plot_temperature(icsm_hot_first_4)
+
+icsm_hot_first <- rbind(icsm_hot_first_1, icsm_hot_first_2, icsm_hot_first_3, icsm_hot_first_4)
+ggplot(icsm_hot_first, aes(x=initial_temp, y=PKG)) +
+  geom_point(color=icsm_hot_first$dimension ) +
+  labs( title = "Energy Consumption Over Temperature", x = "Temperature", y = "Energy Consumption " ) + theme_minimal()
