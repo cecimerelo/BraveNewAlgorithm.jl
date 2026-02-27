@@ -423,3 +423,7 @@ icsm_hot_first <- rbind(icsm_hot_first_1, icsm_hot_first_2, icsm_hot_first_3, ic
 ggplot(icsm_hot_first, aes(x=initial_temp, y=PKG)) +
   geom_point(color=icsm_hot_first$dimension ) +
   labs( title = "Energy Consumption Over Temperature", x = "Temperature", y = "Energy Consumption " ) + theme_minimal()
+
+icsm_hot_first <- rbind(icsm_hot_first_1, icsm_hot_first_2, icsm_hot_first_3, icsm_hot_first_4)
+
+save(icsm_hot_first, file = "data/icsm_hot_first.rds")
