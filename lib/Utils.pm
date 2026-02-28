@@ -7,7 +7,7 @@ use feature qw(say);
 
 our @EXPORT_OK = qw( %command_lines %command_lines_mac
                      process_powermetrics_output process_pinpoint_output mini_slurp process_pinpoint_output_intel
-                     process_sensors_output);
+                     process_sensors_output process_sensors_output_intel);
 
 our %command_lines = ( deno => "/home/jmerelo/.deno/bin/deno run scripts/",
                      bun => "/home/jmerelo/.bun/bin/bun run scripts/",
@@ -41,7 +41,7 @@ sub process_pinpoint_output_intel {
       say $ram, $cores, $psys, $gpu, $pkg,$seconds;
       return $ram, $cores, $psys, $gpu, $pkg,$seconds;
     } else {
-      return 0,0,0;
+      return 0,0,0,0,0,0;
     }
 }
 
@@ -74,3 +74,8 @@ sub process_sensors_output {
   return @temperatures;
 }
 
+sub process_sensors_output_intel {
+  my $output = shift;
+  my ($temperature) = ($output =~ m/Package id 0\:\s+\+(\d+\.\d+)/);
+  return $temperature;
+}
