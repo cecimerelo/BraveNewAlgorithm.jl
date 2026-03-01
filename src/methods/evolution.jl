@@ -28,9 +28,19 @@ function evolution(population_in_castes, population_model)
 
     lower_castes_mutated = vcat(
         [
-            mutate_individual(individual.chromosome, population_model.config_parameters.mutation_rate[caste.name], population_model.range)
-            for caste in [DELTA(), EPSILON()]
-            for individual in population_in_castes[caste]
+            mutate_individual(individual.chromosome, population_model.config_parameters.mutation_rate[DELTA().name], population_model.range)
+            for individual in population_in_castes[DELTA()]
+        ],
+        [
+            mutate_individual(
+                individual.chromosome,
+                population_model.config_parameters.mutation_rate[EPSILON().name],
+                population_model.range,
+                population_model.fitness_function,
+                EPSILON(),
+                population_model.config_parameters.max_generations
+            )
+            for individual in population_in_castes[EPSILON()]
         ],
         [
             mutate_individual(
@@ -48,6 +58,10 @@ function evolution(population_in_castes, population_model)
     return [ collect(Iterators.flatten(new_alpha_individuals));
         collect(Iterators.flatten(new_beta_individuals));
         lower_castes_mutated ]
+end
+
+function mutate_individual(chromosome, mutation_probability, range, fitness_function, caste::EPSILON, max_generations = 10)
+    return local_search(chromosome, fitness_function, mutation_probability, range, caste, max_generations)
 end
 
 function mutate_individual(chromosome, mutation_probability, range, fitness_function, caste::GAMMA, max_generations = 10)
