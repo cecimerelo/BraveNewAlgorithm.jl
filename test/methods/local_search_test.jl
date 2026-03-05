@@ -38,3 +38,25 @@ end
     )
     @test new_chromosome == embryo.chromosome
 end
+
+@testset "Test local_search when called for EPSILON then improved chromosome returned" begin
+    number_of_passed_tests = 0
+    total_tests = 100
+    for _ in 1:total_tests
+        new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[EPSILON().name], range, EPSILON())
+        @test typeof(new_chromosome) == Array{Float64,1}
+        @test length(new_chromosome) == length(embryo.chromosome)
+        new_embryo = Embryo(new_chromosome, population_model.fitness_function)
+        if new_embryo.f_value <= embryo.f_value
+            number_of_passed_tests += 1
+        end
+    end
+    @test number_of_passed_tests ≈ total_tests atol = 20
+end
+
+@testset "Test local_search EPSILON preserves chromosome type and length" begin
+    chromosome = embryo.chromosome
+    new_chromosome = local_search(chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[EPSILON().name], range, EPSILON())
+    @test typeof(new_chromosome) == Array{Float64,1}
+    @test length(new_chromosome) == length(chromosome)
+end
