@@ -1,9 +1,9 @@
 include("../operators/mutation.jl")
 
-const DEFAULT_STEP_SIZE = 0.01
+const MAX_STEP_SIZE = 0.01
 const MAX_LOCAL_SEARCH_ITERATIONS = 10
 
-function local_search(offspring, fitness_function, mutation_rate, range, caste::GAMMA, max_generations = MAX_LOCAL_SEARCH_ITERATIONS, step_fraction = DEFAULT_STEP_SIZE)
+function local_search(offspring, fitness_function, mutation_rate, range, caste::GAMMA, max_generations = MAX_LOCAL_SEARCH_ITERATIONS, step_fraction = MAX_STEP_SIZE)
     step_size = step_fraction * (last(range) - first(range))
     final_chromosome = copy(offspring)
     original_f_value = Embryo(final_chromosome, fitness_function).f_value
@@ -40,7 +40,7 @@ function local_search(offspring, fitness_function, mutation_rate, range, caste::
     iterations = 0
     while iterations < max_generations
         prev_val = final_chromosome[idx]
-        final_chromosome[idx] = clamp(prev_val + direction, first(range), last(range))
+        final_chromosome[idx] = clamp(prev_val + direction * rand(), first(range), last(range))
         new_f = Embryo(final_chromosome, fitness_function).f_value
         if new_f < f_value
             f_value = new_f
