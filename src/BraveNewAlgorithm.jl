@@ -16,7 +16,6 @@ export
     export best_element_of_population
 
     include("individual/castes.jl")
-    include("individual/fitness_function.jl")
     include("individual/population_model.jl")
     include("brave_new_algorithm.jl")
     include("utils.jl")
