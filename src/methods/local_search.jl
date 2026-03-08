@@ -1,7 +1,7 @@
 include("../operators/mutation.jl")
 
 const MAX_STEP_SIZE = 0.01
-const MAX_LOCAL_SEARCH_ITERATIONS = 10
+const MAX_LOCAL_SEARCH_ITERATIONS = 64
 
 function local_search(offspring, fitness_function, mutation_rate, range, caste::GAMMA, max_generations = MAX_LOCAL_SEARCH_ITERATIONS, step_fraction = MAX_STEP_SIZE)
     step_size = step_fraction * (last(range) - first(range))
