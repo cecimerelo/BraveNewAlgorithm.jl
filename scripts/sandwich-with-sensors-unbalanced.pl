@@ -22,6 +22,10 @@ my @tasksets = ( "0-7,16-23","8-15,24-31");
 open my $fh, ">", "$data_dir/$preffix-$function-$suffix.csv";
 say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations,initial_temp_1, initial_temp_2";
 
+my JULIA_PATH = "/home/jmerelo/.juliaup/bin/julia";
+# Precompile
+`$JULIA_PATH --project=. -e 'using Pkg; Pkg.precompile()`
+
 my $alpha = 10;
 for my $t ( qw(10 5 3) ) {
   for my $l ( qw(400 200) ) {
@@ -57,7 +61,7 @@ sub run_command_for_preffix {
   my $this_taskset = $initial_temperature[0] > $initial_temperature[1]?$tasksets[0]:$tasksets[1];
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   my ( $gpu, $pkg, $seconds, $output );
-  my $command = "taskset -c $this_taskset /home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
+  my $command = "taskset -c $this_taskset $JULIA_PATH --project=. examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
   say $command;
   do {
     $output = `pinpoint -i 100 -- $command 2>&1`;
