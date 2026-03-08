@@ -7,10 +7,9 @@ Script used for experiments
 using Pkg
 Pkg.activate(".")
 
-include("../src/BraveNewAlgorithm.jl")
-using .BraveNewAlgorithm
-
 using BlackBoxOptimizationBenchmarking
+using BraveNewAlgorithm
+
 
 function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, baseline=false)
     println("Testing BraveNewAlgorithm basic functionality...")
