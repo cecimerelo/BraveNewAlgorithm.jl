@@ -38,3 +38,11 @@ end
     )
     @test new_chromosome == embryo.chromosome
 end
+
+@testset "Test local_search GAMMA never returns a worse chromosome" begin
+    for _ in 1:100
+        new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, GAMMA())
+        new_embryo = Embryo(new_chromosome, population_model.fitness_function)
+        @test new_embryo.f_value <= embryo.f_value
+    end
+end

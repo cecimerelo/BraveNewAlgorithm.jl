@@ -1,44 +1,50 @@
 include("../operators/mutation.jl")
 
-const MAX_LOCAL_SEARCH_ITERATIONS = 10
-function local_search(offspring, fitness_function, mutation_rate, range, caste::GAMMA, max_generations = MAX_LOCAL_SEARCH_ITERATIONS)
+function local_search(offspring, fitness_function, mutation_rate, range, caste::GAMMA, max_generations = 10)
     step_size = 0.01 * (last(range) - first(range))
     final_chromosome = copy(offspring)
-    f_value = Embryo(final_chromosome, fitness_function).f_value
+    original_f_value = Embryo(final_chromosome, fitness_function).f_value
 
-    for idx in 1:length(final_chromosome)
-        up_chromosome = copy(final_chromosome)
-        up_chromosome[idx] = clamp(final_chromosome[idx] + step_size, first(range), last(range))
-        up_f = Embryo(up_chromosome, fitness_function).f_value
+    idx = rand(1:length(final_chromosome))
+    original_val = final_chromosome[idx]
 
-        down_chromosome = copy(final_chromosome)
-        down_chromosome[idx] = clamp(final_chromosome[idx] - step_size, first(range), last(range))
-        down_f = Embryo(down_chromosome, fitness_function).f_value
+    # Probe up direction
+    up_val = clamp(original_val + step_size, first(range), last(range))
+    final_chromosome[idx] = up_val
+    up_f = Embryo(final_chromosome, fitness_function).f_value
 
-        if up_f < f_value || down_f < f_value
-            if up_f <= down_f
-                direction = 1.0
-                f_value = up_f
-                final_chromosome = up_chromosome
-            else
-                direction = -1.0
-                f_value = down_f
-                final_chromosome = down_chromosome
-            end
+    # Probe down direction
+    down_val = clamp(original_val - step_size, first(range), last(range))
+    final_chromosome[idx] = down_val
+    down_f = Embryo(final_chromosome, fitness_function).f_value
 
-            iterations = 0
-            while iterations < max_generations
-                new_chromosome = copy(final_chromosome)
-                new_chromosome[idx] = clamp(new_chromosome[idx] + direction * step_size, first(range), last(range))
-                new_f = Embryo(new_chromosome, fitness_function).f_value
-                if new_f < f_value
-                    f_value = new_f
-                    final_chromosome = new_chromosome
-                    iterations += 1
-                else
-                    break
-                end
-            end
+    # If neither direction improves, return original chromosome (local optimum)
+    if up_f >= original_f_value && down_f >= original_f_value
+        return offspring
+    end
+
+    # Choose the better direction, reusing already-computed probed values
+    if up_f < down_f
+        direction = step_size
+        f_value = up_f
+        final_chromosome[idx] = up_val
+    else
+        direction = -step_size
+        f_value = down_f
+    end
+
+    # Walk in the improving direction until no improvement or max iterations reached
+    iterations = 0
+    while iterations < max_generations
+        prev_val = final_chromosome[idx]
+        final_chromosome[idx] = clamp(prev_val + direction, first(range), last(range))
+        new_f = Embryo(final_chromosome, fitness_function).f_value
+        if new_f < f_value
+            f_value = new_f
+            iterations += 1
+        else
+            final_chromosome[idx] = prev_val
+            break
         end
     end
 
