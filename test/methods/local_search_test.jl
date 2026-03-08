@@ -43,6 +43,7 @@ end
     for _ in 1:100
         new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, GAMMA())
         new_embryo = Embryo(new_chromosome, population_model.fitness_function)
+        @info "Original fitness: $(embryo.f_value), new fitness: $(new_embryo.f_value)"
         @test new_embryo.f_value <= embryo.f_value
     end
 end
