@@ -5,3 +5,6 @@ instantiate: Project.toml
 
 tests: instantiate
 	julia --project=. test/runtests.jl
+
+precompile:
+	julia --startup-file=no --project=. sysimage/build_bbob_sysimage.jl
