@@ -56,8 +56,8 @@ The algorithm uses a **caste-based population system** with five distinct castes
 
 - **ALPHA** (Elite): Best individuals with low mutation rates for exploitation
 - **BETA** (High performers): Good solutions with moderate diversity
-- **GAMMA** (Average): Balanced exploration and exploitation
-- **DELTA** (Below average): Higher mutation for local search
+- **GAMMA** (Average): Exploitation using local search.
+- **DELTA** (Below average): Higher mutation for exploration
 - **EPSILON** (Diverse): Highest mutation rates for exploration and diversity
 
 ## 📋 Basic Usage
@@ -86,7 +86,7 @@ config_parameters = ConfigurationParametersEntity(
         "DELTA" => 25, "EPSILON" => 15
     ),
     Dict{String, Int}(    # mutation rates per caste
-        "ALPHA" => 5, "BETA" => 8, "GAMMA" => 12,
+        "ALPHA" => 5, "BETA" => 10, "GAMMA" => 10,
         "DELTA" => 15, "EPSILON" => 20
     )
 )

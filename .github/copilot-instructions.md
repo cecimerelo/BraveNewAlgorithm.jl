@@ -37,7 +37,7 @@ BraveNewAlgorithm.jl/
 ## Development Environment Setup
 
 ### Prerequisites
-- Julia 1.4+ (tested with Julia 1.10.10)
+- Julia 1.4+ (tested with Julia up to 1.12)
 - Git for version control
 
 ### Quick Setup
@@ -180,19 +180,20 @@ config_parameters = read_parameters_file("config.json")
 
 ### Recommended Distributions
 
-**Exploitation-focused** (for fine-tuning): The "upper" castes get the biggest proportion
+**Exploitation-focused** (for fine-tuning): The "upper" castes get the biggest
+proportion. BETA must be always double ALPHA
 ```julia
-"POPULATION_PERCENTAGE" => Dict("ALPHA" => 25, "BETA" => 30, "GAMMA" => 25, "DELTA" => 15, "EPSILON" => 5)
+"POPULATION_PERCENTAGE" => Dict("ALPHA" => 25, "BETA" => 50, "GAMMA" => 5, "DELTA" => 15, "EPSILON" => 5)
 ```
 
 **Exploration-focused** (for diverse search):
 ```julia
-"POPULATION_PERCENTAGE" => Dict("ALPHA" => 10, "BETA" => 15, "GAMMA" => 25, "DELTA" => 25, "EPSILON" => 25)
+"POPULATION_PERCENTAGE" => Dict("ALPHA" => 10, "BETA" => 20, "GAMMA" => 20, "DELTA" => 25, "EPSILON" => 25)
 ```
 
 **Balanced** (general purpose):
 ```julia
-"POPULATION_PERCENTAGE" => Dict("ALPHA" => 15, "BETA" => 20, "GAMMA" => 30, "DELTA" => 20, "EPSILON" => 15)
+"POPULATION_PERCENTAGE" => Dict("ALPHA" => 15, "BETA" => 30, "GAMMA" => 20, "DELTA" => 20, "EPSILON" => 15)
 ```
 
 ### Mutation Rate Guidelines
@@ -282,6 +283,8 @@ function_evaluations = fitness_function.calls_counter
 - Use descriptive variable names
 - Include docstrings for public functions
 - Add unit tests for new features
+- Never use literals, every literal must be defined as a named constant
+  following Julia's conventions.
 
 ### File Organization
 - New methods go in `src/methods/`
