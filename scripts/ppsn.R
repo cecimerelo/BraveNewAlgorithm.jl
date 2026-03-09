@@ -59,12 +59,13 @@ ggplot(diff_fitness_icsme_vs_hc, aes(x = workload, y = diff_fitness)) +
 
 ppsn_hc_2 <- read.csv("data/PPSN-speedup-hc-64-2-9-Mar-08-50-11.csv")
 ppsn_hc_3 <- read.csv("data/PPSN-speedup-hc-64-1-8-Mar-20-24-22.csv")
+ppsn_hc_4 <- read.csv("data/PPSN-speedup-hc-64-4-9-Mar-11-46-38.csv")
 
-ppsn_hc <- rbind(ppsn_hc_1, ppsn_hc_2, ppsn_hc_3)
+ppsn_hc <- rbind(ppsn_hc_1, ppsn_hc_2, ppsn_hc_3, ppsn_hc_4)
 
 ppsn_hc_baseline <- ppsn_hc[ startsWith(ppsn_hc$work, "base-"), ]
 
-ppsn_hc_baseline %>% group_by(dimension, population_size, max_gens) %>%
+ppsn_hc_baseline %>% group_by(dimension, population_size) %>%
   summarise(
     PKG_mean = mean(PKG),
     PKG_sd = sd(PKG),
@@ -74,7 +75,7 @@ ppsn_hc_baseline %>% group_by(dimension, population_size, max_gens) %>%
   ) -> summary_ppsn_hc_baseline
 
 icsme_baseline <- icsm_hot_first[ startsWith(icsm_hot_first$work, "base-"), ]
-icsme_baseline %>% group_by(dimension, population_size, max_gens) %>%
+icsme_baseline %>% group_by(dimension, population_size) %>%
   summarise(
     PKG_mean = mean(PKG),
     PKG_sd = sd(PKG),
