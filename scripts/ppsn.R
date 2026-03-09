@@ -136,3 +136,38 @@ ggplot(ppsn_hc_baseline, aes(x = seconds, y = PKG, color = initial_temperature))
     y = "PKG"
   ) +
   theme_minimal()
+
+# Plot temperature histogram
+#
+ggplot(ppsn_hc_baseline, aes(x = initial_temperature)) +
+  geom_histogram(binwidth = 2, fill = "steelblue", color = "black") +
+  labs(title = "Histogram of Initial Temperatures", x = "Initial Temperature", y = "Count") +
+  theme_minimal()
+
+# Density estimation
+density_est <- density(ppsn_hc_baseline$initial_temperature)
+
+# Find the peaks (local maxima)
+# This finds points where the density stops increasing and starts decreasing
+peaks <- density_est$x[which(diff(sign(diff(density_est$y))) < 0) + 1]
+
+# View the values
+print(peaks)
+
+library(mclust)
+
+# Fit a model specifically looking for 2 components
+model <- Mclust(ppsn_hc_baseline$initial_temperature, G = 2)
+
+# Get the two central values (means)
+model$parameters$mean
+
+km <- kmeans(ppsn_hc_baseline$initial_temperature, centers = 2)
+print(km$centers)
+
+# Do the same for icsme
+ggplot(icsme_baseline, aes(x = initial_temp)) +
+  geom_histogram(binwidth = 2, fill = "steelblue", color = "black") +
+  labs(title = "Histogram of Initial Temperatures (ICSME)", x = "Initial Temperature", y = "Count") +
+  theme_minimal()
+model_icsme <- Mclust(icsme_workload$initial_temp, G = 2)
