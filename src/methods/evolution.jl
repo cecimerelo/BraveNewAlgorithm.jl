@@ -33,12 +33,11 @@ function evolution(population_in_castes, population_model)
             for individual in population_in_castes[caste]
         ],
         [
-            mutate_individual(
-                individual.chromosome,
+            local_search(
+                mutation_operator(individual.chromosome, population_model.config_parameters.mutation_rate[GAMMA().name], population_model.range),
+                population_model.fitness_function,
                 population_model.config_parameters.mutation_rate[GAMMA().name],
                 population_model.range,
-                population_model.fitness_function,
-                GAMMA(),
                 population_model.config_parameters.max_generations
             )
             for individual in population_in_castes[GAMMA()]
@@ -48,11 +47,6 @@ function evolution(population_in_castes, population_model)
     return [ collect(Iterators.flatten(new_alpha_individuals));
         collect(Iterators.flatten(new_beta_individuals));
         lower_castes_mutated ]
-end
-
-function mutate_individual(chromosome, mutation_probability, range, fitness_function, caste::GAMMA, max_generations = 10)
-    mutated_chromosome = mutation_operator(chromosome, mutation_probability, range)
-    return local_search(mutated_chromosome, fitness_function, mutation_probability, range, caste)
 end
 
 function mutate_individual(chromosome, mutation_probability, range)
