@@ -83,3 +83,56 @@ icsme_baseline %>% group_by(dimension, population_size) %>%
     PKG_trim_mean = mean(PKG, trim = 0.2),
     PKG_iqr = IQR(PKG)
   ) -> summary_icsme_baseline
+
+# Model PKG
+ppsn_hc_baseline$dimension <- as.factor(ppsn_hc_baseline$dimension)
+ppsn_hc_baseline$population_size <- as.factor(ppsn_hc_baseline$population_size)
+ppsn_hc_baseline$initial_temperature <- (ppsn_hc_baseline$initial_temp_1 + ppsn_hc_baseline$initial_temp_2) / 2
+
+
+ppsn_hc_pkg_model <- lm(PKG ~ initial_temperature+ I(initial_temperature^2) + seconds + dimension + population_size, data = ppsn_hc_baseline)
+anova_ppsn_hc_pkg_model <- anova(ppsn_hc_pkg_model)
+
+ggplot(ppsn_hc_baseline, aes(x = seconds, y = PKG, color=initial_temperature)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(title = "PKG vs Initial Temperature", x = "Seconds", y = "PKG") +
+  theme_minimal()
+
+
+# Try fitting
+# 1. Choose the 4 temperatures
+target_temps <- c(32.5, 37.5, 45)
+
+# 2. Create the grid
+# We pick the FIRST available level for your factors to keep it simple
+predict_grid <- expand.grid(
+  seconds = seq(min(ppsn_hc_baseline$seconds, na.rm = TRUE),
+                max(ppsn_hc_baseline$seconds, na.rm = TRUE), length.out = 100),
+  initial_temperature = target_temps,
+  dimension = levels(ppsn_hc_baseline$dimension)[1],
+  population_size = levels(ppsn_hc_baseline$population_size)[1]
+)
+
+# 3. Generate the fit values using your model
+predict_grid$PKG_fit <- predict(ppsn_hc_pkg_model, newdata = predict_grid)
+
+ggplot(ppsn_hc_baseline, aes(x = seconds, y = PKG, color = initial_temperature)) +
+  # The raw data points
+  geom_point(alpha = 0.2) +
+
+  # The 4 specific model lines
+  geom_line(data = predict_grid,
+            aes(y = PKG_fit, group = initial_temperature),
+            linewidth = 1.2) +
+
+  # Optional: use a clear color scale for numeric values
+  scale_color_viridis_c(option = "plasma") +
+
+  labs(
+    title = "Model Fit for Temperatures 30, 35, 40, 45",
+    subtitle = paste("Fixed at Dimension:", levels(ppsn_hc_baseline$dimension)[1]),
+    x = "Seconds",
+    y = "PKG"
+  ) +
+  theme_minimal()
