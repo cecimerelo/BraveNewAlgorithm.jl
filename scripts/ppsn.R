@@ -18,7 +18,7 @@ icsme_workload %>% group_by(dimension,population_size, max_gens) %>%
   ) -> summary_icsme_workload
 
 
-ppsn_hc_1 <- read.csv("data/PPSN-hc-1-8-Mar-14-48-29.csv")
+ppsn_hc_1 <- read.csv("data/PPSN-speedup-hc-64-1-8-Mar-20-24-22.csv")
 ppsn_hc_1_workload <- ppsn_hc_1[ !startsWith(ppsn_hc_1$work, "base-"), ]
 
 ppsn_hc_1_workload %>% group_by(dimension, population_size, max_gens) %>%
