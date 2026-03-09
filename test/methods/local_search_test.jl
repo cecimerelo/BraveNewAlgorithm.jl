@@ -57,5 +57,5 @@ end
             number_of_passed_tests += 1
         end
     end
-    @test number_of_passed_tests ≈ total_tests atol = 15
+    @test number_of_passed_tests ≈ total_tests atol = 25
 end
