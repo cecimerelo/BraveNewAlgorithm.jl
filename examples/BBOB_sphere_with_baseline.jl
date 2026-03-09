@@ -11,7 +11,7 @@ using BlackBoxOptimizationBenchmarking
 using BraveNewAlgorithm
 
 
-function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, baseline=false)
+function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, max_hillclimbing_steps, baseline=false)
     println("Testing BraveNewAlgorithm basic functionality...")
 
     try
@@ -19,6 +19,7 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
             problem_dimensions,
             population_size,
             max_generations,
+            max_hillclimbing_steps,
             Dict{String, Int}(
                 "ALPHA" => alpha_percentage,
                 "BETA" => alpha_percentage*2,
@@ -86,7 +87,7 @@ end
     alpha_percentage = length(ARGS) > 3 ? parse(Int, ARGS[4]) : 25
     max_hillclimbing_steps = length(ARGS) > 4 ? parse(Int, ARGS[4]) : 16
     baseline = length(ARGS) > 5 ? true : false
-    success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, baseline)
+    success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, max_hillclimbing_steps, baseline)
     if success
         println("\n🎉 Algorithm is working correctly!")
     else
