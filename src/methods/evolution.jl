@@ -34,9 +34,8 @@ function evolution(population_in_castes, population_model)
         ],
         [
             local_search(
-                mutation_operator(individual.chromosome, population_model.config_parameters.mutation_rate[GAMMA().name], population_model.range),
+                individual.chromosome,
                 population_model.fitness_function,
-                population_model.config_parameters.mutation_rate[GAMMA().name],
                 population_model.range,
                 population_model.config_parameters.max_generations
             )

@@ -16,7 +16,7 @@ embryo = fertilising_room(population_model)
     number_of_passed_tests = 0
     total_tests = 100
     for _ in 1:total_tests
-        new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range)
+        new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, range)
         @test typeof(new_chromosome) == Array{Float64,1}
         @test length(new_chromosome) == length(embryo.chromosome)
         @test population_model.fitness_function.calls_counter > 0
@@ -30,31 +30,15 @@ end
 
 @testset "Test local_search never returns a worse chromosome" begin
     for _ in 1:100
-        new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range)
+        new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, range)
         new_embryo = Embryo(new_chromosome, population_model.fitness_function)
         @info "Original fitness: $(embryo.f_value), new fitness: $(new_embryo.f_value)"
         @test new_embryo.f_value <= embryo.f_value
     end
 end
 
-@testset "Test local_search with max_steps = 1 still returns valid chromosome" begin
-    new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, 1)
-    @test typeof(new_chromosome) == Array{Float64,1}
-    @test length(new_chromosome) == length(embryo.chromosome)
-    new_embryo = Embryo(new_chromosome, population_model.fitness_function)
-    @test new_embryo.f_value <= embryo.f_value
-end
-
-@testset "Test local_search with max_steps = 10 still returns valid chromosome" begin
-    new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, 10)
-    @test typeof(new_chromosome) == Array{Float64,1}
-    @test length(new_chromosome) == length(embryo.chromosome)
-    new_embryo = Embryo(new_chromosome, population_model.fitness_function)
-    @test new_embryo.f_value <= embryo.f_value
-end
-
-@testset "Test local_search with max_steps = 100 still returns valid chromosome" begin
-    new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, 100)
+@testset "Test local_search with max_steps = $steps still returns valid chromosome" for steps in [1, 10, 100]
+    new_chromosome = local_search(embryo.chromosome, population_model.fitness_function, range, steps)
     @test typeof(new_chromosome) == Array{Float64,1}
     @test length(new_chromosome) == length(embryo.chromosome)
     new_embryo = Embryo(new_chromosome, population_model.fitness_function)
@@ -65,8 +49,8 @@ end
     number_of_passed_tests = 0
     total_tests = 50
     for _ in 1:total_tests
-        chromosome_short = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, 1)
-        chromosome_long = local_search(embryo.chromosome, population_model.fitness_function, population_model.config_parameters.mutation_rate[GAMMA().name], range, 100)
+        chromosome_short = local_search(embryo.chromosome, population_model.fitness_function, range, 1)
+        chromosome_long = local_search(embryo.chromosome, population_model.fitness_function, range, 100)
         short_f = Embryo(chromosome_short, population_model.fitness_function).f_value
         long_f = Embryo(chromosome_long, population_model.fitness_function).f_value
         if long_f <= short_f

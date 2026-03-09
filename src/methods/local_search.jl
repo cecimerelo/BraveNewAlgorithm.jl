@@ -3,7 +3,7 @@ include("../operators/mutation.jl")
 const MAX_STEP_SIZE = 0.01
 const MAX_LOCAL_SEARCH_ITERATIONS = 64
 
-function local_search(offspring, fitness_function, mutation_rate, range, max_steps = MAX_LOCAL_SEARCH_ITERATIONS, step_fraction = MAX_STEP_SIZE)
+function local_search(offspring, fitness_function, range, max_steps = MAX_LOCAL_SEARCH_ITERATIONS, step_fraction = MAX_STEP_SIZE)
     step_size = step_fraction * (last(range) - first(range))
     final_chromosome = copy(offspring)
     original_f_value = Embryo(final_chromosome, fitness_function).f_value
