@@ -52,3 +52,33 @@ ggplot(diff_fitness_icsme_vs_hc, aes(x = workload, y = diff_fitness)) +
   labs(title = "Diff Fitness Comparison between ICSME and PPSN HC 1", x = "Workload", y = "Diff Fitness") +
 
   theme_minimal()
+
+
+# Work with energy
+#
+
+ppsn_hc_2 <- read.csv("data/PPSN-speedup-hc-64-2-9-Mar-08-50-11.csv")
+ppsn_hc_3 <- read.csv("data/PPSN-speedup-hc-64-1-8-Mar-20-24-22.csv")
+
+ppsn_hc <- rbind(ppsn_hc_1, ppsn_hc_2, ppsn_hc_3)
+
+ppsn_hc_baseline <- ppsn_hc[ startsWith(ppsn_hc$work, "base-"), ]
+
+ppsn_hc_baseline %>% group_by(dimension, population_size, max_gens) %>%
+  summarise(
+    PKG_mean = mean(PKG),
+    PKG_sd = sd(PKG),
+    PKG_median = median(PKG),
+    PKG_trim_mean = mean(PKG, trim = 0.2),
+    PKG_iqr = IQR(PKG)
+  ) -> summary_ppsn_hc_baseline
+
+icsme_baseline <- icsm_hot_first[ startsWith(icsm_hot_first$work, "base-"), ]
+icsme_baseline %>% group_by(dimension, population_size, max_gens) %>%
+  summarise(
+    PKG_mean = mean(PKG),
+    PKG_sd = sd(PKG),
+    PKG_median = median(PKG),
+    PKG_trim_mean = mean(PKG, trim = 0.2),
+    PKG_iqr = IQR(PKG)
+  ) -> summary_icsme_baseline
