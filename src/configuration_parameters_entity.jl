@@ -1,6 +1,7 @@
 const chromosome_size = "CHROMOSOME_SIZE"
 const population_size = "POPULATION_SIZE"
 const max_generations = "MAX_GENERATIONS"
+const max_hillclimbing_steps = "MAX_HILLCLIMBING_STEPS"
 const population_percentage = "POPULATION_PERCENTAGE"
 const alpha = "ALPHA"
 const beta = "BETA"
@@ -13,6 +14,7 @@ struct ConfigurationParametersEntity
     chromosome_size::Int
     population_size::Int
     max_generations::Int
+    max_hillclimbing_steps::Int
     castes_percentages::Dict{String,Int}
     mutation_rate::Dict{String,Int}
 
@@ -21,6 +23,7 @@ struct ConfigurationParametersEntity
         chromosome_size::Int,
         population_size::Int,
         max_generations::Int,
+        max_hillclimbing_steps::Int,
         castes_percentages::Dict{String,Int},
         mutation_rate::Dict{String,Int}
     )
@@ -70,6 +73,9 @@ struct ConfigurationParametersEntity
         if max_generations <= 0
             error("max_generations must be positive")
         end
+        if max_hillclimbing_steps <= 0
+            error("max_hillclimbing_steps must be positive")
+        end
 
         # Validate mutation rates are reasonable (between 0 and 100)
         for (caste, rate) in mutation_rate
@@ -79,14 +85,13 @@ struct ConfigurationParametersEntity
         end
 
         # All validations passed, create the object
-        new(chromosome_size, population_size, max_generations, castes_percentages, mutation_rate)
+        new(chromosome_size, population_size, max_generations, max_hillclimbing_steps, castes_percentages, mutation_rate)
     end
 end
 
 function read_parameters_file(file_path::String)
     @info "Reading parameters file"
     config_parameters = JSON.parsefile(file_path)
-
     castes_percentages =
         Dict{String,Int}(
             alpha => config_parameters[population_percentage][alpha],
@@ -110,5 +115,6 @@ function read_parameters_file(file_path::String)
     # The constructor will handle all validation
     return ConfigurationParametersEntity(
         config_parameters[chromosome_size], config_parameters[population_size],
-        config_parameters[max_generations], castes_percentages, castes_mr)
+        config_parameters[max_generations], config_parameters[max_hillclimbing_steps],
+        castes_percentages, castes_mr)
 end

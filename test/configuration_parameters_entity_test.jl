@@ -32,6 +32,7 @@ end
             5,
             20,
             50,
+            32,
             Dict{String, Int}(
                 "ALPHA" => 10,
                 "BETA" => 20,
@@ -51,6 +52,7 @@ end
         @test config.chromosome_size == 5
         @test config.population_size == 20
         @test config.max_generations == 50
+        @test config.max_hillclimbing_steps == 32
     end
 
     @testset "Invalid percentage sum should be rejected" begin

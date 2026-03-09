@@ -84,7 +84,8 @@ end
     population_size = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 200
     max_generations = length(ARGS) > 2 ? parse(Int, ARGS[3]) : 10
     alpha_percentage = length(ARGS) > 3 ? parse(Int, ARGS[4]) : 25
-    baseline = length(ARGS) > 4 ? true : false
+    max_hillclimbing_steps = length(ARGS) > 4 ? parse(Int, ARGS[4]) : 16
+    baseline = length(ARGS) > 5 ? true : false
     success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, baseline)
     if success
         println("\n🎉 Algorithm is working correctly!")
