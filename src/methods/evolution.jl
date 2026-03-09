@@ -37,7 +37,7 @@ function evolution(population_in_castes, population_model)
                 individual.chromosome,
                 population_model.fitness_function,
                 population_model.range,
-                population_model.config_parameters.max_generations
+                population_model.config_parameters.max_hillclimbing_steps
             )
             for individual in population_in_castes[GAMMA()]
         ]
