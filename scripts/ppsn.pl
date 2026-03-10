@@ -24,16 +24,18 @@ say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,d
 
 my $JULIA_PATH = "/home/jmerelo/.juliaup/bin/julia";
 
-my $alpha = 10;
-for my $t ( qw(10 5 3) ) {
-  for my $l ( qw(400 200) ) {
+my $dimension = 10;
+for my $alpha ( qw(10 25) ) {
+  for my $l ( qw(256 512 1024) ) {
     for my $max_gens ( qw(10 25) ) {
-      for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
-        for my $baseline ( qw( 1 0 ) ) {
-          run_command_for_preffix( $fh, $t, $l, $max_gens, $baseline );
+      for my $steps ( qw( 16 32 64) ) {
+        for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
+          for my $baseline ( qw( 1 0 ) ) {
+            run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, $baseline );
+          }
         }
+        run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, 1 );
       }
-      run_command_for_preffix( $fh, $t, $l, $max_gens, 1 );
     }
   }
 }
@@ -54,11 +56,11 @@ sub process_bna_output {
 
 sub run_command_for_preffix {
   my @initial_temperature = run_sensors();
-  my ($fh, $t, $l, $max_gens, $baseline) = @_;
+  my ($fh, $t, $l, $alpha, $max_gens, $steps, $baseline) = @_;
   my $this_taskset = $initial_temperature[0] > $initial_temperature[1]?$tasksets[0]:$tasksets[1];
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   my ( $gpu, $pkg, $seconds, $output );
-  my $command = "taskset -c $this_taskset $JULIA_PATH examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha".($baseline ? " 1" : "");
+  my $command = "taskset -c $this_taskset $JULIA_PATH examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha $steps".($baseline ? " 1" : "");
   say $command;
   do {
     $output = `pinpoint -i 100 -- $command 2>&1`;
