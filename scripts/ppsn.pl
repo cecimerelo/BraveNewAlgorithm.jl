@@ -26,7 +26,7 @@ my $JULIA_PATH = "/home/jmerelo/.juliaup/bin/julia";
 
 my $dimension = 10;
 for my $alpha ( qw(10 25) ) {
-  for my $l ( qw(256 512 1024) ) {
+  for my $l ( qw(400 800 1200) ) {
     for my $max_gens ( qw(10 25) ) {
       for my $steps ( qw( 16 32 64) ) {
         for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
