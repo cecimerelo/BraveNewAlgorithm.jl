@@ -20,15 +20,15 @@ my $suffix = "$day-$mon-$hh-$mm-$ss";
 my @tasksets = ( "0-7,16-23","8-15,24-31");
 
 open my $fh, ">", "$data_dir/$preffix-$function-$suffix.csv";
-say $fh "work,dimension,population_size,max_gens,alpha,PKG,seconds,generations,diff_fitness,evaluations,initial_temp_1, initial_temp_2, final_temp_1, final_temp_2";
+say $fh "work,dimension,population_size,max_gens,alpha,steps,PKG,seconds,generations,diff_fitness,evaluations,initial_temp_1, initial_temp_2, final_temp_1, final_temp_2";
 
 my $JULIA_PATH = "/home/jmerelo/.juliaup/bin/julia";
 
 my $dimension = 10;
 for my $alpha ( qw(10 25) ) {
-  for my $l ( qw(400 800 1200) ) {
+  for my $l ( qw(400 800) ) {
     for my $max_gens ( qw(10 25) ) {
-      for my $steps ( qw( 16 32 64) ) {
+      for my $steps ( qw( 16 64) ) {
         for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
           for my $baseline ( qw( 1 0 ) ) {
             run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, $baseline );
@@ -73,9 +73,9 @@ sub run_command_for_preffix {
   say join(", ", @results);
   
   my @final_temperature = run_sensors();
-  say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, ",
+  say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, $steps, ",
             join(", ", @results), ", ",
-            join(", ", @initial_temperature),
+            join(", ", @initial_temperature), ", ",
             join(", ", @final_temperature);
 
 }
