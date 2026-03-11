@@ -89,6 +89,14 @@ ppsn_hc_baseline$dimension <- as.factor(ppsn_hc_baseline$dimension)
 ppsn_hc_baseline$population_size <- as.factor(ppsn_hc_baseline$population_size)
 ppsn_hc_baseline$initial_temperature <- (ppsn_hc_baseline$initial_temp_1 + ppsn_hc_baseline$initial_temp_2) / 2
 
+ppsn_hc_baseline %>% group_by(dimension, population_size) %>%
+  summarise(
+    PKG_mean = mean(PKG),
+    PKG_sd = sd(PKG),
+    PKG_median = median(PKG),
+    PKG_trim_mean = mean(PKG, trim = 0.2),
+    PKG_iqr = IQR(PKG)
+  ) -> summary_ppsn_hc_baseline
 
 ppsn_hc_pkg_model <- lm(PKG ~ initial_temperature+ I(initial_temperature^2) + seconds + dimension + population_size, data = ppsn_hc_baseline)
 anova_ppsn_hc_pkg_model <- anova(ppsn_hc_pkg_model)
@@ -171,3 +179,18 @@ ggplot(icsme_baseline, aes(x = initial_temp)) +
   labs(title = "Histogram of Initial Temperatures (ICSME)", x = "Initial Temperature", y = "Count") +
   theme_minimal()
 model_icsme <- Mclust(icsme_workload$initial_temp, G = 2)
+
+# Test new model after removing elements from the dependency list
+ppsn_speedup_1 <- read.csv("data/PPSN-speedup-fixed-gradient-descent-1-10-Mar-20-23-46.csv")
+ppsn_speedup_1_baseline <- ppsn_speedup_1[ startsWith(ppsn_speedup_1$work, "base-"), ]
+
+ppsn_speedup_1_baseline$population_size <- as.factor(ppsn_speedup_1_baseline$population_size)
+
+ppsn_speedup_1_baseline %>% group_by(population_size) %>%
+  summarise(
+    PKG_mean = mean(PKG),
+    PKG_sd = sd(PKG),
+    PKG_median = median(PKG),
+    PKG_trim_mean = mean(PKG, trim = 0.2),
+    PKG_iqr = IQR(PKG)
+  ) -> summary_ppsn_speedup_1_baseline
