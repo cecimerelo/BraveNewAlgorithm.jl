@@ -20,7 +20,7 @@ my $suffix = "$day-$mon-$hh-$mm-$ss";
 my @tasksets = ( "0-7,16-23","8-15,24-31");
 
 open my $fh, ">", "$data_dir/$preffix-$function-$suffix.csv";
-say $fh "work,dimension,population_size,max_gens,alpha,steps,PKG,seconds,generations,diff_fitness,evaluations,initial_temp_1, initial_temp_2, final_temp_1, final_temp_2";
+say $fh "work,dimension,population_size,max_gens,alpha,steps,PKG,seconds,generations,diff_fitness,evaluations,die,initial_temp_1, initial_temp_2, final_temp_1, final_temp_2";
 
 my $JULIA_PATH = "/home/jmerelo/.juliaup/bin/julia";
 
@@ -57,7 +57,8 @@ sub process_bna_output {
 sub run_command_for_preffix {
   my @initial_temperature = run_sensors();
   my ($fh, $t, $l, $alpha, $max_gens, $steps, $baseline) = @_;
-  my $this_taskset = $initial_temperature[0] > $initial_temperature[1]?$tasksets[0]:$tasksets[1];
+  my $die =  $initial_temperature[0] > $initial_temperature[1]?1:2;
+  my $this_taskset = $tasksets[$die - 1];
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   my ( $gpu, $pkg, $seconds, $output );
   my $command = "taskset -c $this_taskset $JULIA_PATH examples/BBOB_sphere_with_baseline.jl $t $l $max_gens $alpha $steps".($baseline ? " 1" : "");
@@ -74,7 +75,7 @@ sub run_command_for_preffix {
   
   my @final_temperature = run_sensors();
   say $fh "$pre_preffix$function, $t, $l, $max_gens, $alpha, $steps, ",
-            join(", ", @results), ", ",
+            join(", ", @results), ", $die, ",
             join(", ", @initial_temperature), ", ",
             join(", ", @final_temperature);
 
