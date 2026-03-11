@@ -43,20 +43,16 @@ function divide_embryos_in_castes(embryos, embryos_for_each_caste)
     for caste in CASTES
         caste_population = embryos_for_each_caste[caste.name]
         embryos_in_caste = embryos[caste_counter:caste_population + caste_counter - 1]
-        individuals_in_caste = build_individuals_for_caste(embryos_in_caste, caste)
+        individuals_in_caste = [
+        Individual(embryo.chromosome, embryo.f_value, caste)
+        for embryo in embryos_in_caste
+    ]
         population_in_castes[caste] = individuals_in_caste
 
         caste_counter = caste_counter + caste_population
     end
 
     return population_in_castes
-end
-
-function build_individuals_for_caste(embryos_in_caste, caste)
-    return [
-        Individual(embryo.chromosome, embryo.f_value, caste)
-        for embryo in embryos_in_caste
-    ]
 end
 
 function assert_population_divided_in_castes_match_initial_population_size(population_in_castes, embryos_length)
