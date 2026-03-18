@@ -37,7 +37,7 @@ end
 
 function divide_embryos_in_castes(embryos, embryos_for_each_caste)
     population_in_castes = Dict{Caste, Vector{Individual}}()
-    CASTES = [ALPHA(), BETA(), GAMMA(), DELTA(), EPSILON()]
+    CASTES = [ALPHA(), BETA(), DELTA(), EPSILON(), GAMMA()]
 
     caste_counter = 1
     for caste in CASTES
