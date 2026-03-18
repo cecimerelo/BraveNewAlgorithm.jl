@@ -244,3 +244,17 @@ ppsn_speedup_fixed_gradient_descent_baseline %>% group_by(dimension,population_s
     PKG_iqr = IQR(PKG)
   ) -> summary_ppsn_speedup_1_baseline
 
+source("R/process_deltas.R")
+ppsn_speedup_fixed_gradient_descent_processed <- process_deltas(ppsn_speedup_fixed_gradient_descent)
+
+ppsn_speedup_fixed_gradient_descent_processed %>% group_by( population_size, max_gens, alpha, steps ) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    trim_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    median_delta_PKG = median(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG),
+    mean_fitness = mean(diff_fitness),
+    sd_fitness = sd(diff_fitness),
+    median_fitness = median(diff_fitness)
+  ) -> summary_ppsn_speedup_fixed_gradient_descent
