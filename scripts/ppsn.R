@@ -270,9 +270,9 @@ gamma_upgrade_processed <- process_deltas(rbind(gamma_upgrade_1, gamma_upgrade_2
 ppsn_speedup_fixed_gradient_descent_processed$group <- "base"
 gamma_upgrade_processed$group <- "gamma_upgrade"
 gamma_upgrade_processed$die <- NULL
-commparison_gamma_upgrade <- rbind(ppsn_speedup_fixed_gradient_descent_processed, gamma_upgrade_processed)
+comparison_gamma_upgrade <- rbind(ppsn_speedup_fixed_gradient_descent_processed, gamma_upgrade_processed)
 
-commparison_gamma_upgrade %>% group_by(population_size, max_gens, alpha, steps, group) %>%
+comparison_gamma_upgrade %>% group_by(population_size, max_gens, alpha, steps, group) %>%
   summarise(
     mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
@@ -283,6 +283,30 @@ commparison_gamma_upgrade %>% group_by(population_size, max_gens, alpha, steps, 
     sd_fitness = sd(diff_fitness),
     median_fitness = median(diff_fitness)
   ) -> summary_comparison_gamma_upgrade
+
+comparison_gamma_upgrade$group <- as.factor(comparison_gamma_upgrade$group)
+comparison_gamma_upgrade$population_size <- as.factor(comparison_gamma_upgrade$population_size)
+comparison_gamma_upgrade$max_gens <- as.factor(comparison_gamma_upgrade$max_gens)
+comparison_gamma_upgrade$alpha <- as.factor(comparison_gamma_upgrade$alpha)
+comparison_gamma_upgrade$initial_temp <- (comparison_gamma_upgrade$initial_temp_1 + comparison_gamma_upgrade$initial_temp_2) / 2
+comparison_gamma_upgrade$final_temp <- (comparison_gamma_upgrade$final_temp_1 + comparison_gamma_upgrade$final_temp_2) / 2
+
+comparison_gamma_upgrade_model <- glm( delta_seconds ~ initial_temp + final_temp + group + population_size + max_gens*alpha*steps + generations*evaluations, data = comparison_gamma_upgrade)
+anova_comparison_gamma_upgrade_model <- anova(comparison_gamma_upgrade_model)
+
+comparison_gamma_upgrade_interact_model <- glm( delta_seconds ~ initial_temp + final_temp +  population_size*group*max_gens*alpha*steps + generations*evaluations, data = comparison_gamma_upgrade)
+
+# compare the two models with anova to see if the interaction model is significantly better than the non-interaction model
+anova_comparison_gamma_upgrade_interact_model <- anova(comparison_gamma_upgrade_interact_model)
+
+compare_models <- anova(comparison_gamma_upgrade_model, comparison_gamma_upgrade_interact_model, test="Chisq")
+
+comparison_gamma_upgrade$residualized_delta_seconds <- resid(comparison_gamma_upgrade_interact_model)
+
+comparison_gamma_upgrade_pkg_model <- glm( delta_PKG ~ initial_temp + final_temp + group*population_size*max_gens*alpha*steps + generations*evaluations + residualized_delta_seconds, data = comparison_gamma_upgrade)
+
+anova_comparison_gamma_upgrade_pkg_model <- anova(comparison_gamma_upgrade_pkg_model)
+
 
 # Microoptimization
 ppsn_microopt_1 <- read.csv("data/PPSN-microopt-1-18-Mar-17-11-50.csv")
