@@ -39,17 +39,15 @@ function divide_embryos_in_castes(embryos, embryos_for_each_caste)
     population_in_castes = Dict{Caste, Vector{Individual}}()
     CASTES = [ALPHA(), BETA(), DELTA(), EPSILON(), GAMMA()]
 
-    caste_counter = 1
+    start_idx = 1
     for caste in CASTES
         caste_population = embryos_for_each_caste[caste.name]
-        embryos_in_caste = embryos[caste_counter:caste_population + caste_counter - 1]
-        individuals_in_caste = [
-        Individual(embryo.chromosome, embryo.f_value, caste)
-        for embryo in embryos_in_caste
-    ]
-        population_in_castes[caste] = individuals_in_caste
-
-        caste_counter = caste_counter + caste_population
+        end_idx = start_idx + caste_population - 1
+        population_in_castes[caste] = [
+            Individual(embryo.chromosome, embryo.f_value, caste)
+            for embryo in @view embryos[start_idx:end_idx]
+        ]
+        start_idx += caste_population
     end
 
     return population_in_castes
