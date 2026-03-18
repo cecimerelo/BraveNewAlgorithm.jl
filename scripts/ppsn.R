@@ -283,3 +283,16 @@ commparison_gamma_upgrade %>% group_by(population_size, max_gens, alpha, steps, 
     sd_fitness = sd(diff_fitness),
     median_fitness = median(diff_fitness)
   ) -> summary_comparison_gamma_upgrade
+
+# Microoptimization
+ppsn_microopt_1 <- read.csv("data/PPSN-microopt-1-18-Mar-17-11-50.csv")
+
+ppsn_microopt_1_baseline <- ppsn_microopt_1[ startsWith(ppsn_microopt_1$work, "base-"), ]
+ppsn_microopt_1_baseline %>% group_by(population_size, die) %>%
+  summarise(
+    PKG_mean = mean(PKG),
+    PKG_sd = sd(PKG),
+    PKG_median = median(PKG),
+    PKG_trim_mean = mean(PKG, trim = 0.2),
+    PKG_iqr = IQR(PKG)
+  ) -> summary_ppsn_microopt_1_baseline
