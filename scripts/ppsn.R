@@ -258,3 +258,28 @@ ppsn_speedup_fixed_gradient_descent_processed %>% group_by( population_size, max
     sd_fitness = sd(diff_fitness),
     median_fitness = median(diff_fitness)
   ) -> summary_ppsn_speedup_fixed_gradient_descent
+
+# Test the last improvement
+gamma_upgrade_1 <- read.csv("data/PPSN-gamma-upgrade-1-11-Mar-20-34-57.csv")
+gamma_upgrade_2 <- read.csv("data/PPSN-gamma-upgrade-3-12-Mar-19-34-01.csv")
+gamma_upgrade_3 <- read.csv("data/PPSN-gamma-upgrade-2-12-Mar-17-24-11.csv")
+gamma_upgrade_4 <- read.csv("data/PPSN-gamma-upgrade-4-13-Mar-07-19-54.csv")
+
+gamma_upgrade_processed <- process_deltas(rbind(gamma_upgrade_1, gamma_upgrade_2, gamma_upgrade_3, gamma_upgrade_4))
+
+ppsn_speedup_fixed_gradient_descent_processed$group <- "base"
+gamma_upgrade_processed$group <- "gamma_upgrade"
+gamma_upgrade_processed$die <- NULL
+commparison_gamma_upgrade <- rbind(ppsn_speedup_fixed_gradient_descent_processed, gamma_upgrade_processed)
+
+commparison_gamma_upgrade %>% group_by(population_size, max_gens, alpha, steps, group) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    trim_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    median_delta_PKG = median(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG),
+    mean_fitness = mean(diff_fitness),
+    sd_fitness = sd(diff_fitness),
+    median_fitness = median(diff_fitness)
+  ) -> summary_comparison_gamma_upgrade
