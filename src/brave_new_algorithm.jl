@@ -3,13 +3,10 @@ include("methods/evolution.jl")
 include("methods/fertilising_room.jl")
 
 using DataFrames
-using InformationMeasures
 
 function brave_new_algorithm(population_model::PopulationModel)
     generations_array = Array{Int,1}()
     best_f_values = Array{Float64,1}()
-    entropies = Array{Float64,1}()
-    edit_distances = Array{Float64,1}()
 
     @info """
     Creating embryos,
@@ -55,17 +52,8 @@ function brave_new_algorithm(population_model::PopulationModel)
             best_element = new_best_element
         end
 
-        all_f_values = [embryo.f_value for embryo in embryos]
-        entropy = get_entropy(all_f_values)
-        all_chromosomes = [embryo.chromosome for embryo in embryos]
-        edit_distance = calculate_edit_distance(
-                            all_chromosomes, best_element.chromosome,
-                            population_model.config_parameters.population_size
-                        )
         push!(generations_array, generation)
         push!(best_f_values, best_element.f_value)
-        push!(entropies, entropy)
-        push!(edit_distances, edit_distance)
 
         embryos = new_embryos_population
         generation = generation + 1
@@ -73,9 +61,7 @@ function brave_new_algorithm(population_model::PopulationModel)
 
     dict_population = Dict(
             "Generations" => generations_array,
-            "F_Values" => best_f_values,
-            "Entropy" => entropies,
-            "Edit_distance" => edit_distances
+            "F_Values" => best_f_values
     )
 
     return (generation, DataFrame(dict_population))
