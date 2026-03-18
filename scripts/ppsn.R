@@ -58,7 +58,7 @@ ggplot(diff_fitness_icsme_vs_hc, aes(x = workload, y = diff_fitness)) +
 #
 
 ppsn_hc_2 <- read.csv("data/PPSN-speedup-hc-64-2-9-Mar-08-50-11.csv")
-ppsn_hc_3 <- read.csv("data/PPSN-speedup-hc-64-1-8-Mar-20-24-22.csv")
+ppsn_hc_3 <- read.csv("data/PPSN-speedup-hc-64-3-9-Mar-10-11-54.csv")
 ppsn_hc_4 <- read.csv("data/PPSN-speedup-hc-64-4-9-Mar-11-46-38.csv")
 
 ppsn_hc <- rbind(ppsn_hc_1, ppsn_hc_2, ppsn_hc_3, ppsn_hc_4)
@@ -182,11 +182,60 @@ model_icsme <- Mclust(icsme_workload$initial_temp, G = 2)
 
 # Test new model after removing elements from the dependency list
 ppsn_speedup_1 <- read.csv("data/PPSN-speedup-fixed-gradient-descent-1-10-Mar-20-23-46.csv")
-ppsn_speedup_1_baseline <- ppsn_speedup_1[ startsWith(ppsn_speedup_1$work, "base-"), ]
+ppsn_speedup_3 <- read.csv("data/PPSN-speedup-fixed-gradient-descent-3-11-Mar-09-48-33.csv")
+ppsn_speedup_4 <- read.csv("data/PPSN-speedup-fixed-gradient-descent-4-11-Mar-13-13-45.csv")
+ppsn_speedup_2 <- read.csv("data/PPSN-speedup-fixed-gradient-descent-2-11-Mar-07-30-56.csv")
 
-ppsn_speedup_1_baseline$population_size <- as.factor(ppsn_speedup_1_baseline$population_size)
+ppsn_speedup_with_die <- rbind(ppsn_speedup_2, ppsn_speedup_3, ppsn_speedup_4)
+ppsn_speedup_with_die_baseline <- ppsn_speedup_with_die[ startsWith(ppsn_speedup_with_die$work, "base-"), ]
 
-ppsn_speedup_1_baseline %>% group_by(population_size) %>%
+ppsn_speedup_with_die_baseline %>% group_by(population_size,die) %>%
+  summarise(
+    PKG_mean = mean(PKG),
+    PKG_sd = sd(PKG),
+    PKG_median = median(PKG),
+    PKG_trim_mean = mean(PKG, trim = 0.2),
+    PKG_iqr = IQR(PKG)
+  ) -> summary_ppsn_speedup_with_die_baseline
+
+# Compute residualized time by fitting a linear model with die as a predictor and then taking the residuals
+ppsn_speedup_with_die_baseline$population_size <- as.factor(ppsn_speedup_with_die_baseline$population_size)
+ppsn_speedup_with_die_baseline$die <- as.factor(ppsn_speedup_with_die_baseline$die)
+time_with_die_model <- glm(seconds ~ die*population_size, data = ppsn_speedup_with_die_baseline)
+ppsn_speedup_with_die_baseline$residualized_time <- resid(time_with_die_model)
+
+ppsn_speedup_with_die_baseline$initial_temp <- (ppsn_speedup_with_die_baseline$initial_temp_1 + ppsn_speedup_with_die_baseline$initial_temp_2) / 2
+ppsn_speedup_with_die_baseline$final_temp <- (ppsn_speedup_with_die_baseline$final_temp_1 + ppsn_speedup_with_die_baseline$final_temp_2) / 2
+
+final_temp_with_die_model <- glm(final_temp ~ initial_temp + die*population_size*seconds, data = ppsn_speedup_with_die_baseline)
+ppsn_speedup_with_die_baseline$residualized_final_temp <- resid(final_temp_with_die_model)
+
+pkg_speedup_with_die_model <- glm(PKG ~ initial_temp*residualized_final_temp+die*population_size+residualized_time, data = ppsn_speedup_with_die_baseline)
+anova_pkg_speedup_with_die_model <- anova(pkg_speedup_with_die_model)
+
+# Compute wilcoxon differences for every combination of population_size and die
+data_subset_400_1 <- ppsn_speedup_with_die_baseline %>%
+      filter(population_size == 400, die == 1)
+data_subset_400_2 <- ppsn_speedup_with_die_baseline %>%
+      filter(population_size == 400, die == 2)
+data_subset_800_1 <- ppsn_speedup_with_die_baseline %>%
+      filter(population_size == 800, die == 1)
+data_subset_800_2 <- ppsn_speedup_with_die_baseline %>%
+  filter(population_size == 800, die == 2)
+
+wilcox_test_400 <- wilcox.test(data_subset_400_1$PKG, data_subset_400_2$PKG)
+wilcox_test_800 <- wilcox.test(data_subset_800_1$PKG, data_subset_800_2$PKG)
+wilcox_test_die_1 <- wilcox.test(data_subset_400_1$PKG, data_subset_800_1$PKG)
+wilcox_test_die_2 <- wilcox.test(data_subset_400_2$PKG, data_subset_800_2$PKG)
+
+ppsn_speedup_4$die <- NULL
+ppsn_speedup_2$die <- NULL
+ppsn_speedup_3$die <- NULL
+ppsn_speedup_fixed_gradient_descent <- rbind(ppsn_speedup_1, ppsn_speedup_2, ppsn_speedup_3, ppsn_speedup_4)
+
+ppsn_speedup_fixed_gradient_descent_baseline <- ppsn_speedup_fixed_gradient_descent[ startsWith(ppsn_speedup_fixed_gradient_descent$work, "base-"), ]
+
+ppsn_speedup_fixed_gradient_descent_baseline %>% group_by(dimension,population_size) %>%
   summarise(
     PKG_mean = mean(PKG),
     PKG_sd = sd(PKG),
@@ -194,3 +243,4 @@ ppsn_speedup_1_baseline %>% group_by(population_size) %>%
     PKG_trim_mean = mean(PKG, trim = 0.2),
     PKG_iqr = IQR(PKG)
   ) -> summary_ppsn_speedup_1_baseline
+
