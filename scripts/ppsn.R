@@ -415,3 +415,60 @@ ggplot( ppsn_comparison_low_mutation, aes(x = delta_PKG, y = diff_fitness, shape
   labs(title = "Delta PKG Comparison between Low Mutation and Microoptimization", x = "Delta PKG", y = "Diff Fitness") +
   theme_minimal()
 
+# Work with covariates
+source("R/process_covariates.R")
+
+ppsn_microopt_covariates <- process_covariates(ppsn_microopt)
+ppsn_microopt_covariates$group <- "microopt"
+
+ppsn_low_mutation_covariates <- process_covariates(ppsn_low_mutation)
+ppsn_low_mutation_covariates$group <- "low_mutation"
+
+ppsn_covariates_comparison <- rbind(ppsn_microopt_covariates, ppsn_low_mutation_covariates)
+
+ppsn_covariates_comparison$population_size <- as.factor(ppsn_covariates_comparison$population_size)
+ppsn_covariates_comparison$max_gens <- as.factor(ppsn_covariates_comparison$max_gens)
+ppsn_covariates_comparison$alpha <- as.factor(ppsn_covariates_comparison$alpha)
+ppsn_covariates_comparison$steps <- as.factor(ppsn_covariates_comparison$steps)
+ppsn_covariates_comparison$initial_temp <- (ppsn_covariates_comparison$initial_temp_1 + ppsn_covariates_comparison$initial_temp_2) / 2
+ppsn_covariates_comparison$final_temp <- (ppsn_covariates_comparison$final_temp_1 + ppsn_covariates_comparison$final_temp_2) / 2
+
+library(nlme)
+covariates_model <- gls( PKG ~ group + initial_temp*final_temp +
+                           population_size*max_gens*alpha*steps +
+                           generations*evaluations +
+                           seconds + PKG_baseline_prev + PKG_baseline_post,
+                         data = ppsn_covariates_comparison,
+                         weights = varIdent(form = ~1|group) )
+
+library(emmeans)
+
+# This calculates the expected Energy for each group,
+# allowing 'seconds' and 'temp' to be what they actually were for those groups.
+adj_means <- emmeans(covariates_model, "group", data = ppsn_covariates_comparison)
+
+# This gives you the 'Real World' Delta
+comparison <- pairs(adj_means)
+
+workload_only <- emmeans(covariates_model, "group",
+                         at = list(PKG_baseline_prev = 0,
+                                   PKG_baseline_post = 0))
+
+plot_data <- as.data.frame(workload_only)
+
+ggplot(plot_data, aes(x = group, y = emmean, fill = group)) +
+  geom_bar(stat = "identity", width = 0.5) +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2) +
+  labs(title = "Workload-Exclusive Energy (Baseline Corrected)",
+       y = "Estimated PKG Energy (Adjusted)",
+       x = "Optimization Type") +
+  theme_minimal()
+
+workload_grid <- emmeans(covariates_model,
+                         ~ group | population_size * max_gens * alpha * steps,
+                         at = list(PKG_baseline_prev = 0,
+                                   PKG_baseline_post = 0))
+
+PKG_comparison_microopt_low_mutation <- as.data.frame(workload_grid)
+
+anova_covariates_model <- anova(covariates_model)
