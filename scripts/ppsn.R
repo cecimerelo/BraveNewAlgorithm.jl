@@ -372,8 +372,9 @@ anova_ppsn_microopt_fitness_noopenv_model <- anova(ppsn_microopt_fitness_noopenv
 #
 ppsn_low_mutation_1 <- read.csv("data/PPSN-low-mutation-1-20-Mar-07-30-38.csv")
 ppsn_low_mutation_2 <- read.csv("data/PPSN-low-mutation-2-20-Mar-08-52-54.csv")
+ppsn_low_mutation_3 <- read.csv("data/PPSN-low-mutation-3-20-Mar-12-31-43.csv")
 
-ppsn_low_mutation <- rbind(ppsn_low_mutation_1, ppsn_low_mutation_2)
+ppsn_low_mutation <- rbind(ppsn_low_mutation_1, ppsn_low_mutation_2, ppsn_low_mutation_3)
 
 ppsn_low_mutation_processed <- process_deltas(ppsn_low_mutation)
 
@@ -412,3 +413,4 @@ ggplot( ppsn_comparison_low_mutation, aes(x = delta_PKG, y = diff_fitness, shape
   scale_y_log10() +
   labs(title = "Delta PKG Comparison between Low Mutation and Microoptimization", x = "Delta PKG", y = "Diff Fitness") +
   theme_minimal()
+
