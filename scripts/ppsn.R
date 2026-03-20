@@ -325,3 +325,38 @@ ppsn_microopt_baseline %>% group_by(population_size) %>%
     PKG_trim_mean = mean(PKG, trim = 0.2),
     PKG_iqr = IQR(PKG)
   ) -> summary_ppsn_microopt_baseline
+
+ppsn_microopt_baseline$population_size <- as.factor(ppsn_microopt_baseline$population_size)
+ggplot( ppsn_microopt_baseline, aes(x = population_size, y = PKG)) +
+  geom_boxplot(notch=T) +
+  labs(title = "PKG by Population Size (Microoptimization)", x = "Population Size", y = "PKG") +
+  theme_minimal()
+
+ppsn_microopt_processed <- process_deltas(ppsn_microopt)
+ppsn_microopt_processed %>% group_by(population_size, max_gens, alpha, steps ) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    trim_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    median_delta_PKG = median(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG),
+    mean_fitness = mean(diff_fitness),
+    sd_fitness = sd(diff_fitness),
+    median_fitness = median(diff_fitness)
+  ) -> summary_ppsn_microopt
+
+ppsn_microopt_processed$population_size <- as.factor(ppsn_microopt_processed$population_size)
+ppsn_microopt_processed$max_gens <- as.factor(ppsn_microopt_processed$max_gens)
+ppsn_microopt_processed$alpha <- as.factor(ppsn_microopt_processed$alpha)
+ppsn_microopt_processed$initial_temp <- (ppsn_microopt_processed$initial_temp_1 + ppsn_microopt_processed$initial_temp_2) / 2
+ppsn_microopt_processed$final_temp <- (ppsn_microopt_processed$final_temp_1 + ppsn_microopt_processed$final_temp_2) / 2
+
+
+ppsn_microopt_time_model <- glm(delta_seconds ~ initial_temp + final_temp + population_size*max_gens*alpha*steps + generations*evaluations, data = ppsn_microopt_processed)
+ppsn_microopt_processed$residualized_delta_seconds <- resid(ppsn_microopt_time_model)
+
+ppsn_microopt_final_temp_model <- glm(final_temp ~ initial_temp + population_size*max_gens*alpha*steps + generations*evaluations + delta_seconds, data = ppsn_microopt_processed)
+ppsn_microopt_processed$residualized_final_temp <- resid(ppsn_microopt_final_temp_model)
+
+ppsn_microopt_pkg_model <- glm(delta_PKG ~ initial_temp*residualized_final_temp + population_size*max_gens*alpha*steps + generations*evaluations + residualized_delta_seconds, data = ppsn_microopt_processed)
+anova_ppsn_microopt_pkg_model <- anova(ppsn_microopt_pkg_model)
