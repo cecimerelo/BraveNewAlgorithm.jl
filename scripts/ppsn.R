@@ -333,7 +333,7 @@ ggplot( ppsn_microopt_baseline, aes(x = population_size, y = PKG)) +
   theme_minimal()
 
 ppsn_microopt_processed <- process_deltas(ppsn_microopt)
-ppsn_microopt_processed %>% group_by(population_size, max_gens, alpha, steps ) %>%
+ppsn_microopt_processed %>% group_by(population_size, max_gens, steps, alpha ) %>%
   summarise(
     mean_delta_PKG = mean(delta_PKG, trim=0.2),
     sd_delta_PKG = sd(delta_PKG),
@@ -360,3 +360,10 @@ ppsn_microopt_processed$residualized_final_temp <- resid(ppsn_microopt_final_tem
 
 ppsn_microopt_pkg_model <- glm(delta_PKG ~ initial_temp*residualized_final_temp + population_size*max_gens*alpha*steps + generations*evaluations + residualized_delta_seconds, data = ppsn_microopt_processed)
 anova_ppsn_microopt_pkg_model <- anova(ppsn_microopt_pkg_model)
+
+ppsn_microopt_fitness_model <- glm(diff_fitness ~ initial_temp*residualized_final_temp + population_size*max_gens*alpha*steps + generations*evaluations + residualized_delta_seconds, data = ppsn_microopt_processed)
+anova_ppsn_microopt_fitness_model <- anova(ppsn_microopt_fitness_model)
+
+ppsn_microopt_processed$steps <- as.factor(ppsn_microopt_processed$steps)
+ppsn_microopt_fitness_noopenv_model <- glm(diff_fitness ~ population_size*max_gens*alpha*steps, data = ppsn_microopt_processed)
+anova_ppsn_microopt_fitness_noopenv_model <- anova(ppsn_microopt_fitness_noopenv_model)
