@@ -367,3 +367,44 @@ anova_ppsn_microopt_fitness_model <- anova(ppsn_microopt_fitness_model)
 ppsn_microopt_processed$steps <- as.factor(ppsn_microopt_processed$steps)
 ppsn_microopt_fitness_noopenv_model <- glm(diff_fitness ~ population_size*max_gens*alpha*steps, data = ppsn_microopt_processed)
 anova_ppsn_microopt_fitness_noopenv_model <- anova(ppsn_microopt_fitness_noopenv_model)
+
+# Low mutation
+#
+ppsn_low_mutation_1 <- read.csv("data/PPSN-low-mutation-1-20-Mar-07-30-38.csv")
+ppsn_low_mutation_1_processed <- process_deltas(ppsn_low_mutation_1)
+
+ppsn_low_mutation_1_processed %>% group_by(population_size, max_gens, steps, alpha ) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    trim_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    median_delta_PKG = median(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG),
+    mean_fitness = mean(diff_fitness),
+    sd_fitness = sd(diff_fitness),
+    median_fitness = median(diff_fitness)
+  ) -> summary_ppsn_low_mutation_1
+
+
+ppsn_low_mutation_1_processed$population_size <- as.factor(ppsn_low_mutation_1_processed$population_size)
+ppsn_low_mutation_1_processed$max_gens <- as.factor(ppsn_low_mutation_1_processed$max_gens)
+ppsn_low_mutation_1_processed$alpha <- as.factor(ppsn_low_mutation_1_processed$alpha)
+ppsn_low_mutation_1_processed$steps <- as.factor(ppsn_low_mutation_1_processed$steps)
+ppsn_low_mutation_1_processed$initial_temp <- (ppsn_low_mutation_1_processed$initial_temp_1 + ppsn_low_mutation_1_processed$initial_temp_2) / 2
+ppsn_low_mutation_1_processed$final_temp <- (ppsn_low_mutation_1_processed$final_temp_1 + ppsn_low_mutation_1_processed$final_temp_2) / 2
+
+ppsn_low_mutation_1_pkg_model <- glm(delta_PKG ~ initial_temp*final_temp + population_size*max_gens*alpha*steps + generations*evaluations + delta_seconds, data = ppsn_low_mutation_1_processed)
+anova_ppsn_low_mutation_1_pkg_model <- anova(ppsn_low_mutation_1_pkg_model)
+
+ppsn_microopt_processed$residualized_delta_seconds <- NULL
+ppsn_microopt_processed$residualized_final_temp <- NULL
+ppsn_low_mutation_1_processed$group <- "low_mutation"
+ppsn_microopt_processed$group <- "microopt"
+ppsn_comparison_low_mutation <- rbind(ppsn_low_mutation_1_processed, ppsn_microopt_processed)
+
+ggplot( ppsn_comparison_low_mutation, aes(x = delta_PKG, y = diff_fitness, shape=group,color=alpha) ) +
+  geom_point() +
+  facet_grid(population_size ~ max_gens) +
+  scale_y_log10() +
+  labs(title = "Delta PKG Comparison between Low Mutation and Microoptimization", x = "Group", y = "Delta PKG") +
+  theme_minimal()
