@@ -28,11 +28,11 @@ function simple_test(problem_dimensions, population_size, max_generations, alpha
                 "EPSILON" => 5
             ),
             Dict{String, Int}(
-                "ALPHA" => 40,
-                "BETA" => 40,
+                "ALPHA" => 10,
+                "BETA" => 10,
                 "GAMMA" => 40, # this one is irrelevant
-                "DELTA" => 40,
-                "EPSILON" => 40
+                "DELTA" => 10,
+                "EPSILON" => 10
             )
         )
 
