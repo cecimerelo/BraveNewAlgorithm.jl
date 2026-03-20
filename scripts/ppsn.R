@@ -235,14 +235,14 @@ ppsn_speedup_fixed_gradient_descent <- rbind(ppsn_speedup_1, ppsn_speedup_2, pps
 
 ppsn_speedup_fixed_gradient_descent_baseline <- ppsn_speedup_fixed_gradient_descent[ startsWith(ppsn_speedup_fixed_gradient_descent$work, "base-"), ]
 
-ppsn_speedup_fixed_gradient_descent_baseline %>% group_by(dimension,population_size) %>%
+ppsn_speedup_fixed_gradient_descent_baseline %>% group_by(population_size) %>%
   summarise(
     PKG_mean = mean(PKG),
     PKG_sd = sd(PKG),
     PKG_median = median(PKG),
     PKG_trim_mean = mean(PKG, trim = 0.2),
     PKG_iqr = IQR(PKG)
-  ) -> summary_ppsn_speedup_1_baseline
+  ) -> summary_ppsn_speedup_baseline
 
 source("R/process_deltas.R")
 ppsn_speedup_fixed_gradient_descent_processed <- process_deltas(ppsn_speedup_fixed_gradient_descent)
@@ -310,13 +310,18 @@ anova_comparison_gamma_upgrade_pkg_model <- anova(comparison_gamma_upgrade_pkg_m
 
 # Microoptimization
 ppsn_microopt_1 <- read.csv("data/PPSN-microopt-1-18-Mar-17-11-50.csv")
+ppsn_microopt_3 <- read.csv("data/PPSN-microopt-3-19-Mar-17-49-53.csv")
+ppsn_microopt_2 <- read.csv("data/PPSN-microopt-2-18-Mar-19-47-01.csv")
+ppsn_microopt_4 <- read.csv("data/PPSN-microopt-4-19-Mar-20-04-16.csv")
 
-ppsn_microopt_1_baseline <- ppsn_microopt_1[ startsWith(ppsn_microopt_1$work, "base-"), ]
-ppsn_microopt_1_baseline %>% group_by(population_size, die) %>%
+ppsn_microopt <- rbind(ppsn_microopt_1, ppsn_microopt_2, ppsn_microopt_3, ppsn_microopt_4)
+
+ppsn_microopt_baseline <- ppsn_microopt[ startsWith(ppsn_microopt$work, "base-"), ]
+ppsn_microopt_baseline %>% group_by(population_size) %>%
   summarise(
     PKG_mean = mean(PKG),
     PKG_sd = sd(PKG),
     PKG_median = median(PKG),
     PKG_trim_mean = mean(PKG, trim = 0.2),
     PKG_iqr = IQR(PKG)
-  ) -> summary_ppsn_microopt_1_baseline
+  ) -> summary_ppsn_microopt_baseline
