@@ -556,3 +556,11 @@ ggplot( ppsn_no_alpha_processed, aes(x = steps, y = delta_PKG, fill=steps) ) +
   facet_grid(population_size ~ alpha + max_gens) +
   labs(title = "Fitness comparison", x = "Max gens", y = "Diff Fitness") +
   theme_minimal()
+
+
+ggplot( ppsn_low_mutation_processed, aes(x = steps, y = diff_fitness, fill=steps) ) +
+  geom_boxplot( notch=T) +
+  scale_y_log10() +
+  facet_grid(population_size ~ alpha + max_gens) +
+  labs(title = "Fitness comparison", x = "Max gens", y = "Diff Fitness") +
+  theme_minimal()
