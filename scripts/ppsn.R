@@ -472,3 +472,49 @@ workload_grid <- emmeans(covariates_model,
 PKG_comparison_microopt_low_mutation <- as.data.frame(workload_grid)
 
 anova_covariates_model <- anova(covariates_model)
+
+# Low mutation
+
+ppsn_no_alpha_1 <- read.csv("data/PPSN-no-alpha-mut-20-Mar-17-35-25.csv")
+ppsn_no_alpha_2 <- read.csv("data/PPSN-no-alpha-mut-2-20-Mar-19-13-20.csv")
+
+ppsn_no_alpha <- rbind(ppsn_no_alpha_1, ppsn_no_alpha_2)
+
+ppsn_no_alpha_processed <- process_deltas(ppsn_no_alpha)
+
+ppsn_no_alpha_processed %>% group_by(population_size, max_gens, steps, alpha ) %>%
+  summarise(
+    mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    sd_delta_PKG = sd(delta_PKG),
+    trim_mean_delta_PKG = mean(delta_PKG, trim=0.2),
+    median_delta_PKG = median(delta_PKG),
+    iqr_delta_PKG = IQR(delta_PKG),
+    mean_fitness = mean(diff_fitness),
+    sd_fitness = sd(diff_fitness),
+    median_fitness = median(diff_fitness)
+  ) -> summary_ppsn_no_alpha
+
+ppsn_no_alpha_processed$group <- "no_alpha"
+
+ppsn_no_alpha_processed$initial_temp <- (ppsn_no_alpha_processed$initial_temp_1 + ppsn_no_alpha_processed$initial_temp_2) / 2
+ppsn_no_alpha_processed$final_temp <- (ppsn_no_alpha_processed$final_temp_1 + ppsn_no_alpha_processed$final_temp_2) / 2
+comparison_no_alpha <- rbind(ppsn_no_alpha_processed, ppsn_low_mutation_processed)
+
+comparison_no_alpha$steps <- as.numeric(comparison_no_alpha$steps)
+comparison_no_alpha$size <- ifelse(comparison_no_alpha$steps == 16, 2, 1)
+ggplot( comparison_no_alpha, aes(x = delta_PKG, y = diff_fitness, shape=group,color=alpha,size=size) ) +
+  geom_point(alpha=0.5) +
+  facet_grid(population_size ~ max_gens) +
+  scale_y_log10() +
+  labs(title = "Delta PKG Comparison between No Alpha Mutation and Low Mutation", x = "Delta PKG", y = "Diff Fitness") +
+  theme_minimal()
+
+comparison_no_alpha$delta_temp <- comparison_no_alpha$final_temp - comparison_no_alpha$initial_temp
+ggplot( comparison_no_alpha, aes(x = delta_seconds, y = delta_temp, color=alpha, shape=group) ) +
+  geom_point(alpha=0.5) +
+  labs(title = "Initial vs Final Temperature by Group", x = "delta seconds", y = "delta T") +
+  theme_minimal()
+
+delta_seconds_model <- glm(delta_seconds ~ group + delta_temp + die + steps*alpha*population_size*max_gens + evaluations, data = comparison_no_alpha)
+
+evaluations_model <- glm(evaluations ~ group*steps*alpha*population_size*max_gens, data = comparison_no_alpha)
