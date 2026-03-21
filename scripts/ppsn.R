@@ -477,8 +477,9 @@ anova_covariates_model <- anova(covariates_model)
 
 ppsn_no_alpha_1 <- read.csv("data/PPSN-no-alpha-mut-20-Mar-17-35-25.csv")
 ppsn_no_alpha_2 <- read.csv("data/PPSN-no-alpha-mut-2-20-Mar-19-13-20.csv")
+ppsn_no_alpha_3 <- read.csv("data/PPSN-no-alpha-mut-3-21-Mar-08-20-20.csv")
 
-ppsn_no_alpha <- rbind(ppsn_no_alpha_1, ppsn_no_alpha_2)
+ppsn_no_alpha <- rbind(ppsn_no_alpha_1, ppsn_no_alpha_2, ppsn_no_alpha_3)
 
 ppsn_no_alpha_processed <- process_deltas(ppsn_no_alpha)
 
@@ -518,3 +519,40 @@ ggplot( comparison_no_alpha, aes(x = delta_seconds, y = delta_temp, color=alpha,
 delta_seconds_model <- glm(delta_seconds ~ group + delta_temp + die + steps*alpha*population_size*max_gens + evaluations, data = comparison_no_alpha)
 
 evaluations_model <- glm(evaluations ~ group*steps*alpha*population_size*max_gens, data = comparison_no_alpha)
+
+comparison_no_alpha_time_model <- glm( delta_seconds ~ group + initial_temp + steps*alpha*population_size*max_gens + evaluations, data = comparison_no_alpha)
+
+comparison_no_alpha$residualized_delta_seconds <- resid(comparison_no_alpha_time_model)
+
+comparison_no_alpha_model <- glm( delta_PKG ~ group*steps*alpha*population_size*max_gens + residualized_delta_seconds + initial_temp + evaluations, data = comparison_no_alpha)
+
+anova_comparison_no_alpha_model <- anova(comparison_no_alpha_model)
+
+comparison_no_alpha$steps <- as.factor(comparison_no_alpha$steps)
+comparison_no_alpha_fitness_model <- glm( diff_fitness ~ group*steps*alpha*population_size*max_gens + evaluations, data = comparison_no_alpha)
+anova_comparison_no_alpha_fitness_model <- anova(comparison_no_alpha_fitness_model)
+
+ppsn_no_alpha_processed$population_size <- as.factor(ppsn_no_alpha_processed$population_size)
+ppsn_no_alpha_processed$max_gens <- as.factor(ppsn_no_alpha_processed$max_gens)
+ppsn_no_alpha_processed$alpha <- as.factor(ppsn_no_alpha_processed$alpha)
+ppsn_no_alpha_processed$steps <- as.factor(ppsn_no_alpha_processed$steps)
+ggplot( ppsn_no_alpha_processed, aes(x = max_gens, y = diff_fitness, fill=max_gens) ) +
+  geom_boxplot( notch=T) +
+  scale_y_log10() +
+  facet_grid(population_size ~ alpha + steps) +
+  labs(title = "Fitness comparison", x = "Max gens", y = "Diff Fitness") +
+  theme_minimal()
+
+ggplot( ppsn_no_alpha_processed, aes(x = steps, y = diff_fitness, fill=steps) ) +
+  geom_boxplot( notch=T) +
+  scale_y_log10() +
+  facet_grid(population_size ~ alpha + max_gens) +
+  labs(title = "Fitness comparison", x = "Max gens", y = "Diff Fitness") +
+  theme_minimal()
+
+ggplot( ppsn_no_alpha_processed, aes(x = steps, y = delta_PKG, fill=steps) ) +
+  geom_boxplot( notch=T) +
+  scale_y_log10() +
+  facet_grid(population_size ~ alpha + max_gens) +
+  labs(title = "Fitness comparison", x = "Max gens", y = "Diff Fitness") +
+  theme_minimal()
