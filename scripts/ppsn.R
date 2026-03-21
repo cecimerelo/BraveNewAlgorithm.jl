@@ -502,7 +502,7 @@ summary_ppsn_no_alpha$alpha <- as.factor(summary_ppsn_no_alpha$alpha)
 summary_ppsn_no_alpha$color <- ifelse(summary_ppsn_no_alpha$steps==16, "red", "blue")
 summary_ppsn_no_alpha$fill <- ifelse(summary_ppsn_no_alpha$alpha == 10, "lightblue", "lightpink")
 
-ggplot(summary_ppsn_no_alpha, aes( x= median_fitness, y = median_delta_PKG, color=color, size=factor(steps), fill=fill, shape=factor(population_size) ) )+
+ggplot(summary_ppsn_no_alpha, aes( x= median_fitness, y = median_delta_PKG, color=color, size=factor(max_gens), fill=fill, shape=factor(population_size) ) )+
   scale_color_identity()+
   scale_fill_identity()+
   geom_point(stroke=1.2 )+
