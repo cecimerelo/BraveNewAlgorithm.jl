@@ -478,8 +478,9 @@ anova_covariates_model <- anova(covariates_model)
 ppsn_no_alpha_1 <- read.csv("data/PPSN-no-alpha-mut-20-Mar-17-35-25.csv")
 ppsn_no_alpha_2 <- read.csv("data/PPSN-no-alpha-mut-2-20-Mar-19-13-20.csv")
 ppsn_no_alpha_3 <- read.csv("data/PPSN-no-alpha-mut-3-21-Mar-08-20-20.csv")
+ppsn_no_alpha_4 <- read.csv("data/PPSN-no-alpha-mut-4-21-Mar-09-47-20.csv")
 
-ppsn_no_alpha <- rbind(ppsn_no_alpha_1, ppsn_no_alpha_2, ppsn_no_alpha_3)
+ppsn_no_alpha <- rbind(ppsn_no_alpha_1, ppsn_no_alpha_2, ppsn_no_alpha_3, ppsn_no_alpha_4)
 
 ppsn_no_alpha_processed <- process_deltas(ppsn_no_alpha)
 
@@ -494,6 +495,18 @@ ppsn_no_alpha_processed %>% group_by(population_size, max_gens, steps, alpha ) %
     sd_fitness = sd(diff_fitness),
     median_fitness = median(diff_fitness)
   ) -> summary_ppsn_no_alpha
+
+summary_ppsn_no_alpha$shape <- factor(ifelse(summary_ppsn_no_alpha$population_size == 400, 21, 22))
+summary_ppsn_no_alpha$max_gens <- as.factor(summary_ppsn_no_alpha$max_gens)
+summary_ppsn_no_alpha$alpha <- as.factor(summary_ppsn_no_alpha$alpha)
+summary_ppsn_no_alpha$color <- ifelse(summary_ppsn_no_alpha$steps==16, "red", "blue")
+
+ggplot(summary_ppsn_no_alpha, aes( x= median_fitness, y = median_delta_PKG, color=color, size=steps, fill=alpha ) )+
+  scale_color_identity()+
+  geom_point( aes(shape=factor(population_size) ), stroke=1.2 )+
+  scale_shape_manual(values = c(21, 22)) +
+  labs(title = "Median Delta PKG vs Median Fitness for No Alpha Mutation", x = "Median Fitness", y = "Median Delta PKG") +
+  theme_minimal()
 
 ppsn_no_alpha_processed$group <- "no_alpha"
 
