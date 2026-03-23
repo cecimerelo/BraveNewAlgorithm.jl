@@ -233,6 +233,8 @@ ppsn_speedup_2$die <- NULL
 ppsn_speedup_3$die <- NULL
 ppsn_speedup_fixed_gradient_descent <- rbind(ppsn_speedup_1, ppsn_speedup_2, ppsn_speedup_3, ppsn_speedup_4)
 
+save(ppsn_speedup_fixed_gradient_descent, file = "data/ppsn_speedup_fixed_gradient_descent.rds")
+
 ppsn_speedup_fixed_gradient_descent_baseline <- ppsn_speedup_fixed_gradient_descent[ startsWith(ppsn_speedup_fixed_gradient_descent$work, "base-"), ]
 
 ppsn_speedup_fixed_gradient_descent_baseline %>% group_by(population_size) %>%
@@ -264,6 +266,9 @@ gamma_upgrade_1 <- read.csv("data/PPSN-gamma-upgrade-1-11-Mar-20-34-57.csv")
 gamma_upgrade_2 <- read.csv("data/PPSN-gamma-upgrade-3-12-Mar-19-34-01.csv")
 gamma_upgrade_3 <- read.csv("data/PPSN-gamma-upgrade-2-12-Mar-17-24-11.csv")
 gamma_upgrade_4 <- read.csv("data/PPSN-gamma-upgrade-4-13-Mar-07-19-54.csv")
+
+gamma_upgrade <- rbind(gamma_upgrade_1, gamma_upgrade_2, gamma_upgrade_3, gamma_upgrade_4)
+save(gamma_upgrade, file = "data/gamma_upgrade.rds")
 
 gamma_upgrade_processed <- process_deltas(rbind(gamma_upgrade_1, gamma_upgrade_2, gamma_upgrade_3, gamma_upgrade_4))
 
