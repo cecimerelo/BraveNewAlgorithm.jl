@@ -320,6 +320,7 @@ ppsn_microopt_2 <- read.csv("data/PPSN-microopt-2-18-Mar-19-47-01.csv")
 ppsn_microopt_4 <- read.csv("data/PPSN-microopt-4-19-Mar-20-04-16.csv")
 
 ppsn_microopt <- rbind(ppsn_microopt_1, ppsn_microopt_2, ppsn_microopt_3, ppsn_microopt_4)
+save(ppsn_microopt, file = "data/ppsn_microopt.rds")
 
 ppsn_microopt_baseline <- ppsn_microopt[ startsWith(ppsn_microopt$work, "base-"), ]
 ppsn_microopt_baseline %>% group_by(population_size) %>%
