@@ -2,7 +2,7 @@ using .BraveNewAlgorithm
 using BlackBoxOptimizationBenchmarking
 using Test
 
-@testset "Test elitism: best individual preserved across generations" begin
+@testset "Test elitism: best individual preserved when old best is better" begin
     # Setup with simple configuration
     config_file_path = "./test/Config Files/config_file_1_test.json"
     config_parameters_entity = read_parameters_file(config_file_path)
@@ -25,26 +25,58 @@ using Test
     new_chromosomes = evolution(population_in_castes, population_model)
     new_embryos_population = [Embryo(chromosome, population_model.fitness_function) for chromosome in new_chromosomes]
 
-    # Apply elitism: sort, remove worst, insert best
+    # Selective elitism: only inject old best if it is better than new generation's best
     sort!(new_embryos_population, by=t -> t.f_value)
-    pop!(new_embryos_population)  # Remove worst (last element)
-    best_embryo_copy = Embryo(collect(initial_best.chromosome), initial_best.f_value)
-    insert_idx = searchsortedfirst(new_embryos_population, best_embryo_copy, by=t -> t.f_value)
-    insert!(new_embryos_population, insert_idx, best_embryo_copy)
+    new_best_before_elitism = new_embryos_population[1]
+    if initial_best.f_value < new_best_before_elitism.f_value
+        pop!(new_embryos_population)  # Remove worst (last element)
+        best_embryo_copy = Embryo(collect(initial_best.chromosome), initial_best.f_value)
+        insert_idx = searchsortedfirst(new_embryos_population, best_embryo_copy, by=t -> t.f_value)
+        insert!(new_embryos_population, insert_idx, best_embryo_copy)
+    end
 
     # Test 1: Population size is maintained
     @test length(new_embryos_population) == population_model.config_parameters.population_size
 
-    # Test 2: Best individual from previous generation is present
-    best_chromosomes_match = any(e -> e.chromosome == initial_best.chromosome, new_embryos_population)
-    @test best_chromosomes_match == true
-
-    # Test 3: Best fitness never degrades
+    # Test 2: Best fitness never degrades
     new_best = new_embryos_population[1]  # First element in sorted array
     @test new_best.f_value <= initial_best.f_value
 
     @info "New best f_value: $(new_best.f_value)"
-    @info "Best individual preserved: $best_chromosomes_match"
+end
+
+@testset "Test selective elitism: old best NOT injected when new generation is better" begin
+    config_file_path = "./test/Config Files/config_file_1_test.json"
+    config_parameters_entity = read_parameters_file(config_file_path)
+    fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[1])
+    range = (-5.12, 5.12)
+    minimum_comparator = comparator(element, fitness_function) = element >= fitness_function.f_opt + 1e-8
+    population_model = PopulationModel(config_parameters_entity, fitness_function, range, minimum_comparator)
+
+    # Create a sorted new population
+    embryos = [fertilising_room(population_model) for _ in 1:10]
+    sort!(embryos, by=t -> t.f_value)
+
+    # Simulate an "old best" that is worse than new generation's best
+    worst_in_new = embryos[end]
+    fake_old_best = Embryo(collect(worst_in_new.chromosome), worst_in_new.f_value)
+
+    best_before = embryos[1].f_value
+    initial_size = length(embryos)
+
+    # Selective elitism: should NOT inject since fake_old_best is worse
+    new_best_element = embryos[1]
+    if fake_old_best.f_value < new_best_element.f_value
+        pop!(embryos)
+        best_embryo_copy = Embryo(collect(fake_old_best.chromosome), fake_old_best.f_value)
+        insert_idx = searchsortedfirst(embryos, best_embryo_copy, by=t -> t.f_value)
+        insert!(embryos, insert_idx, best_embryo_copy)
+        new_best_element = embryos[1]
+    end
+
+    # Population size unchanged and best not degraded
+    @test length(embryos) == initial_size
+    @test embryos[1].f_value == best_before
 end
 
 @testset "Test elitism: sorted population properties" begin
