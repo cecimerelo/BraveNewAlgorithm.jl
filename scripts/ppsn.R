@@ -383,6 +383,8 @@ ppsn_low_mutation_4 <- read.csv("data/PPSN-low-mutation-4-20-Mar-14-10-00.csv")
 
 ppsn_low_mutation <- rbind(ppsn_low_mutation_1, ppsn_low_mutation_2, ppsn_low_mutation_3, ppsn_low_mutation_4)
 
+save(ppsn_low_mutation, file = "data/ppsn_low_mutation.rds")
+
 ppsn_low_mutation_processed <- process_deltas(ppsn_low_mutation)
 
 ppsn_low_mutation_processed %>% group_by(population_size, max_gens, steps, alpha ) %>%
