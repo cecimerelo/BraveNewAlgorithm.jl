@@ -481,7 +481,7 @@ PKG_comparison_microopt_low_mutation <- as.data.frame(workload_grid)
 
 anova_covariates_model <- anova(covariates_model)
 
-# Low mutation
+# No alpha
 
 ppsn_no_alpha_1 <- read.csv("data/PPSN-no-alpha-mut-20-Mar-17-35-25.csv")
 ppsn_no_alpha_2 <- read.csv("data/PPSN-no-alpha-mut-2-20-Mar-19-13-20.csv")
@@ -489,6 +489,7 @@ ppsn_no_alpha_3 <- read.csv("data/PPSN-no-alpha-mut-3-21-Mar-08-20-20.csv")
 ppsn_no_alpha_4 <- read.csv("data/PPSN-no-alpha-mut-4-21-Mar-09-47-20.csv")
 
 ppsn_no_alpha <- rbind(ppsn_no_alpha_1, ppsn_no_alpha_2, ppsn_no_alpha_3, ppsn_no_alpha_4)
+save(ppsn_no_alpha, file = "data/ppsn_no_alpha.rds")
 
 ppsn_no_alpha_processed <- process_deltas(ppsn_no_alpha)
 
