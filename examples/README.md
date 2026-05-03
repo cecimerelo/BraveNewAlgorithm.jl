@@ -4,6 +4,22 @@ This directory contains practical examples demonstrating how to use the BraveNew
 
 ## 📁 Example Files
 
+### 📓 [BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb](BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb)
+**Interactive Jupyter Notebook with a Julia kernel (IJulia)**
+
+A step-by-step walkthrough of the algorithm optimising the BBOB Sphere function,
+with Julia code cells you can run and modify:
+- Explanation of the Brave New World metaphor and the caste system
+- ASCII algorithm flow diagram
+- Configuring and running the algorithm in Julia
+- Convergence history table and ASCII chart
+- Experiment comparing exploitation-heavy / balanced / exploration-heavy strategies
+- Customisation guide and citation info
+
+**To open the notebook**, follow the [Jupyter Setup instructions](#-jupyter-setup) below.
+
+---
+
 ### 🚀 [quickstart.jl](quickstart.jl)
 **Start here!** A minimal example that gets you up and running quickly.
 - Simple configuration
@@ -73,6 +89,52 @@ julia examples/simple_test.jl
 
 **Note**: All examples should be run from the repository root directory with the project environment activated.
 
+---
+
+## 🖥️ Jupyter Setup
+
+The notebook uses a **Julia kernel** (via [IJulia](https://github.com/JuliaLang/IJulia.jl)),
+so all code cells run Julia directly.
+
+### Prerequisites
+
+1. **Julia 1.4+** installed ([julialang.org](https://julialang.org/downloads/))
+2. **IJulia** (Julia's Jupyter kernel):
+
+```julia
+# Run once in the Julia REPL
+using Pkg
+Pkg.add("IJulia")
+using IJulia
+notebook()   # launches Jupyter with the Julia kernel available
+```
+
+### Opening the notebook
+
+1. Clone the repository and navigate to it:
+
+   ```bash
+   git clone https://github.com/cecimerelo/BraveNewAlgorithm.jl.git
+   cd BraveNewAlgorithm.jl
+   ```
+
+2. Start Jupyter from the Julia REPL (or from the command line if `jupyter` is on
+   your `PATH`):
+
+   ```bash
+   jupyter notebook examples/BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb
+   ```
+
+3. Select **Julia 1.x** as the kernel (top-right of the Jupyter interface).
+
+4. The first code cell activates the local project environment so all dependencies
+   are available automatically. Run it (and subsequent cells) with **Shift+Enter**.
+
+> **Tip:** If you see a "kernel not found" error, install IJulia as shown above and
+> then restart Jupyter.
+
+---
+
 ## 📋 What You'll Learn
 
 After running these examples, you'll understand:
@@ -89,6 +151,7 @@ The examples use different parameter settings to demonstrate various use cases:
 
 | Example | Dimensions | Population | Generations | Focus |
 |---------|------------|------------|-------------|-------|
+| notebook (Julia kernel) | 5 | 100 | 50 | Interactive demo |
 | quickstart | 5 | 20 | 50 | Quick demo |
 | basic_usage | 5-8 | 25-40 | 30-100 | Comprehensive |
 | simple_test | 3 | 10 | 5 | Fast verification |
