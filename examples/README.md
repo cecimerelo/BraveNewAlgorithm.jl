@@ -5,20 +5,18 @@ This directory contains practical examples demonstrating how to use the BraveNew
 ## 📁 Example Files
 
 ### 📓 [BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb](BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb)
-**Interactive Jupyter Notebook — works in Google Colab!**
+**Interactive Jupyter Notebook with a Julia kernel (IJulia)**
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/cecimerelo/BraveNewAlgorithm.jl/blob/master/examples/BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb)
-
-A step-by-step walkthrough of the algorithm optimising the BBOB Sphere function:
+A step-by-step walkthrough of the algorithm optimising the BBOB Sphere function,
+with Julia code cells you can run and modify:
 - Explanation of the Brave New World metaphor and the caste system
-- Algorithm flow diagram
-- Baseline (random search) vs. BraveNewAlgorithm comparison
-- Convergence plot (Plots.jl, log scale)
-- Experiment showing how different caste distributions affect performance
+- ASCII algorithm flow diagram
+- Configuring and running the algorithm in Julia
+- Convergence history table and ASCII chart
+- Experiment comparing exploitation-heavy / balanced / exploration-heavy strategies
 - Customisation guide and citation info
 
-**To open in Google Colab**, click the badge above **or** follow the
-[Google Colab Setup instructions](#google-colab-setup) below.
+**To open the notebook**, follow the [Jupyter Setup instructions](#-jupyter-setup) below.
 
 ---
 
@@ -93,32 +91,47 @@ julia examples/simple_test.jl
 
 ---
 
-## ☁️ Google Colab Setup
+## 🖥️ Jupyter Setup
 
-The Jupyter Notebook can be run **entirely in Google Colab** — no local Julia installation needed.
+The notebook uses a **Julia kernel** (via [IJulia](https://github.com/JuliaLang/IJulia.jl)),
+so all code cells run Julia directly.
 
-### Quick Start (recommended)
+### Prerequisites
 
-1. Click the **Open in Colab** badge in the notebook section above, or navigate to:  
-   [https://colab.research.google.com/github/cecimerelo/BraveNewAlgorithm.jl/blob/master/examples/BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb](https://colab.research.google.com/github/cecimerelo/BraveNewAlgorithm.jl/blob/master/examples/BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb)
+1. **Julia 1.4+** installed ([julialang.org](https://julialang.org/downloads/))
+2. **IJulia** (Julia's Jupyter kernel):
 
-2. **Run Cell 1** — installs Julia via `juliaup` (≈ 2 minutes).
+```julia
+# Run once in the Julia REPL
+using Pkg
+Pkg.add("IJulia")
+using IJulia
+notebook()   # launches Jupyter with the Julia kernel available
+```
 
-3. **Run Cell 2** — installs `BraveNewAlgorithm.jl` and `Plots.jl` from GitHub (≈ 3–5 minutes the first time, faster on a cached runtime).
+### Opening the notebook
 
-4. **Run all remaining cells** in order, or use *Runtime → Run all*.
+1. Clone the repository and navigate to it:
 
-> **Note:** Google Colab VMs are ephemeral. If the runtime disconnects or is reset, re-run
-> the two setup cells before continuing.
+   ```bash
+   git clone https://github.com/cecimerelo/BraveNewAlgorithm.jl.git
+   cd BraveNewAlgorithm.jl
+   ```
 
-### Manual Upload Option
+2. Start Jupyter from the Julia REPL (or from the command line if `jupyter` is on
+   your `PATH`):
 
-If you prefer to upload the notebook manually:
+   ```bash
+   jupyter notebook examples/BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb
+   ```
 
-1. Download [`BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb`](BraveNewAlgorithm_BBOB_Sphere_Demo.ipynb) from this directory.
-2. Go to [colab.research.google.com](https://colab.research.google.com).
-3. Choose *File → Upload notebook* and select the downloaded file.
-4. Follow steps 2–4 from the Quick Start above.
+3. Select **Julia 1.x** as the kernel (top-right of the Jupyter interface).
+
+4. The first code cell activates the local project environment so all dependencies
+   are available automatically. Run it (and subsequent cells) with **Shift+Enter**.
+
+> **Tip:** If you see a "kernel not found" error, install IJulia as shown above and
+> then restart Jupyter.
 
 ---
 
@@ -138,7 +151,7 @@ The examples use different parameter settings to demonstrate various use cases:
 
 | Example | Dimensions | Population | Generations | Focus |
 |---------|------------|------------|-------------|-------|
-| notebook (Colab) | 5 | 40–100 | 100 | Interactive demo |
+| notebook (Julia kernel) | 5 | 100 | 50 | Interactive demo |
 | quickstart | 5 | 20 | 50 | Quick demo |
 | basic_usage | 5-8 | 25-40 | 30-100 | Comprehensive |
 | simple_test | 3 | 10 | 5 | Fast verification |
