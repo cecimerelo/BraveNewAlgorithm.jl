@@ -11,7 +11,7 @@ my $TARGET_PROCESS = "julia";
 # Usage: perl scripts/parse_energy.pl <file>
 my $temp_file_name =  '/tmp/scaphandre-test.txt';
 
-
+say "Energy; seconds";
 for (my $iteration = 0; $iteration < 30; $iteration++ ) {
   # Run command
   `sudo  /home/jmerelo/.juliaup/bin/julia examples/BBOB_sphere_with_baseline.jl 40 10000 50 10 256 >/dev/null 2>&1  & sudo time scaphandre stdout -s 1 -p 10  > $temp_file_name 2>&1`;
@@ -54,7 +54,7 @@ for (my $iteration = 0; $iteration < 30; $iteration++ ) {
       $total_energy += $last_found_power * $SAMPLING_TIME;
     }
   }
-  say $total_energy;
+  say "$total_energy; $elapsed_time";
 }
 
 
