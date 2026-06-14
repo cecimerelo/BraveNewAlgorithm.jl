@@ -1,0 +1,176 @@
+scaphandre::sensors: Sysinfo sees 32
+Scaphandre stdout exporter
+Sending ⚡ metrics
+Measurement step is: 1s
+scaphandre::sensors: Not enough records for socket
+Host:	0 W from 
+	package 	core
+Top 10 consumers:
+Power		PID	Exe
+No processes found yet or filter returns no value.
+------------------------------------------------------------
+
+Host:	53.306742 W from 
+	package 	core
+Socket0	54.050495 W |	2.518293 W	
+
+Top 10 consumers:
+Power		PID	Exe
+1.6491623 W	73491	"/root/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia"
+0.16168256 W	4368	"/usr/bin/gnome-shell"
+0.14551431 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.14551431 W	73492	"/usr/local/bin/scaphandre"
+0.12934606 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.016168257 W	59220	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.016168257 W	6413	"/usr/bin/ptyxis"
+0.016168257 W	13407	"/usr/lib/rstudio/resources/app/bin/rsession"
+0.016168257 W	1454	""
+0 W	133	""
+------------------------------------------------------------
+
+Host:	51.951606 W from 
+	package 	core
+Socket0	51.811386 W |	2.183457 W	
+
+Top 10 consumers:
+Power		PID	Exe
+1.6395907 W	73491	"/root/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia"
+0.23422727 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.14053635 W	4368	"/usr/bin/gnome-shell"
+0.12492121 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015615151 W	7703	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015615151 W	23141	"/usr/lib/rstudio/resources/app/bin/quarto/bin/tools/x86_64/deno"
+0.015615151 W	6413	"/usr/bin/ptyxis"
+0.015615151 W	14264	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015615151 W	13450	"/usr/lib/rstudio/rstudio"
+0.015615151 W	13389	"/usr/lib/rstudio/rstudio"
+------------------------------------------------------------
+
+Host:	52.717923 W from 
+	package 	core
+Socket0	52.79285 W |	2.465651 W	
+
+Top 10 consumers:
+Power		PID	Exe
+1.6484163 W	73491	"/root/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia"
+0.15699203 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.12559362 W	4368	"/usr/bin/gnome-shell"
+0.12559362 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.031398404 W	7703	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.031398404 W	6413	"/usr/bin/ptyxis"
+0.015699202 W	3112	"/usr/bin/pipewire"
+0.015699202 W	5690	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015699202 W	73446	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015699202 W	39787	"/snap/firefox/8387/usr/lib/firefox/firefox"
+------------------------------------------------------------
+
+Host:	51.029173 W from 
+	package 	core
+Socket0	50.81745 W |	2.206284 W	
+
+Top 10 consumers:
+Power		PID	Exe
+1.5874373 W	73491	"/root/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia"
+0.13870811 W	4368	"/usr/bin/gnome-shell"
+0.13870811 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.10788409 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015412012 W	711	"/usr/lib/systemd/systemd-oomd"
+0.015412012 W	3112	"/usr/bin/pipewire"
+0.015412012 W	6413	"/usr/bin/ptyxis"
+0.015412012 W	6025	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015412012 W	13407	"/usr/lib/rstudio/resources/app/bin/rsession"
+0.015412012 W	67331	"/snap/firefox/8387/usr/lib/firefox/firefox"
+------------------------------------------------------------
+
+Host:	51.324166 W from 
+	package 	core
+Socket0	51.27728 W |	1.913987 W	
+
+Top 10 consumers:
+Power		PID	Exe
+1.613672 W	73491	"/root/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia"
+0.20366734 W	73492	"/usr/local/bin/scaphandre"
+0.15666717 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.12533376 W	4368	"/usr/bin/gnome-shell"
+0.10966703 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.01566672 W	7703	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.01566672 W	6413	"/usr/bin/ptyxis"
+0.01566672 W	13407	"/usr/lib/rstudio/resources/app/bin/rsession"
+0.01566672 W	51291	""
+0.01566672 W	1454	""
+------------------------------------------------------------
+
+Host:	53.402924 W from 
+	package 	core
+Socket0	53.48977 W |	2.139987 W	
+
+Top 10 consumers:
+Power		PID	Exe
+1.6547838 W	73491	"/root/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia"
+0.19279033 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.14459275 W	4368	"/usr/bin/gnome-shell"
+0.11246104 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.096395165 W	73492	"/usr/local/bin/scaphandre"
+0.06426345 W	6413	"/usr/bin/ptyxis"
+0.016065862 W	5690	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.016065862 W	4508	"/usr/bin/ibus-daemon"
+0.016065862 W	6008	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.016065862 W	13407	"/usr/lib/rstudio/resources/app/bin/rsession"
+------------------------------------------------------------
+
+Host:	52.023026 W from 
+	package 	core
+Socket0	52.388367 W |	2.324245 W	
+
+Top 10 consumers:
+Power		PID	Exe
+0.20218217 W	73492	"/usr/local/bin/scaphandre"
+0.1710772 W	4368	"/usr/bin/gnome-shell"
+0.15552473 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.13997227 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.077762365 W	6413	"/usr/bin/ptyxis"
+0.015552474 W	3037	"/usr/bin/pipewire"
+0.015552474 W	13389	"/usr/lib/rstudio/rstudio"
+0.015552474 W	6025	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015552474 W	54947	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0 W	133	""
+------------------------------------------------------------
+
+Host:	28.177727 W from 
+	package 	core
+Socket0	29.179432 W |	1.196875 W	
+
+Top 10 consumers:
+Power		PID	Exe
+0.118464924 W	73492	"/usr/local/bin/scaphandre"
+0.08461779 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.059232462 W	4368	"/usr/bin/gnome-shell"
+0.059232462 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.00846178 W	7703	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.00846178 W	3112	"/usr/bin/pipewire"
+0.00846178 W	4408	""
+0.00846178 W	23141	"/usr/lib/rstudio/resources/app/bin/quarto/bin/tools/x86_64/deno"
+0 W	133	""
+0 W	169	""
+------------------------------------------------------------
+
+Host:	24.718281 W from 
+	package 	core
+Socket0	24.665468 W |	0.545028 W	
+
+Top 10 consumers:
+Power		PID	Exe
+0.12784022 W	5406	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.10528018 W	73492	"/usr/local/bin/scaphandre"
+0.060160097 W	4368	"/usr/bin/gnome-shell"
+0.05264009 W	5739	"/snap/firefox/8387/usr/lib/firefox/firefox"
+0.015040024 W	13407	"/usr/lib/rstudio/resources/app/bin/rsession"
+0.007520012 W	3037	"/usr/bin/pipewire"
+0.007520012 W	6413	"/usr/bin/ptyxis"
+0.007520012 W	1454	""
+0 W	133	""
+0 W	169	""
+------------------------------------------------------------
+
+0.41user 1.31system 0:10.62elapsed 16%CPU (0avgtext+0avgdata 95096maxresident)k
+0inputs+16outputs (0major+23341minor)pagefaults 0swaps
