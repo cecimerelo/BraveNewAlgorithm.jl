@@ -53,8 +53,8 @@ for (my $iteration = 0; $iteration < 30; $iteration++ ) {
     } else {
       $total_energy += $last_found_power * $SAMPLING_TIME;
     }
+    say "$total_energy; $elapsed_time";
   }
-  say "$total_energy; $elapsed_time";
 }
 
 
