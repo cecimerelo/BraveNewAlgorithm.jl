@@ -1,0 +1,97 @@
+#!/usr/bin/env julia
+
+"""
+Script used for experiments
+"""
+
+using Pkg
+Pkg.activate(".")
+
+using BlackBoxOptimizationBenchmarking
+using BraveNewAlgorithm
+
+
+function simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, max_hillclimbing_steps, baseline=false)
+    println("Testing BraveNewAlgorithm basic functionality with Schaffer's function...")
+
+    try
+        config_parameters = ConfigurationParametersEntity(
+            problem_dimensions,
+            population_size,
+            max_generations,
+            max_hillclimbing_steps,
+            Dict{String, Int}(
+                "ALPHA" => alpha_percentage,
+                "BETA" => alpha_percentage*2,
+                "GAMMA" => 90-alpha_percentage*3,
+                "DELTA" => 5,
+                "EPSILON" => 5
+            ),
+            Dict{String, Int}(
+                "ALPHA" => 1,
+                "BETA" => 10,
+                "GAMMA" => 40, # this one is irrelevant
+                "DELTA" => 10,
+                "EPSILON" => 20
+            )
+        )
+
+        fitness_function = FitnessFunction(BlackBoxOptimizationBenchmarking.BBOBFunctions[17])
+        range = (-5.0, 5.0)
+        @info "Fitness function: $(fitness_function.fitness_function)"
+        @info "Fitness function optimal value: $(fitness_function.fitness_function.f_opt)"
+        comparator = (element, ff) -> element >= ff.f_opt + 1e-6
+
+        population_model = PopulationModel(
+            config_parameters,
+            fitness_function,
+            range,
+            comparator
+        )
+
+        if baseline
+            println("Running baseline for $(population_size) individuals and $(problem_dimensions) dimension...")
+            embryos = multiple_fertilising_room(population_model)
+            best_element = best_element_of_population(embryos)
+            println("✅ Baseline run!")
+            println("   Best fitness: $(round(best_element.f_value, digits=6))")
+        else
+            println("Running algorithm for $(config_parameters.max_generations) generations...")
+            generation, results = brave_new_algorithm(population_model)
+
+            @assert generation >= 0 "Generation should be non-negative"
+            @assert !isempty(results.F_Values) "Results should contain fitness values"
+            @assert length(results.F_Values) == length(results.Generations) "Generations and F_Values should have same length"
+
+            best_fitness = minimum(results.F_Values)
+            println("✅ Run algorithm!")
+            println("   Completed generations: $generation")
+            println("   Best fitness: $(round(best_fitness, digits=6))")
+            println("   Target fitness: $(fitness_function.fitness_function.f_opt)")
+            println("   Function evaluations: $(fitness_function.calls_counter)")
+        end
+
+        return true
+
+    catch e
+        println("❌ Test failed with error:")
+        println(e)
+        return false
+    end
+end
+
+(@main)(ARGS) = if abspath(PROGRAM_FILE) == @__FILE__
+    problem_dimensions = length(ARGS) > 0 ? parse(Int, ARGS[1]) : 3
+    population_size = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 200
+    max_generations = length(ARGS) > 2 ? parse(Int, ARGS[3]) : 10
+    alpha_percentage = length(ARGS) > 3 ? parse(Int, ARGS[4]) : 25
+    max_hillclimbing_steps = length(ARGS) > 4 ? parse(Int, ARGS[4]) : 16
+    baseline = length(ARGS) > 5 ? true : false
+    success = simple_test(problem_dimensions, population_size, max_generations, alpha_percentage, max_hillclimbing_steps, baseline)
+    if success
+        println("\n🎉 Algorithm is working correctly!")
+    else
+        println("\n💥 Algorithm test failed!")
+        exit(1)
+    end
+end
