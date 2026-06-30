@@ -10,6 +10,7 @@ use Utils qw(process_pinpoint_output process_sensors_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $function = shift || "bna";
+my $regular = shift; # i. e. not hot-first
 my $ITERATIONS = 30;
 
 my $data_dir = "data";
@@ -31,10 +32,10 @@ for my $dimension ( qw(3 5 10 ) ) {
         for my $steps ( qw( 16 64) ) {
           for ( my $i = 0; $i < $ITERATIONS; $i++ ) {
             for my $baseline ( qw( 1 0 ) ) {
-              run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, $baseline );
+              run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, $baseline, $regular );
             }
           }
-          run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, 1 );
+          run_command_for_preffix( $fh, $dimension, $l, $alpha, $max_gens, $steps, 1, $regular );
         }
       }
     }
@@ -57,12 +58,17 @@ sub process_bna_output {
 
 sub run_command_for_preffix {
   my @initial_temperature = run_sensors();
-  my ($fh, $t, $l, $alpha, $max_gens, $steps, $baseline) = @_;
+  my ($fh, $t, $l, $alpha, $max_gens, $steps, $baseline, $regular) = @_;
+  my $taskset = "";
   my $die =  $initial_temperature[0] > $initial_temperature[1]?1:2;
-  my $this_taskset = $tasksets[$die - 1];
+  if ( !$regular ) {
+    my $this_taskset = $tasksets[$die - 1];
+    $taskset = "taskset -c $this_taskset";
+  }
+
   my $pre_preffix = ($baseline eq "1")?"base-" : "";
   my ( $gpu, $pkg, $seconds, $output );
-  my $command = "taskset -c $this_taskset $JULIA_PATH examples/BBOB_schaffers_with_baseline.jl $t $l $max_gens $alpha $steps".($baseline ? " 1" : "");
+  my $command = "$taskset $JULIA_PATH examples/BBOB_schaffers_with_baseline.jl $t $l $max_gens $alpha $steps".($baseline ? " 1" : "");
   say $command;
   do {
     $output = `pinpoint -i 100 -- $command 2>&1`;
