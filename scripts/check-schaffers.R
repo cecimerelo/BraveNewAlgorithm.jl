@@ -38,3 +38,29 @@ schaffer_delta_pkg_model <- glm( delta_PKG ~ residual_initial_temp_1*residual_in
                                    )
 
 anova_schaffer_delta_pkg_model <- anova( schaffer_delta_pkg_model)
+
+library(ggplot2)
+library(dplyr)
+
+# ---------------------------------------------------------
+# Plot A: The Variance Funnel (Proving the SNR Boost)
+# Visualizes the reduction in baseline noise/variance.
+# ---------------------------------------------------------
+plot_snr <- ggplot(schaffer_v7_workload, aes(x = work, y = delta_PKG, fill = work)) +
+  geom_violin(alpha = 0.4, color = NA) +
+  geom_boxplot(width = 0.2, outlier.shape = NA, alpha = 0.8) +
+  geom_jitter(width = 0.15, alpha = 0.2, size = 1) +
+  theme_minimal() +
+  labs(
+    title = "Energy Variance: Hot-First vs. Baseline",
+    subtitle = "Enforcing a hot-first state removes chaotic hardware 'spin-up' noise",
+    x = "Execution Strategy",
+    y = expression(paste(Delta, " PKG Energy (Joules)"))
+  ) +
+  theme(
+    legend.position = "none",
+    text = element_text(size = 14)
+  )
+
+print(plot_snr)
+
