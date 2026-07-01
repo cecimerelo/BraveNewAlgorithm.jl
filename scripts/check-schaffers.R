@@ -46,7 +46,7 @@ library(dplyr)
 # Plot A: The Variance Funnel (Proving the SNR Boost)
 # Visualizes the reduction in baseline noise/variance.
 # ---------------------------------------------------------
-plot_snr <- ggplot(schaffer_v7_workload, aes(x = work, y = delta_PKG, fill = work)) +
+ggplot(schaffer_v7_workload, aes(x = work, y = delta_PKG, fill = work)) +
   geom_violin(alpha = 0.4, color = NA) +
   geom_boxplot(width = 0.2, outlier.shape = NA, alpha = 0.8) +
   geom_jitter(width = 0.15, alpha = 0.2, size = 1) +
@@ -62,5 +62,48 @@ plot_snr <- ggplot(schaffer_v7_workload, aes(x = work, y = delta_PKG, fill = wor
     text = element_text(size = 14)
   )
 
-print(plot_snr)
+schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
+
+library(ggplot2)
+library(dplyr)
+
+plot_slopes_grid <- schaffer_v7_workload %>%
+  mutate(dimension_num = as.numeric(as.character(dimension))) %>%
+  ggplot(aes(x = dimension_num, y = delta_PKG, color = work, fill = work)) +
+
+  # Back to a single color scale mapped only to 'work'
+  geom_point(
+    position = position_jitterdodge(jitter.width = 0.25, dodge.width = 0.6),
+    alpha = 0.2,  # Dropped opacity to let the lines breathe
+    size = 1.2,
+    shape = 16    # Solid circles
+  ) +
+
+  # Linear model fit using linewidth instead of the deprecated size
+  geom_smooth(method = "lm", formula = y ~ x, se = TRUE, linewidth = 1.5, alpha = 0.2) +
+
+  # THE FIX: A 2D grid. Rows = alpha, Columns = population_size
+  facet_grid(alpha ~ population_size, labeller = label_both) +
+
+  # theme_bw() provides a crisp border for grids, usually printing better in papers
+  theme_bw() +
+  labs(
+    title = "Isolating the Algorithmic Payload: Energy Scaling",
+    subtitle = "Comparing execution strategies across Alpha (Rows) and Population Size (Columns)",
+    x = "Schaffer Function Dimension",
+    y = expression(paste(Delta, " PKG Energy (Joules)")),
+    color = "Strategy",
+    fill = "Strategy"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1") +
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 14),
+    strip.background = element_rect(fill = "grey95"), # Subtle background for panel labels
+    strip.text = element_text(size = 11, face = "bold"),
+    panel.spacing = unit(1, "lines")
+  )
+
+print(plot_slopes_grid)
 
