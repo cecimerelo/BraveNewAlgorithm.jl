@@ -43,7 +43,6 @@ schaffer_delta_pkg_model <- glm( delta_PKG ~ residual_initial_temp_1*residual_in
 anova_schaffer_delta_pkg_model <- anova( schaffer_delta_pkg_model)
 
 library(ggplot2)
-library(dplyr)
 
 # ---------------------------------------------------------
 # Plot A: The Variance Funnel (Proving the SNR Boost)
@@ -65,13 +64,8 @@ ggplot(schaffer_v7_workload, aes(x = work, y = delta_PKG, fill = work)) +
     text = element_text(size = 14)
   )
 
-library(ggplot2)
-library(dplyr)
-library(ggnewscale) # Required to mix discrete line colors and continuous point colors
 
-library(ggplot2)
-library(dplyr)
-library(ggnewscale)
+library(ggnewscale) # Required to mix discrete line colors and continuous point colors
 library(scales) # Required for the 'squish' function
 
 plot_slopes_temp_focused <- schaffer_v7_workload %>%
