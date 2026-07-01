@@ -181,4 +181,250 @@ ggplot(work_effect, aes(x = population_size, y = estimate)) +
   theme_minimal(base_size = 12) +
   theme(strip.text = element_text(face = "bold"))
 
+# Show cutoff
 
+# ============================================================
+# Raw (non-residualized) operating-context variables vs delta_PKG
+# ------------------------------------------------------------
+# Unlike the earlier model-based chart, this is NOT adjusted for
+# dimension / population_size / alpha / evaluations -- it's the
+# raw relationship, fit fresh per protocol. Cutoffs can legitimately
+# differ between hot-first and baseline here.
+# ============================================================
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+raw_long <- schaffer_v7_workload %>%
+  select(work, delta_PKG, initial_temp_1, initial_temp_2, delta_seconds) %>%
+  pivot_longer(cols = c(initial_temp_1, initial_temp_2, delta_seconds),
+               names_to = "variable", values_to = "x")
+
+work_levels <- levels(factor(schaffer_v7_workload$work))
+pal <- setNames(c("#d95f02", "#1b9e77"), work_levels)
+
+# --- 1. Per-protocol quadratic fit -> real, unadjusted cutoffs ----
+peak_df <- raw_long %>%
+  group_by(variable, work) %>%
+  group_modify(~{
+    fit <- lm(delta_PKG ~ x + I(x^2), data = .x)
+    b <- coef(fit)
+    if (unname(b["I(x^2)"]) < 0) {
+      tibble(peak_x = unname(-b["x"] / (2 * b["I(x^2)"])))
+    } else {
+      tibble(peak_x = NA_real_)  # positive/zero quadratic term -> no peak
+    }
+  }) %>%
+  ungroup()
+
+# --- 2. Observed distributions by protocol -------------------------
+dens_df <- raw_long %>%
+  group_by(variable, work) %>%
+  group_modify(~{
+    d <- density(.x$x, na.rm = TRUE, n = 512)
+    tibble(x = d$x, d = d$y)
+  }) %>%
+  ungroup()
+
+y_range <- range(schaffer_v7_workload$delta_PKG, na.rm = TRUE)
+dens_df <- dens_df %>%
+  group_by(variable, work) %>%
+  mutate(d_scaled = y_range[1] + (d / max(d)) * diff(y_range) * 0.2) %>%
+  ungroup()
+
+# --- 3. Labels -------------------------------------------------------
+nice_labels <- c(
+  initial_temp_1 = "Initial temp \u2014 component 1 (raw)",
+  initial_temp_2 = "Initial temp \u2014 component 2 (raw)",
+  delta_seconds  = "Runtime, seconds (raw)"
+)
+
+# --- 4. The plot -------------------------------------------------------
+ggplot() +
+  geom_area(data = dens_df, aes(x = x, y = d_scaled, fill = work),
+            alpha = 0.25, position = "identity") +
+  geom_smooth(data = raw_long, aes(x = x, y = delta_PKG, colour = work, fill = work),
+              method = "lm", formula = y ~ x + I(x^2), se = TRUE,
+              alpha = 0.15, linewidth = 1) +
+  geom_vline(data = filter(peak_df, !is.na(peak_x)),
+             aes(xintercept = peak_x, colour = work),
+             linetype = "dotted", show.legend = FALSE) +
+  facet_wrap(~variable, scales = "free_x", labeller = as_labeller(nice_labels)) +
+  scale_colour_manual(values = pal, name = "Protocol") +
+  scale_fill_manual(values = pal, name = "Protocol") +
+  labs(
+    x = NULL,
+    y = expression(Delta*"PKG (energy)"),
+    title = "Raw operating conditions vs. energy, by protocol",
+    subtitle = paste(
+      "Curve: quadratic fit to the RAW (unadjusted) relationship, per protocol.",
+      "Shaded area: where each protocol's actual raw values sit.",
+      "Dotted line: cutoff, only where that protocol's curve has a real peak.",
+      sep = "\n"
+    )
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", plot.subtitle = element_text(size = 9))
+
+# --- 5. Print the actual cutoff values / confirm which curves peak ---
+peak_df
+
+
+# analyze mediation
+
+library(dplyr)
+
+# --- Path a: does `work` genuinely shift the raw mediators,
+#     controlling for algorithm parameters (not just the raw
+#     marginal comparison from the t-test a few turns back)? -------
+mediator_temp1 <- lm(initial_temp_1 ~ work + dimension * population_size * alpha,
+                     data = schaffer_v7_workload)
+cat("work -> initial_temp_1, controlling for algorithm params:\n")
+print(summary(mediator_temp1)$coefficients["workhot-first", ])
+
+mediator_temp2 <- lm(initial_temp_2 ~ work + dimension * population_size * alpha,
+                     data = schaffer_v7_workload)
+cat("\nwork -> initial_temp_2, controlling for algorithm params:\n")
+print(summary(mediator_temp2)$coefficients["workhot-first", ])
+
+mediator_time <- lm(delta_seconds ~ work + dimension * population_size * alpha,
+                    data = schaffer_v7_workload)
+cat("\nwork -> delta_seconds, controlling for algorithm params:\n")
+print(summary(mediator_time)$coefficients["workhot-first", ])
+# negative & significant here = hot-first genuinely lowers temp/duration
+# net of algorithm settings, not just as a raw marginal artifact.
+
+# --- Path c' (direct effect): refit with RAW temp/time instead of
+#     residualized, but still controlling for algorithm parameters.
+#     This is the clean version of what the raw chart was gesturing at.
+direct_model <- glm(delta_PKG ~ initial_temp_1 * initial_temp_2 +
+                      I(initial_temp_1^2) * I(initial_temp_2^2) +
+                      work * dimension * population_size * alpha +
+                      delta_seconds + I(delta_seconds^2) + evaluations,
+                    data = schaffer_v7_workload)
+
+cat("\nDirect work effect, controlling for RAW temp/time AND algorithm params:\n")
+print(summary(direct_model)$coefficients["workhot-first", ])
+# If this is small, non-significant, or positive (unfavorable),
+# it confirms the paper's real story isn't "hot-first is inherently
+# more efficient" -- it's "hot-first alters the thermal/temporal
+# profile, and THAT is what saves the energy."
+
+
+#-------
+#
+
+library(dplyr)
+
+# Uses mediator_temp1, mediator_temp2, mediator_time, and direct_model
+# already fit in your session.
+
+base_covariates <- schaffer_v7_workload %>%
+  select(dimension, population_size, alpha, evaluations)
+
+grid_baseline <- base_covariates %>% mutate(work = "baseline")
+grid_hotfirst <- base_covariates %>% mutate(work = "hot-first")
+
+# --- "Typical" (fitted) mediator values under EACH protocol label,
+#     holding each row's own dimension/population/alpha fixed --------
+grid_baseline$initial_temp_1 <- predict(mediator_temp1, newdata = grid_baseline)
+grid_baseline$initial_temp_2 <- predict(mediator_temp2, newdata = grid_baseline)
+grid_baseline$delta_seconds  <- predict(mediator_time,  newdata = grid_baseline)
+
+grid_hotfirst$initial_temp_1 <- predict(mediator_temp1, newdata = grid_hotfirst)
+grid_hotfirst$initial_temp_2 <- predict(mediator_temp2, newdata = grid_hotfirst)
+grid_hotfirst$delta_seconds  <- predict(mediator_time,  newdata = grid_hotfirst)
+
+# --- Total effect: work switches AND mediators shift to their own
+#     protocol's typical level ------------------------------------------
+pred_total_hotfirst <- predict(direct_model, newdata = grid_hotfirst)
+pred_total_baseline <- predict(direct_model, newdata = grid_baseline)
+total_effect <- mean(pred_total_hotfirst) - mean(pred_total_baseline)
+
+# --- Direct effect: work switches, but mediators are FROZEN at
+#     baseline's typical level (isolates the protocol-only effect,
+#     matching what direct_model's workhot-first coefficient tested) ---
+grid_hotfirst_frozen_mediators <- grid_hotfirst %>%
+  mutate(initial_temp_1 = grid_baseline$initial_temp_1,
+         initial_temp_2 = grid_baseline$initial_temp_2,
+         delta_seconds  = grid_baseline$delta_seconds)
+
+pred_direct_hotfirst <- predict(direct_model, newdata = grid_hotfirst_frozen_mediators)
+direct_effect <- mean(pred_direct_hotfirst) - mean(pred_total_baseline)
+
+# --- Indirect effect: what's left ---------------------------------------
+indirect_effect <- total_effect - direct_effect
+
+cat(sprintf(
+  "Total effect (hot-first - baseline):    %7.2f\nDirect effect (protocol only):          %7.2f\nIndirect effect (via thermal profile):  %7.2f\n%% of total that is indirect:            %7.1f%%\n",
+  total_effect, direct_effect, indirect_effect,
+  100 * indirect_effect / total_effect
+))
+
+# checks
+
+library(boot)
+library(dplyr)
+
+# Wraps path-a (mediator models), path-c' (direct model), and the
+# g-computation decomposition into one function of the data, so
+# resampling propagates uncertainty from ALL of it, not just one piece.
+
+mediation_pipeline <- function(data, indices) {
+  d <- data[indices, ]
+
+  m_temp1 <- lm(initial_temp_1 ~ work + dimension * population_size * alpha, data = d)
+  m_temp2 <- lm(initial_temp_2 ~ work + dimension * population_size * alpha, data = d)
+  m_time  <- lm(delta_seconds  ~ work + dimension * population_size * alpha, data = d)
+
+  m_direct <- glm(delta_PKG ~ initial_temp_1 * initial_temp_2 +
+                    I(initial_temp_1^2) * I(initial_temp_2^2) +
+                    work * dimension * population_size * alpha +
+                    delta_seconds + I(delta_seconds^2) + evaluations,
+                  data = d)
+
+  base_cov <- d %>% select(dimension, population_size, alpha, evaluations)
+  g_base <- base_cov %>% mutate(work = "baseline")
+  g_hot  <- base_cov %>% mutate(work = "hot-first")
+
+  g_base$initial_temp_1 <- predict(m_temp1, newdata = g_base)
+  g_base$initial_temp_2 <- predict(m_temp2, newdata = g_base)
+  g_base$delta_seconds  <- predict(m_time,  newdata = g_base)
+  g_hot$initial_temp_1  <- predict(m_temp1, newdata = g_hot)
+  g_hot$initial_temp_2  <- predict(m_temp2, newdata = g_hot)
+  g_hot$delta_seconds   <- predict(m_time,  newdata = g_hot)
+
+  pred_hot  <- predict(m_direct, newdata = g_hot)
+  pred_base <- predict(m_direct, newdata = g_base)
+  total <- mean(pred_hot) - mean(pred_base)
+
+  g_hot_frozen <- g_hot %>%
+    mutate(initial_temp_1 = g_base$initial_temp_1,
+           initial_temp_2 = g_base$initial_temp_2,
+           delta_seconds  = g_base$delta_seconds)
+  direct <- mean(predict(m_direct, newdata = g_hot_frozen)) - mean(pred_base)
+
+  indirect <- total - direct
+
+  c(total = total, direct = direct, indirect = indirect,
+    pct_indirect = 100 * indirect / total)
+}
+
+# NOTE: this refits 4 models per replicate on ~13k rows -- start with
+# a small R to confirm it runs cleanly, then scale up.
+set.seed(1)
+boot_out <- boot(schaffer_v7_workload, mediation_pipeline, R = 200)
+boot_out
+
+boot.ci(boot_out, type = "perc", index = 1)  # total effect CI
+boot.ci(boot_out, type = "perc", index = 2)  # direct effect CI
+boot.ci(boot_out, type = "perc", index = 3)  # indirect effect CI
+boot.ci(boot_out, type = "perc", index = 4)  # % mediated CI
+
+# Sanity check: look at the shape of the bootstrap distributions
+# before trusting the percentile CIs, especially for % mediated
+# (a ratio can be skewed/unstable if any replicate's total effect
+# lands near zero).
+hist(boot_out$t[, 1], main = "Bootstrap: total effect", xlab = "")
+hist(boot_out$t[, 4], main = "Bootstrap: % mediated", xlab = "")
