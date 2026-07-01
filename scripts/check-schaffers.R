@@ -66,44 +66,60 @@ schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
 
 library(ggplot2)
 library(dplyr)
+library(ggnewscale) # Required to mix discrete line colors and continuous point colors
 
-plot_slopes_grid <- schaffer_v7_workload %>%
+library(ggplot2)
+library(dplyr)
+library(ggnewscale)
+library(scales) # Required for the 'squish' function
+
+plot_slopes_temp_focused <- schaffer_v7_workload %>%
   mutate(dimension_num = as.numeric(as.character(dimension))) %>%
-  ggplot(aes(x = dimension_num, y = delta_PKG, color = work, fill = work)) +
+  ggplot(aes(x = dimension_num, y = delta_PKG)) +
 
-  # Back to a single color scale mapped only to 'work'
-  geom_point(
-    position = position_jitterdodge(jitter.width = 0.25, dodge.width = 0.6),
-    alpha = 0.2,  # Dropped opacity to let the lines breathe
-    size = 1.2,
-    shape = 16    # Solid circles
+  # --- LAYER 1: The Fit Lines ---
+  geom_smooth(
+    aes(color = work, fill = work),
+    method = "lm", formula = y ~ x, se = TRUE, linewidth = 1.5, alpha = 0.2
   ) +
+  scale_color_brewer(palette = "Set1", name = "Strategy") +
+  scale_fill_brewer(palette = "Set1", name = "Strategy") +
 
-  # Linear model fit using linewidth instead of the deprecated size
-  geom_smooth(method = "lm", formula = y ~ x, se = TRUE, linewidth = 1.5, alpha = 0.2) +
+  # --- THE MAGIC RESET ---
+  new_scale_color() +
 
-  # THE FIX: A 2D grid. Rows = alpha, Columns = population_size
+  # --- LAYER 2: The Points ---
+  geom_point(
+    aes(shape = work, color = initial_temp_2, group = work),
+    position = position_jitterdodge(jitter.width = 0.25, dodge.width = 1),
+    size = 1.8,
+    alpha = 0.8
+  ) +
+  # THE FIX: Focus the gradient on the IQR and squish the outliers
+  scale_color_viridis_c(
+    option = "inferno",
+    name = "Initial Temp 2 (°C)",
+    limits = c(36.8, 42),      # Stretches the palette across the dense data range
+    oob = scales::squish       # Forces anything > 42 to take the maximum bright color
+  ) +
+  scale_shape_manual(values = c(16, 17), name = "Strategy") +
+
+  # --- FACETING ---
   facet_grid(alpha ~ population_size, labeller = label_both) +
 
-  # theme_bw() provides a crisp border for grids, usually printing better in papers
   theme_bw() +
   labs(
-    title = "Isolating the Algorithmic Payload: Energy Scaling",
-    subtitle = "Comparing execution strategies across Alpha (Rows) and Population Size (Columns)",
+    title = "Isolating the Algorithmic Payload: Thermal Stability vs. Baseline Noise",
+    subtitle = "Color scale constrained to 36.8-42°C to highlight IQR variance",
     x = "Schaffer Function Dimension",
-    y = expression(paste(Delta, " PKG Energy (Joules)")),
-    color = "Strategy",
-    fill = "Strategy"
+    y = expression(paste(Delta, " PKG Energy (Joules)"))
   ) +
-  scale_color_brewer(palette = "Set1") +
-  scale_fill_brewer(palette = "Set1") +
   theme(
-    legend.position = "bottom",
+    legend.position = "right",
     text = element_text(size = 14),
-    strip.background = element_rect(fill = "grey95"), # Subtle background for panel labels
+    strip.background = element_rect(fill = "grey95"),
     strip.text = element_text(size = 11, face = "bold"),
     panel.spacing = unit(1, "lines")
   )
 
-print(plot_slopes_grid)
-
+print(plot_slopes_temp_focused)
