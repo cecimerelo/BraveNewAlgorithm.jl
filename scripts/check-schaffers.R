@@ -9,6 +9,7 @@ schaffer_hot_first$work <- "hot-first"
 
 schaffer_regular_v7_2 <- read.csv("data/schaffer-regular-v2-30-Jun-15-19-30.csv")
 schaffer_regular_v7_1 <- read.csv("data/schaffer-regular-v1-30-Jun-07-58-45.csv")
+schaffer_regular_v7_3 <- read.csv("data/schaffer-regular-v3-1-Jul-07-32-30.csv")
 
 schaffer_regular <- rbind( schaffer_regular_v7_1, schaffer_regular_v7_2)
 schaffer_regular$work <- "baseline"
@@ -118,3 +119,66 @@ plot_slopes_temp_focused <- schaffer_v7_workload %>%
   )
 
 print(plot_slopes_temp_focused)
+
+# ============================================================
+# Where does hot-first actually reduce delta_PKG?
+# Treatment-effect curve across population_size, faceted by
+# dimension x alpha, with a zero reference line.
+# ============================================================
+
+library(emmeans)
+library(dplyr)
+library(ggplot2)
+
+mod <- schaffer_delta_pkg_model  # adjust if your fitted object has a different name
+
+# --- 1. Sweep population_size across its observed range ---------
+pop_range <- range(schaffer_v7_workload$population_size, na.rm = TRUE)
+pop_seq   <- seq(pop_range[1], pop_range[2], length.out = 30)
+
+# --- 2. Reference grid: work x dimension x alpha x population_size,
+#        other numeric covariates (temp1/2, residual_time, evaluations)
+#        held at their median -----------------------------------------
+emm <- emmeans(mod, ~ work | dimension * alpha * population_size,
+               at = list(population_size = pop_seq),
+               cov.reduce = median)
+
+# --- 3. hot-first minus baseline, with proper SEs from the model's
+#        covariance matrix (not hand-added coefficients) --------------
+work_effect <- contrast(emm, method = "revpairwise") %>%
+  confint() %>%
+  as.data.frame()
+# confirmed from your output: contrast = "(hot-first) - baseline",
+# so negative = hot-first saves energy, as used in the plot below.
+
+# --- 4. Quantify the headline claim ------------------------------------
+pct_favorable <- mean(work_effect$estimate < 0) * 100
+cat(sprintf("hot-first reduces predicted energy in %.1f%% of the tested\n",
+            pct_favorable),
+    "dimension x population_size x alpha combinations.\n")
+
+# --- 5. Plot -------------------------------------------------------------
+ggplot(work_effect, aes(x = population_size, y = estimate)) +
+  geom_ribbon(aes(ymin = pmin(estimate, 0), ymax = 0),
+              fill = "#1b9e77", alpha = 0.35) +
+  geom_ribbon(aes(ymin = 0, ymax = pmax(estimate, 0)),
+              fill = "#d95f02", alpha = 0.35) +
+  geom_ribbon(aes(ymin = lower.CL, ymax = upper.CL),
+              fill = "grey30", alpha = 0.15) +
+  geom_line(linewidth = 0.9) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey30") +
+  facet_grid(dimension ~ alpha, labeller = label_both) +
+  labs(
+    x = "population_size",
+    y = "hot-first \u2212 baseline (predicted \u0394PKG)",
+    title = "Where hot-first reduces energy vs. where it doesn't",
+    subtitle = paste0(
+      "Green = hot-first saves energy. Orange = hot-first costs more. ",
+      "Grey band = 95% CI.\n",
+      sprintf("Favorable in %.1f%% of the swept parameter space.", pct_favorable)
+    )
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(strip.text = element_text(face = "bold"))
+
+
