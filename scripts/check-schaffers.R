@@ -20,6 +20,9 @@ source("R/process_deltas.R")
 
 schaffer_v7_workload <- process_deltas( schaffer_v7_all )
 
+schaffer_v7_workload$dimension <- as.factor( schaffer_v7_workload$dimension)
+schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
+
 schaffer_time_model <- glm( delta_seconds ~ work*dimension*population_size*alpha + evaluations, data=schaffer_v7_workload )
 
 schaffer_temp1_model <- glm( initial_temp_1 ~ work*dimension*population_size*alpha, data=schaffer_v7_workload )
@@ -61,8 +64,6 @@ ggplot(schaffer_v7_workload, aes(x = work, y = delta_PKG, fill = work)) +
     legend.position = "none",
     text = element_text(size = 14)
   )
-
-schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
 
 library(ggplot2)
 library(dplyr)
