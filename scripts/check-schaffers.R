@@ -85,7 +85,7 @@ plot_slopes_temp_focused <- schaffer_v7_workload %>%
 
   # --- LAYER 2: The Points ---
   geom_point(
-    aes(shape = work, color = initial_temp_2, group = work),
+    aes(shape = work, color = initial_temp_1, group = work),
     position = position_jitterdodge(jitter.width = 0.25, dodge.width = 1),
     size = 1.8,
     alpha = 0.8
@@ -93,8 +93,8 @@ plot_slopes_temp_focused <- schaffer_v7_workload %>%
   # THE FIX: Focus the gradient on the IQR and squish the outliers
   scale_color_viridis_c(
     option = "inferno",
-    name = "Initial Temp 2 (°C)",
-    limits = c(36.8, 42),      # Stretches the palette across the dense data range
+    name = "Initial Temp 1 (°C)",
+    limits = c(41, 43.5),      # Stretches the palette across the dense data range
     oob = scales::squish       # Forces anything > 42 to take the maximum bright color
   ) +
   scale_shape_manual(values = c(16, 17), name = "Strategy") +
