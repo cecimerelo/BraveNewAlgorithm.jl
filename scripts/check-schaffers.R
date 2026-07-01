@@ -20,9 +20,21 @@ source("R/process_deltas.R")
 
 schaffer_v7_workload <- process_deltas( schaffer_v7_all )
 
-schaffer_v7_workload$dimension <- as.factor( schaffer_v7_workload$dimension )
-schaffer_v7_workload$population_size <- as.factor( schaffer_v7_workload$population_size )
-schaffer_v7_workload$evaluations <- as.factor( schaffer_v7_workload$evaluations )
-schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
-
 schaffer_time_model <- glm( delta_seconds ~ work*dimension*population_size*alpha + evaluations, data=schaffer_v7_workload )
+
+schaffer_temp1_model <- glm( initial_temp_1 ~ work*dimension*population_size*alpha, data=schaffer_v7_workload )
+schaffer_temp2_model <- glm( initial_temp_2 ~ work*dimension*population_size*alpha, data=schaffer_v7_workload )
+
+schaffer_v7_workload$residual_time <- residuals(schaffer_time_model)
+schaffer_v7_workload$residual_initial_temp_1 <- residuals( schaffer_temp1_model)
+schaffer_v7_workload$residual_initial_temp_2 <- residuals( schaffer_temp2_model)
+
+schaffer_delta_pkg_model <- glm( delta_PKG ~ residual_initial_temp_1*residual_initial_temp_2 +
+                                   I(residual_initial_temp_1^2)*I(residual_initial_temp_2^2)+
+                                   work*dimension*population_size*alpha+
+                                   residual_time+I(residual_time^2)+
+                                   evaluations,
+                                 data=schaffer_v7_workload
+                                   )
+
+anova_schaffer_delta_pkg_model <- anova( schaffer_delta_pkg_model)
