@@ -10,6 +10,7 @@ schaffer_hot_first$work <- "hot-first"
 schaffer_regular_v7_2 <- read.csv("data/schaffer-regular-v2-30-Jun-15-19-30.csv")
 schaffer_regular_v7_1 <- read.csv("data/schaffer-regular-v1-30-Jun-07-58-45.csv")
 schaffer_regular_v7_3 <- read.csv("data/schaffer-regular-v3-1-Jul-07-32-30.csv")
+schaffer_regular_v7_4 <- read.csv("data/schaffer-regular-v4-1-Jul-14-06-23.csv")
 
 schaffer_regular <- rbind( schaffer_regular_v7_1, schaffer_regular_v7_2)
 schaffer_regular$work <- "baseline"
@@ -20,6 +21,7 @@ library(dplyr)
 source("R/process_deltas.R")
 
 schaffer_v7_workload <- process_deltas( schaffer_v7_all )
+saveRDS(schaffer_v7_workload, file="data/schaffer_v7_workload.rds")
 
 schaffer_v7_workload$dimension <- as.factor( schaffer_v7_workload$dimension)
 schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
@@ -428,3 +430,4 @@ boot.ci(boot_out, type = "perc", index = 4)  # % mediated CI
 # lands near zero).
 hist(boot_out$t[, 1], main = "Bootstrap: total effect", xlab = "")
 hist(boot_out$t[, 4], main = "Bootstrap: % mediated", xlab = "")
+
