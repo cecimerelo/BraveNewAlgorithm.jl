@@ -87,8 +87,8 @@ plot_slopes_temp_focused <- schaffer_v7_workload %>%
 
   # --- LAYER 2: The Points ---
   geom_point(
-    aes(shape = work, color = initial_temp_1, group = work),
-    position = position_jitterdodge(jitter.width = 0.25, dodge.width = 1),
+    aes(shape = work, color = initial_temp_2, group = work),
+    position = position_jitterdodge(jitter.width = 0.25, dodge.width = 0.8),
     size = 1.8,
     alpha = 0.8
   ) +
@@ -96,7 +96,7 @@ plot_slopes_temp_focused <- schaffer_v7_workload %>%
   scale_color_viridis_c(
     option = "inferno",
     name = "Initial Temp 1 (°C)",
-    limits = c(41, 43.5),      # Stretches the palette across the dense data range
+    limits = c(38, 45),      # Stretches the palette across the dense data range
     oob = scales::squish       # Forces anything > 42 to take the maximum bright color
   ) +
   scale_shape_manual(values = c(16, 17), name = "Strategy") +
@@ -117,7 +117,8 @@ plot_slopes_temp_focused <- schaffer_v7_workload %>%
     strip.background = element_rect(fill = "grey95"),
     strip.text = element_text(size = 11, face = "bold"),
     panel.spacing = unit(1, "lines")
-  )
+  ) +
+  scale_x_continuous(breaks=c(3,5,10))
 
 print(plot_slopes_temp_focused)
 
@@ -274,7 +275,6 @@ peak_df
 
 # analyze mediation
 
-library(dplyr)
 
 # --- Path a: does `work` genuinely shift the raw mediators,
 #     controlling for algorithm parameters (not just the raw
@@ -316,7 +316,6 @@ print(summary(direct_model)$coefficients["workhot-first", ])
 #-------
 #
 
-library(dplyr)
 
 # Uses mediator_temp1, mediator_temp2, mediator_time, and direct_model
 # already fit in your session.
@@ -366,7 +365,6 @@ cat(sprintf(
 # checks
 
 library(boot)
-library(dplyr)
 
 # Wraps path-a (mediator models), path-c' (direct model), and the
 # g-computation decomposition into one function of the data, so
