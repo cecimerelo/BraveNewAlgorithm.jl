@@ -21,7 +21,6 @@ library(dplyr)
 source("R/process_deltas.R")
 
 schaffer_v7_workload <- process_deltas( schaffer_v7_all )
-saveRDS(schaffer_v7_workload, file="data/schaffer_v7_workload.rds")
 
 schaffer_v7_workload$dimension <- as.factor( schaffer_v7_workload$dimension)
 schaffer_v7_workload$alpha <- as.factor( schaffer_v7_workload$alpha )
