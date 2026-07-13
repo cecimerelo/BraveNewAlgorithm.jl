@@ -17,6 +17,8 @@ schaffer_regular$work <- "baseline"
 
 schaffer_v7_all <- rbind(schaffer_hot_first,schaffer_regular)
 
+saveRDS( schaffer_v7_all, file="schaffer_v7.RDS")
+
 library(dplyr)
 source("R/process_deltas.R")
 
