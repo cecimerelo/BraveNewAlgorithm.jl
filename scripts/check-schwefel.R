@@ -7,11 +7,13 @@ hot_first_schwefel <- map_dfr( c("data/schwefel-hot-first-v4-11-Jul-08-11-58.csv
                                                          "data/schwefel-hot-first-v2-9-Jul-07-47-56.csv","data/schwefel-hot-first-v3-10-Jul-07-38-18.csv"),
                                                        read_csv )
 
+hot_first_schwefel$workload <- ifelse( startsWith(hot_first_schwefel$work,"base"),"base","workload" )
 hot_first_schwefel$work <- "hot-first"
 
 regular_schwefel <-  map_dfr( c("data/schwefel-regular-v3-9-Jul-15-07-19.csv", "data/schwefel-regular-v4-10-Jul-15-19-05.csv",
                                                         "data/schwefel-regular-v1-7-Jul-08-03-24.csv",  "data/schwefel-regular-v2-8-Jul-07-40-20.csv"),
                                                       read_csv )
+regular_schwefel$workload <- ifelse( startsWith(regular_schwefel$work,"base"),"base","workload" )
 regular_schwefel$work <- "baseline"
 
 schwefel_v7 <- rbind( hot_first_schwefel, regular_schwefel)

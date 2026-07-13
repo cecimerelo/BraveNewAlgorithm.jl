@@ -5,6 +5,7 @@ schaffer_v7_2 <- read.csv("data/schaffer-v2-28-Jun-19-16-54.csv")
 
 schaffer_hot_first <- rbind( schaffer_v7_1, schaffer_v7_2, schaffer_v7_3, schaffer_v7_4)
 
+schaffer_hot_first$workload <- ifelse( startsWith(schaffer_hot_first$work,"base"),"base","workload" )
 schaffer_hot_first$work <- "hot-first"
 
 schaffer_regular_v7_2 <- read.csv("data/schaffer-regular-v2-30-Jun-15-19-30.csv")
@@ -13,6 +14,7 @@ schaffer_regular_v7_3 <- read.csv("data/schaffer-regular-v3-1-Jul-07-32-30.csv")
 schaffer_regular_v7_4 <- read.csv("data/schaffer-regular-v4-1-Jul-14-06-23.csv")
 
 schaffer_regular <- rbind( schaffer_regular_v7_1, schaffer_regular_v7_2)
+schaffer_regular$workload <- ifelse( startsWith(schaffer_regular$work,"base"),"base","workload" )
 schaffer_regular$work <- "baseline"
 
 schaffer_v7_all <- rbind(schaffer_hot_first,schaffer_regular)
