@@ -3,6 +3,20 @@ library(purrr)
 library(dplyr)
 source("R/process_deltas.R")
 
+hot_first_schwefel <- map_dfr( c("data/schwefel-hot-first-v4-11-Jul-08-11-58.csv","data/schwefel-hot-first-v1-7-Jul-16-45-48.csv",
+                                                         "data/schwefel-hot-first-v2-9-Jul-07-47-56.csv","data/schwefel-hot-first-v3-10-Jul-07-38-18.csv"),
+                                                       read_csv )
+
+hot_first_schwefel$work <- "hot-first"
+
+regular_schwefel <-  map_dfr( c("data/schwefel-regular-v3-9-Jul-15-07-19.csv", "data/schwefel-regular-v4-10-Jul-15-19-05.csv",
+                                                        "data/schwefel-regular-v1-7-Jul-08-03-24.csv",  "data/schwefel-regular-v2-8-Jul-07-40-20.csv"),
+                                                      read_csv )
+regular_schwefel$work <- "baseline"
+
+schwefel_v7 <- rbind( hot_first_schwefel, regular_schwefel)
+saveRDS(schwefel_v7,file="schwefel_v7.RDS")
+
 hot_first_schwefel_workload <- process_deltas(map_dfr( c("data/schwefel-hot-first-v4-11-Jul-08-11-58.csv","data/schwefel-hot-first-v1-7-Jul-16-45-48.csv",
                                  "data/schwefel-hot-first-v2-9-Jul-07-47-56.csv","data/schwefel-hot-first-v3-10-Jul-07-38-18.csv"),
                                read_csv ))
