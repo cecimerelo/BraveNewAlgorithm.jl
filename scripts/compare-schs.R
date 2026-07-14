@@ -45,3 +45,11 @@ ggplot( schs, aes( x= initial_temp_2, y = final_temp_2, color=interaction(work,f
 
 schs$initial_diff_temp <- schs$initial_temp_1 - schs$initial_temp_2
 
+final_temp_1_diff_model <- glm( final_temp_1 ~ work*(initial_temp_1*initial_diff_temp+seconds), data=schs)
+final_temp_2_diff_model <- glm( final_temp_2 ~ work*(initial_temp_2*initial_diff_temp+seconds), data=schs)
+
+schwefel_final_temp_1_diff_model <- glm( final_temp_1 ~ work*(initial_temp_1*initial_diff_temp+seconds), data=schs[schs$func=="Schwefel",])
+schwefel_final_temp_2_diff_model <- glm( final_temp_2 ~ work*(initial_temp_2*initial_diff_temp+seconds), data=schs[schs$func=="Schwefel",])
+
+schaffer_final_temp_1_diff_model <- glm( final_temp_1 ~ work*(initial_temp_1*initial_diff_temp+seconds), data=schs[schs$func=="Schaffer",])
+schaffer_final_temp_2_diff_model <- glm( final_temp_2 ~ work*(initial_temp_2*initial_diff_temp+seconds), data=schs[schs$func=="Schaffer",])
