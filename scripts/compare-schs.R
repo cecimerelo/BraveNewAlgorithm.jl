@@ -28,6 +28,7 @@ final_temp_1_model <- glm( final_temp_1 ~ work*(initial_temp_1*initial_temp_2+se
 final_temp_2_model <- glm( final_temp_2 ~ work*(initial_temp_1*initial_temp_2+seconds), data=schs)
 
 schs %>% filter(func=="Schaffer") %>% group_by(work) %>% summarize(mean(seconds_baseline_prev), sd(seconds_baseline_prev))
+schs %>% filter(func=="Schwefel") %>% group_by(work) %>% summarize(mean(seconds_baseline_prev), sd(seconds_baseline_prev))
 
 library(ggplot2)
 
